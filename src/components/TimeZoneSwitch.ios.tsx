@@ -1,8 +1,7 @@
 import { useReactConfStore } from "@/store/reactConfStore";
+import { theme } from "@/theme";
 import { getCurrentTimezone } from "@/utils/formatDate";
-import * as Device from "expo-device";
 import {
-  Button,
   ContextMenu,
   Host,
   HStack,
@@ -10,10 +9,10 @@ import {
   Picker,
   Text,
 } from "@expo/ui/swift-ui";
-import * as Haptics from "expo-haptics";
-import { isLiquidGlassAvailable } from "expo-glass-effect";
 import { buttonStyle, frame } from "@expo/ui/swift-ui/modifiers";
-import { theme } from "@/theme";
+import * as Device from "expo-device";
+import { isLiquidGlassAvailable } from "expo-glass-effect";
+import * as Haptics from "expo-haptics";
 import { StyleSheet, useColorScheme } from "react-native";
 
 const options = ["PDT (Venue)", `${getCurrentTimezone()} (Local)`];

@@ -11,7 +11,10 @@
     "test": "jest",
     "sync-api": "node ./scripts/syncApi.js",
     "postinstall": "patch-package",
-    "lint": "expo lint"
+    "lint": "expo lint",
+    "typecheck": "tsc --noEmit",
+    "format": "prettier --write \"**/*.{js,jsx,ts,tsx,md}\"",
+    "flt": "npm run format && npm run lint && npm run typecheck"
   },
   "dependencies": {
     "@expo/react-native-action-sheet": "^4.1.1",
