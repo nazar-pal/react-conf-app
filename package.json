@@ -70,6 +70,7 @@
   "devDependencies": {
     "@babel/core": "^7.28.6",
     "@types/jest": "^29.5.14",
+    "@types/node": "^25.0.10",
     "@types/react": "~19.1.17",
     "eslint": "^9.39.2",
     "eslint-config-expo": "~10.0.0",
@@ -77,9 +78,10 @@
     "eslint-plugin-prettier": "^5.5.5",
     "eslint-plugin-react-compiler": "^19.1.0-rc.2",
     "eslint-plugin-react-native": "^5.0.0",
+    "knip": "^5.82.1",
     "patch-package": "^8.0.1",
     "prettier": "^3.8.1",
-    "typescript": "~5.9.3"
+    "typescript": "^5.9.3"
   },
   "jest": {
     "preset": "jest-expo",

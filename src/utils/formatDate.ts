@@ -1,12 +1,11 @@
 import { formatDate } from "date-fns";
 import { formatInTimeZone } from "date-fns-tz";
 
-import { Session } from "@/types";
 import { ConferenceDay } from "@/consts";
+import { Session } from "@/types";
 
 const timeFormat = "h:mm aaa";
 const dateTimeFormat = `${timeFormat}, LLL d`;
-const fullDateFormat = `${timeFormat}, LLL d, yyyy`;
 
 export const formatSessionTime = (
   session: Session,
@@ -21,14 +20,6 @@ export const formatSessionTime = (
     } else {
       return `${formatInTimeZone(startsAtDate, "America/Los_Angeles", timeFormat)} - ${formatInTimeZone(endsAtDate, "America/Los_Angeles", timeFormat)}`;
     }
-  } catch {
-    return "...";
-  }
-};
-
-export const formatFullDate = (dateString: string) => {
-  try {
-    return formatDate(new Date(dateString), fullDateFormat);
   } catch {
     return "...";
   }

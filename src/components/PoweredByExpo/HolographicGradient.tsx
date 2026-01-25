@@ -1,4 +1,5 @@
 import { Canvas, Fill, Shader, Skia, vec } from "@shopify/react-native-skia";
+import { useEffect } from "react";
 import {
   Easing,
   useDerivedValue,
@@ -6,7 +7,6 @@ import {
   withRepeat,
   withTiming,
 } from "react-native-reanimated";
-import { useEffect } from "react";
 
 const CONTAINER_SIZE = 260;
 
@@ -45,7 +45,7 @@ export function HolographicGradient() {
   );
 }
 
-export const HOLO_SOURCE = Skia.RuntimeEffect.Make(`
+const HOLO_SOURCE = Skia.RuntimeEffect.Make(`
   uniform float time;      // seconds
   uniform float sheetAnim; // 0..1
   uniform vec2  size;      // canvas size

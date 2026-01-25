@@ -25,5 +25,3 @@ export type Speaker = {
 };
 
 export type ApiAllSessions = typeof allSessions;
-
-export type ApiSpeaker = (typeof allSessions)["speakers"][number];
