@@ -17,19 +17,19 @@ export function ActivityCard({ session }: Props) {
   return (
     <View style={styles.container}>
       <ThemedText
-        fontSize={theme.fontSize14}
+        fontSize={14}
         fontWeight="medium"
         color={theme.color.textSecondary}
-        style={{ marginLeft: theme.space24 }}
+        style={{ marginLeft: 24 }}
       >
         {formatSessionTime(session, shouldUseLocalTz)}
       </ThemedText>
       <ThemedView style={styles.content} color={theme.color.backgroundTertiary}>
         <View style={styles.row}>
-          <ThemedText fontSize={theme.fontSize18} fontWeight="semiBold">
+          <ThemedText fontSize={18} fontWeight="semiBold">
             {session.title}
           </ThemedText>
-          <ThemedText fontSize={theme.fontSize14} fontWeight="light">
+          <ThemedText fontSize={14} fontWeight="light">
             {session.room}
           </ThemedText>
         </View>
@@ -40,15 +40,15 @@ export function ActivityCard({ session }: Props) {
 
 const styles = StyleSheet.create({
   container: {
-    borderRadius: theme.borderRadius10,
-    gap: theme.space8,
-    marginBottom: theme.space16,
-    marginHorizontal: theme.space24
+    borderRadius: 10,
+    gap: 8,
+    marginBottom: 16,
+    marginHorizontal: 24
   },
   content: {
-    borderRadius: theme.borderRadius12,
+    borderRadius: 12,
     justifyContent: 'center',
-    padding: theme.space24
+    padding: 24
   },
   row: {
     alignItems: 'center',

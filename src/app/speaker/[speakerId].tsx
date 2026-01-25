@@ -20,7 +20,6 @@ import { ThemedText, ThemedView, useThemeColor } from '@/components/Themed'
 import { useReactConfStore } from '@/store/reactConfStore'
 import { theme } from '@/theme'
 import { Speaker } from '@/types'
-import { osName } from 'expo-device'
 
 export default function SpeakerDetail() {
   const params = useLocalSearchParams()
@@ -46,7 +45,7 @@ export default function SpeakerDetail() {
                 ios: (
                   <HeaderButton
                     buttonProps={{ onPress: router.back }}
-                    style={{ padding: osName === 'iPadOS' ? 40 : 0 }}
+                    style={{ padding: 0 }}
                   />
                 ),
                 default: undefined
@@ -76,12 +75,12 @@ export default function SpeakerDetail() {
                 profilePicture={speaker.profilePicture}
                 size="large"
               />
-              <ThemedText fontSize={theme.fontSize18} fontWeight="medium">
+              <ThemedText fontSize={18} fontWeight="medium">
                 {speaker.fullName}
               </ThemedText>
               {speaker.tagLine ? (
                 <ThemedText
-                  fontSize={theme.fontSize16}
+                  fontSize={16}
                   fontWeight="medium"
                   color={{ light: secondaryColor, dark: secondaryColor }}
                   style={styles.tagLine}
@@ -97,11 +96,11 @@ export default function SpeakerDetail() {
             {speaker.links.length ? <Socials speaker={speaker} /> : null}
             {speaker.bio ? (
               <ThemedText
-                fontSize={theme.fontSize14}
+                fontSize={14}
                 fontWeight="medium"
                 style={{
-                  marginBottom: theme.space24,
-                  lineHeight: theme.fontSize18 * 1.5
+                  marginBottom: 24,
+                  lineHeight: 18 * 1.5
                 }}
               >
                 {speaker.bio}
@@ -151,7 +150,7 @@ function Socials({ speaker }: { speaker: Speaker }) {
               return (
                 <Ionicons
                   name="reader"
-                  size={theme.fontSize18}
+                  size={18}
                   color={iconColor}
                   style={styles.icon}
                 />
@@ -161,7 +160,7 @@ function Socials({ speaker }: { speaker: Speaker }) {
               return (
                 <Feather
                   name="link"
-                  size={theme.fontSize18}
+                  size={18}
                   color={iconColor}
                   style={styles.icon}
                 />
@@ -195,27 +194,27 @@ const styles = StyleSheet.create({
     flex: 1
   },
   contentContainer: {
-    borderBottomLeftRadius: theme.borderRadius20,
-    borderBottomRightRadius: theme.borderRadius20,
-    padding: theme.space16,
-    paddingTop: theme.space24
+    borderBottomLeftRadius: 20,
+    borderBottomRightRadius: 20,
+    padding: 16,
+    paddingTop: 24
   },
   icon: {
-    height: theme.fontSize20,
-    width: theme.fontSize20
+    height: 20,
+    width: 20
   },
   separator: {
     borderBottomWidth: StyleSheet.hairlineWidth,
-    marginVertical: theme.space24,
+    marginVertical: 24,
     width: '100%'
   },
   socials: {
     flexDirection: 'row',
     justifyContent: 'center',
-    marginBottom: theme.space24
+    marginBottom: 24
   },
   speakerImage: {
-    marginBottom: theme.space24
+    marginBottom: 24
   },
   tagLine: {
     textAlign: 'center'

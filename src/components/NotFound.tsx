@@ -16,11 +16,7 @@ export function NotFound({ message }: { message: string }) {
   })
   return (
     <ThemedView style={styles.container} color={theme.color.background}>
-      <ThemedText
-        fontWeight="bold"
-        fontSize={theme.fontSize24}
-        style={styles.heading}
-      >
+      <ThemedText fontWeight="bold" fontSize={24} style={styles.heading}>
         {message}
       </ThemedText>
       <Image
@@ -39,14 +35,14 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     flex: 1,
     justifyContent: 'center',
-    padding: theme.space24
+    padding: 24
   },
   heading: {
-    marginBottom: theme.space24
+    marginBottom: 24
   },
   image: {
     height: 100,
-    marginBottom: theme.space24 * 2,
+    marginBottom: 24 * 2,
     width: 100
   }
 })

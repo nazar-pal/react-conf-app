@@ -1,11 +1,11 @@
 import React from 'react'
 import {
-  Text,
-  View,
-  useColorScheme,
-  TextStyle,
+  Pressable,
   PressableProps,
-  Pressable
+  Text,
+  TextStyle,
+  View,
+  useColorScheme
 } from 'react-native'
 import Animated from 'react-native-reanimated'
 
@@ -42,7 +42,7 @@ export function ThemedText(props: TextProps) {
     lightColor,
     darkColor,
     marginBottom = 0,
-    fontSize = theme.fontSize16,
+    fontSize = 16,
     fontWeight,
     italic,
     animated,

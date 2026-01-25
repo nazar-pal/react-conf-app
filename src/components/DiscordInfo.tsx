@@ -1,8 +1,8 @@
-import { Button } from './Button'
-import { ThemedText, ThemedView, useThemeColor } from './Themed'
+import MaterialIcons from '@expo/vector-icons/MaterialIcons'
 import * as Linking from 'expo-linking'
 import { StyleSheet } from 'react-native'
-import MaterialIcons from '@expo/vector-icons/MaterialIcons'
+import { Button } from './Button'
+import { ThemedText, ThemedView, useThemeColor } from './Themed'
 
 import { theme } from '@/theme'
 
@@ -18,7 +18,7 @@ export function DiscordInfo() {
 
   return (
     <ThemedView style={styles.container} color={theme.color.backgroundElement}>
-      <MaterialIcons name="discord" size={theme.fontSize42} color={iconColor} />
+      <MaterialIcons name="discord" size={42} color={iconColor} />
       <ThemedText style={styles.text} color={theme.color.textSecondary}>
         Chat with other folks at the conference via the dedicated Discord
         server. Fun activities? Ridesharing?
@@ -31,14 +31,14 @@ export function DiscordInfo() {
 const styles = StyleSheet.create({
   container: {
     alignItems: 'center',
-    borderRadius: theme.borderRadius32,
-    gap: theme.space16,
-    marginBottom: theme.space16,
-    marginHorizontal: theme.space16,
-    padding: theme.space24
+    borderRadius: 32,
+    gap: 16,
+    marginBottom: 16,
+    marginHorizontal: 16,
+    padding: 24
   },
   text: {
-    marginBottom: theme.space8,
+    marginBottom: 8,
     textAlign: 'center'
   }
 })

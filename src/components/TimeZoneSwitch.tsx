@@ -22,7 +22,7 @@ export function TimeZoneSwitch() {
       onPress={handleToggleLocalTz}
       backgroundColor={theme.color.backgroundSecondary}
     >
-      <ThemedText fontSize={theme.fontSize12} fontWeight="semiBold">
+      <ThemedText fontSize={12} fontWeight="semiBold">
         {shouldUseLocalTz ? getCurrentTimezone() : 'PDT'}
       </ThemedText>
     </ThemedPressable>
@@ -32,9 +32,9 @@ export function TimeZoneSwitch() {
 const styles = StyleSheet.create({
   container: {
     alignSelf: 'flex-end',
-    borderRadius: theme.borderRadius40,
+    borderRadius: 40,
     height: 32,
     justifyContent: 'center',
-    paddingHorizontal: theme.space16
+    paddingHorizontal: 16
   }
 })

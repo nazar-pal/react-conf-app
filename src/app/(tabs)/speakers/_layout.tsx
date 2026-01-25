@@ -26,7 +26,7 @@ export default function Layout() {
           title: 'Speakers',
           headerTitle: () =>
             Platform.OS === 'android' ? (
-              <ThemedText fontSize={theme.fontSize20} fontWeight="bold">
+              <ThemedText fontSize={20} fontWeight="bold">
                 Speakers
               </ThemedText>
             ) : undefined,

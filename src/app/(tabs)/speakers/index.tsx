@@ -9,19 +9,19 @@ import {
 
 import { NotFound } from '@/components/NotFound'
 
+import { SpeakerDetails } from '@/components/SpeakerDetails'
 import { ThemedText, ThemedView, useThemeColor } from '@/components/Themed'
+import { useBookmark } from '@/hooks/useBookmark'
 import { useReactConfStore } from '@/store/reactConfStore'
 import { theme } from '@/theme'
-import { Link, useLocalSearchParams } from 'expo-router'
-import { SpeakerDetails } from '@/components/SpeakerDetails'
-import { useBookmark } from '@/hooks/useBookmark'
 import { Speaker } from '@/types'
-import { useSafeAreaInsets } from 'react-native-safe-area-context'
+import { Link, useLocalSearchParams } from 'expo-router'
 import Animated, {
   FadeIn,
   FadeOut,
   LinearTransition
 } from 'react-native-reanimated'
+import { useSafeAreaInsets } from 'react-native-safe-area-context'
 
 export default function Speakers() {
   const speakers = useReactConfStore(state => state.allSessions.speakers)
@@ -141,10 +141,10 @@ export default function Speakers() {
 
 export const styles = StyleSheet.create({
   contentContainer: {
-    paddingHorizontal: theme.space16
+    paddingHorizontal: 16
   },
   noResultsContainer: {
-    padding: theme.space24
+    padding: 24
   },
   preview: {
     height: 420
@@ -153,6 +153,6 @@ export const styles = StyleSheet.create({
     height: 1
   },
   speakerContainer: {
-    paddingVertical: theme.space16
+    paddingVertical: 16
   }
 })

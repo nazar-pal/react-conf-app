@@ -1,3 +1,5 @@
+import { theme } from '@/theme'
+import * as Application from 'expo-application'
 import * as Haptics from 'expo-haptics'
 import React from 'react'
 import { Image, StyleSheet, View } from 'react-native'
@@ -10,11 +12,9 @@ import {
   useSharedValue,
   withTiming
 } from 'react-native-reanimated'
-import { HolographicGradient } from './HolographicGradient'
 import { scheduleOnRN } from 'react-native-worklets'
 import { ThemedText, ThemedView } from '../Themed'
-import { theme } from '@/theme'
-import * as Application from 'expo-application'
+import { HolographicGradient } from './HolographicGradient'
 
 const CONTAINER_SIZE = 160
 const SHADER_SIZE = 140
@@ -170,7 +170,7 @@ export function PoweredByExpo() {
           >
             <View style={styles.flippedContent}>
               <ThemedText
-                fontSize={theme.fontSize14}
+                fontSize={14}
                 fontWeight="semiBold"
                 color={{
                   light: theme.colorWhite,

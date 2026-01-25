@@ -1,6 +1,6 @@
 import { Image } from 'expo-image'
-import { StyleSheet, View, ViewStyle } from 'react-native'
 import { useState } from 'react'
+import { StyleSheet, View, ViewStyle } from 'react-native'
 
 import { theme } from '@/theme'
 import { ThemedView, useThemeColor } from './Themed'
@@ -84,7 +84,7 @@ const styles = StyleSheet.create({
   imageContainer: {
     borderRadius: 100,
     borderWidth: 1,
-    marginRight: theme.space12,
+    marginRight: 12,
     overflow: 'hidden'
   },
   imageSizeExtraLarge: {

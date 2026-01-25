@@ -1,6 +1,6 @@
 import { useThemeColor } from '@/components/Themed'
 import { TimeZoneSwitch } from '@/components/TimeZoneSwitch'
-import { spaceScale, theme } from '@/theme'
+import { theme } from '@/theme'
 import { isLiquidGlassAvailable } from 'expo-glass-effect'
 import { Image } from 'expo-image'
 import { Stack } from 'expo-router'
@@ -40,7 +40,7 @@ export default function Layout() {
 
 const styles = StyleSheet.create({
   image: {
-    height: spaceScale(20),
-    width: spaceScale(72)
+    height: 20,
+    width: 72
   }
 })

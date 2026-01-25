@@ -1,19 +1,19 @@
 import { Link, useRouter } from 'expo-router'
 import { StyleSheet, useWindowDimensions, View } from 'react-native'
 
+import { Session, Speaker } from '@/types'
+import { theme } from '../theme'
+import { formatSessionTime } from '../utils/formatDate'
 import { Bookmark } from './Bookmark'
 import { ThemedText, ThemedView } from './Themed'
-import { theme } from '../theme'
-import { Session, Speaker } from '@/types'
-import { formatSessionTime } from '../utils/formatDate'
 
-import { useReactConfStore } from '@/store/reactConfStore'
-import { Gesture, GestureDetector } from 'react-native-gesture-handler'
-import { SpeakerDetails } from './SpeakerDetails'
 import { ConferenceDay } from '@/consts'
+import { useReactConfStore } from '@/store/reactConfStore'
 import * as Haptics from 'expo-haptics'
 import { useMemo } from 'react'
+import { Gesture, GestureDetector } from 'react-native-gesture-handler'
 import Animated, { FadeIn, FadeOut } from 'react-native-reanimated'
+import { SpeakerDetails } from './SpeakerDetails'
 
 type Props = {
   session: Session
@@ -59,11 +59,11 @@ export function TalkCard({ session, day, isBookmarked = false }: Props) {
         <ThemedView style={styles.container}>
           {!isBookmarked && (
             <ThemedText
-              fontSize={theme.fontSize14}
+              fontSize={14}
               fontWeight="medium"
               color={theme.color.textSecondary}
-              marginBottom={theme.space8}
-              style={{ marginLeft: theme.space24 }}
+              marginBottom={8}
+              style={{ marginLeft: 24 }}
             >
               {formatSessionTime(session, shouldUseLocalTz)}
             </ThemedText>
@@ -74,15 +74,15 @@ export function TalkCard({ session, day, isBookmarked = false }: Props) {
           >
             <View
               style={{
-                marginHorizontal: -theme.space16,
-                paddingHorizontal: theme.space16,
-                marginVertical: -theme.space8,
-                paddingVertical: theme.space8
+                marginHorizontal: -16,
+                paddingHorizontal: 16,
+                marginVertical: -8,
+                paddingVertical: 8
               }}
             >
               <View style={styles.titleAndBookmark}>
                 <ThemedText
-                  fontSize={theme.fontSize18}
+                  fontSize={18}
                   fontWeight="semiBold"
                   style={styles.title}
                 >
@@ -92,14 +92,14 @@ export function TalkCard({ session, day, isBookmarked = false }: Props) {
               {isBookmarked && (
                 <View style={styles.time}>
                   <ThemedText
-                    fontSize={theme.fontSize14}
+                    fontSize={14}
                     fontWeight="medium"
                     color={theme.color.textSecondary}
                   >
                     {formatSessionTime(session, shouldUseLocalTz)},
                   </ThemedText>
                   <ThemedText
-                    fontSize={theme.fontSize14}
+                    fontSize={14}
                     fontWeight="medium"
                     color={theme.color.textSecondary}
                   >
@@ -126,11 +126,11 @@ export function TalkCard({ session, day, isBookmarked = false }: Props) {
                   <Link.Trigger>
                     <View
                       style={{
-                        marginHorizontal: -theme.space16,
-                        paddingHorizontal: theme.space16,
-                        marginVertical: -theme.space8,
-                        paddingVertical: theme.space8,
-                        borderRadius: theme.borderRadius32
+                        marginHorizontal: -16,
+                        paddingHorizontal: 16,
+                        marginVertical: -8,
+                        paddingVertical: 8,
+                        borderRadius: 32
                       }}
                     >
                       <SpeakerDetails speaker={speaker} />
@@ -150,26 +150,26 @@ export function TalkCard({ session, day, isBookmarked = false }: Props) {
 const styles = StyleSheet.create({
   bookmarkContainer: {
     position: 'absolute',
-    right: theme.space24,
-    top: theme.space24
+    right: 24,
+    top: 24
   },
   container: {
-    borderRadius: theme.borderRadius10,
-    marginBottom: theme.space24,
-    marginHorizontal: theme.space16
+    borderRadius: 10,
+    marginBottom: 24,
+    marginHorizontal: 16
   },
   content: {
-    borderRadius: theme.borderRadius32,
-    gap: theme.space24,
-    padding: theme.space24
+    borderRadius: 32,
+    gap: 24,
+    padding: 24
   },
   preview: {
     height: 420
   },
   time: {
-    borderRadius: theme.borderRadius10,
+    borderRadius: 10,
     flexDirection: 'row',
-    gap: theme.space8
+    gap: 8
   },
   title: {
     flex: 1,
@@ -178,7 +178,7 @@ const styles = StyleSheet.create({
   titleAndBookmark: {
     alignItems: 'center',
     flexDirection: 'row',
-    gap: theme.space8,
+    gap: 8,
     justifyContent: 'space-between'
   }
 })

@@ -1,4 +1,4 @@
-import { StyleSheet, ActivityIndicator } from 'react-native'
+import { ActivityIndicator, StyleSheet } from 'react-native'
 import { Pressable } from 'react-native-gesture-handler'
 
 import { ThemedText, useThemeColor } from './Themed'
@@ -29,7 +29,7 @@ export function Button({
         <ActivityIndicator color={theme.colorWhite} />
       ) : (
         <ThemedText
-          fontSize={theme.fontSize16}
+          fontSize={16}
           fontWeight="semiBold"
           style={[styles.text, { color: textColor }]}
         >
@@ -43,12 +43,12 @@ export function Button({
 const styles = StyleSheet.create({
   button: {
     alignItems: 'center',
-    borderRadius: theme.borderRadius34,
+    borderRadius: 34,
     justifyContent: 'center',
     minHeight: 40,
     minWidth: 150,
-    paddingHorizontal: theme.space24,
-    paddingVertical: theme.space8,
+    paddingHorizontal: 24,
+    paddingVertical: 8,
     width: '100%'
   },
   text: {

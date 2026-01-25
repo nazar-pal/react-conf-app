@@ -49,11 +49,14 @@ const config: ExpoConfig = {
   newArchEnabled: true,
   ios: {
     icon: './assets/app-icons/react-conf.icon',
-    supportsTablet: true,
+    supportsTablet: false,
     bundleIdentifier: getAppId(),
     userInterfaceStyle: 'automatic',
     config: {
       usesNonExemptEncryption: false
+    },
+    infoPlist: {
+      UIRequiredDeviceCapabilities: ['armv7', 'telephony']
     }
   },
   android: {

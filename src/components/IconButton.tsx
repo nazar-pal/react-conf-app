@@ -1,7 +1,7 @@
 import { StyleSheet } from 'react-native'
 
-import { ThemedView, useThemeColor } from './Themed'
 import { Pressable } from 'react-native-gesture-handler'
+import { ThemedView, useThemeColor } from './Themed'
 
 import { theme } from '@/theme'
 import * as Haptics from 'expo-haptics'
@@ -46,8 +46,8 @@ export function IconButton({
 
 const styles = StyleSheet.create({
   button: {
-    borderRadius: theme.borderRadius6,
-    marginHorizontal: theme.space8,
-    padding: theme.space12
+    borderRadius: 6,
+    marginHorizontal: 8,
+    padding: 12
   }
 })

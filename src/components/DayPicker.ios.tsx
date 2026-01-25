@@ -1,8 +1,7 @@
-import { theme } from '@/theme'
-import { StyleSheet, View } from 'react-native'
 import { ConferenceDay } from '@/consts'
 import { Host, Picker } from '@expo/ui/swift-ui'
 import { GlassView } from 'expo-glass-effect'
+import { StyleSheet, View } from 'react-native'
 
 interface DayPickerProps {
   selectedDay: ConferenceDay
@@ -11,7 +10,7 @@ interface DayPickerProps {
 
 export function DayPicker({ selectedDay, onSelectDay }: DayPickerProps) {
   return (
-    <View style={{ paddingBottom: theme.space24 }}>
+    <View style={{ paddingBottom: 24 }}>
       <GlassView style={styles.glassView}>
         <Host matchContents style={styles.dayPicker}>
           <Picker
@@ -33,10 +32,10 @@ const styles = StyleSheet.create({
     height: 31 // fixed height to prevent jumping
   },
   glassView: {
-    borderRadius: theme.borderRadius80,
+    borderRadius: 80,
     height: 32,
-    marginHorizontal: theme.space16,
-    marginTop: theme.space16,
+    marginHorizontal: 16,
+    marginTop: 16,
     width: 'auto'
   }
 })

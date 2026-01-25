@@ -1,8 +1,8 @@
 import { theme } from '@/theme'
+import openWebBrowserAsync from '@/utils/openWebBrowserAsync'
+import { Image } from 'expo-image'
 import { Pressable, StyleSheet, View } from 'react-native'
 import { ThemedText, ThemedView } from './Themed'
-import { Image } from 'expo-image'
-import openWebBrowserAsync from '@/utils/openWebBrowserAsync'
 
 const sponsors = {
   amazon: {
@@ -72,11 +72,7 @@ type Sponsor = (typeof sponsors)[keyof typeof sponsors]
 export function Sponsors() {
   return (
     <ThemedView style={styles.container}>
-      <ThemedText
-        fontSize={theme.fontSize18}
-        fontWeight="semiBold"
-        style={styles.title}
-      >
+      <ThemedText fontSize={18} fontWeight="semiBold" style={styles.title}>
         Sponsors
       </ThemedText>
       <ThemedView style={styles.content} color={theme.color.backgroundElement}>
@@ -136,28 +132,28 @@ function SponsorCard({ sponsor }: { sponsor: Sponsor }) {
 
 const styles = StyleSheet.create({
   container: {
-    paddingTop: theme.space24
+    paddingTop: 24
   },
   content: {
-    paddingBottom: theme.space16,
-    paddingHorizontal: theme.space16
+    paddingBottom: 16,
+    paddingHorizontal: 16
   },
   image: {
     height: 58
   },
   imageContainer: {
     backgroundColor: theme.colorWhite,
-    borderRadius: theme.borderRadius12,
-    padding: theme.space8
+    borderRadius: 12,
+    padding: 8
   },
   level: {
-    paddingVertical: theme.space16
+    paddingVertical: 16
   },
   sponsors: {
-    gap: theme.space16
+    gap: 16
   },
   title: {
-    paddingBottom: theme.space16,
-    paddingHorizontal: theme.space16
+    paddingBottom: 16,
+    paddingHorizontal: 16
   }
 })

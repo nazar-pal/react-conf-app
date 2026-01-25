@@ -1,7 +1,7 @@
-import { Button } from './Button'
-import { ThemedText, ThemedView, useThemeColor } from './Themed'
 import openWebBrowserAsync from '@/utils/openWebBrowserAsync'
 import { StyleSheet, View } from 'react-native'
+import { Button } from './Button'
+import { ThemedText, ThemedView, useThemeColor } from './Themed'
 
 import { theme } from '@/theme'
 
@@ -22,7 +22,7 @@ export function LiveStreamInfo() {
         />
         <ThemedText
           fontWeight="semiBold"
-          fontSize={theme.fontSize14}
+          fontSize={14}
           color={{
             light: theme.color.textSecondary.light,
             dark: theme.colorWhite
@@ -49,29 +49,29 @@ export function LiveStreamInfo() {
 const styles = StyleSheet.create({
   container: {
     alignItems: 'center',
-    borderRadius: theme.borderRadius32,
-    marginBottom: theme.space16,
-    marginHorizontal: theme.space16,
-    padding: theme.space24
+    borderRadius: 32,
+    marginBottom: 16,
+    marginHorizontal: 16,
+    padding: 24
   },
   liveStreamContainer: {
     alignItems: 'center',
-    borderRadius: theme.borderRadius32,
+    borderRadius: 32,
     borderWidth: 2,
     flexDirection: 'row',
-    gap: theme.space8,
+    gap: 8,
     justifyContent: 'center',
-    marginBottom: theme.space16,
-    paddingHorizontal: theme.space8,
-    paddingVertical: theme.space4
+    marginBottom: 16,
+    paddingHorizontal: 8,
+    paddingVertical: 4
   },
   liveStreamDot: {
-    borderRadius: theme.borderRadius32,
+    borderRadius: 32,
     height: 8,
     width: 8
   },
   text: {
-    marginBottom: theme.space24,
+    marginBottom: 24,
     textAlign: 'center'
   }
 })

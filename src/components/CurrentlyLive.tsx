@@ -1,12 +1,12 @@
-import { theme } from '@/theme'
-import { StyleSheet, View, Pressable, Platform } from 'react-native'
-import { ThemedText } from './Themed'
-import { useReactConfStore } from '@/store/reactConfStore'
-import { getCurrentConferenceDay } from '@/utils/formatDate'
 import { ConferenceDay } from '@/consts'
+import { useReactConfStore } from '@/store/reactConfStore'
+import { theme } from '@/theme'
 import { Session } from '@/types'
+import { getCurrentConferenceDay } from '@/utils/formatDate'
 import { useCallback, useEffect, useState } from 'react'
+import { Platform, Pressable, StyleSheet, View } from 'react-native'
 import Animated, { FadeIn, FadeOutUp } from 'react-native-reanimated'
+import { ThemedText } from './Themed'
 
 const AnimatedPressable = Animated.createAnimatedComponent(Pressable)
 
@@ -81,7 +81,7 @@ export function CurrentlyLive({
           <View style={styles.dotContainer}>
             <View style={styles.dot} />
             <ThemedText
-              fontSize={theme.fontSize10}
+              fontSize={10}
               fontWeight="semiBold"
               color={theme.color.textSecondary}
               style={styles.text}
@@ -90,7 +90,7 @@ export function CurrentlyLive({
             </ThemedText>
           </View>
           <ThemedText
-            fontSize={theme.fontSize12}
+            fontSize={12}
             fontWeight="semiBold"
             numberOfLines={2}
             style={styles.centeredText}
@@ -116,14 +116,14 @@ const styles = StyleSheet.create({
   },
   dot: {
     backgroundColor: theme.colorRed,
-    borderRadius: theme.borderRadius4,
-    height: theme.space4,
-    width: theme.space4
+    borderRadius: 4,
+    height: 4,
+    width: 4
   },
   dotContainer: {
     alignItems: 'center',
     flexDirection: 'row',
-    gap: theme.space4
+    gap: 4
   },
   text: {
     textTransform: 'uppercase'

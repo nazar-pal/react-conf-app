@@ -1,5 +1,4 @@
 import { useReactConfStore } from '@/store/reactConfStore'
-import { theme } from '@/theme'
 import { getCurrentTimezone } from '@/utils/formatDate'
 import {
   ContextMenu,
@@ -10,13 +9,11 @@ import {
   Text
 } from '@expo/ui/swift-ui'
 import { buttonStyle, frame } from '@expo/ui/swift-ui/modifiers'
-import * as Device from 'expo-device'
 import { isLiquidGlassAvailable } from 'expo-glass-effect'
 import * as Haptics from 'expo-haptics'
 import { StyleSheet, useColorScheme } from 'react-native'
 
 const options = ['PDT (Venue)', `${getCurrentTimezone()} (Local)`]
-const isIpad = Device.osName === 'iPadOS'
 
 export function TimeZoneSwitch() {
   const shouldUseLocalTz = useReactConfStore(state => state.shouldUseLocalTz)
@@ -49,13 +46,10 @@ export function TimeZoneSwitch() {
           />
         </ContextMenu.Items>
         <ContextMenu.Trigger>
-          <HStack
-            modifiers={[frame({ width: isIpad ? 60 : 50 })]}
-            spacing={theme.space8}
-          >
+          <HStack modifiers={[frame({ width: 50 })]} spacing={8}>
             <Text
               weight="semibold"
-              size={theme.fontSize10}
+              size={10}
               color={
                 isLiquidGlassAvailable()
                   ? 'primary'
@@ -68,7 +62,7 @@ export function TimeZoneSwitch() {
             </Text>
             <Image
               systemName="chevron.down"
-              size={theme.fontSize10}
+              size={10}
               color={isLiquidGlassAvailable() ? 'primary' : 'gray'}
             />
           </HStack>

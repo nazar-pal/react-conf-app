@@ -1,12 +1,12 @@
-import { HeaderButtonProps } from './HeaderButton.ios'
-import MaterialCommunityIcons from '@expo/vector-icons/MaterialCommunityIcons'
 import { theme } from '@/theme'
+import MaterialCommunityIcons from '@expo/vector-icons/MaterialCommunityIcons'
+import { Pressable } from 'react-native-gesture-handler'
 import Animated, {
   useAnimatedStyle,
   useSharedValue,
   withTiming
 } from 'react-native-reanimated'
-import { Pressable } from 'react-native-gesture-handler'
+import { HeaderButtonProps } from './HeaderButton.ios'
 
 const AnimatedPressable = Animated.createAnimatedComponent(Pressable)
 
@@ -32,7 +32,7 @@ export function HeaderButton({ imageProps, buttonProps }: HeaderButtonProps) {
       <MaterialCommunityIcons
         // Todo: fix this type
         name={(imageProps?.systemName as any) || 'cross'}
-        size={theme.fontSize24}
+        size={24}
         color={imageProps?.color || theme.colorGrey}
       />
     </AnimatedPressable>

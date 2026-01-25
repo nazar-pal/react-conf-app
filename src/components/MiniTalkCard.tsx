@@ -43,14 +43,14 @@ export function MiniTalkCard({ sessionId }: { sessionId: string | number }) {
       <Pressable>
         <ThemedView style={[styles.container, { backgroundColor }]}>
           <View style={styles.containerInner}>
-            <ThemedText fontSize={theme.fontSize16} fontWeight="semiBold">
+            <ThemedText fontSize={16} fontWeight="semiBold">
               {talk.title}
             </ThemedText>
             <ThemedText
-              fontSize={theme.fontSize14}
+              fontSize={14}
               fontWeight="medium"
               color={{ light: textSecondaryColor, dark: textSecondaryColor }}
-              style={{ marginBottom: theme.space8 }}
+              style={{ marginBottom: 8 }}
             >
               {formatSessionTime(talk, shouldUseLocalTz)}
               {` `}({isDayOne ? 'Day 1' : 'Day 2'})
@@ -66,14 +66,14 @@ export function MiniTalkCard({ sessionId }: { sessionId: string | number }) {
 const styles = StyleSheet.create({
   container: {
     alignItems: 'center',
-    borderRadius: theme.borderRadius10,
+    borderRadius: 10,
     flexDirection: 'row',
     justifyContent: 'space-between',
-    marginBottom: theme.space24,
-    padding: theme.space24
+    marginBottom: 24,
+    padding: 24
   },
   containerInner: {
     flexShrink: 1,
-    gap: theme.space4
+    gap: 4
   }
 })

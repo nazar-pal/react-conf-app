@@ -1,15 +1,15 @@
 import MaterialCommunityIcons from '@expo/vector-icons/build/MaterialCommunityIcons'
+import { Gesture, GestureDetector } from 'react-native-gesture-handler'
 import Animated, {
   useAnimatedStyle,
   useSharedValue,
   withSequence,
   withTiming
 } from 'react-native-reanimated'
-import { GestureDetector, Gesture } from 'react-native-gesture-handler'
 
+import { useBookmark } from '@/hooks/useBookmark'
 import { theme } from '@/theme'
 import { Session } from '@/types'
-import { useBookmark } from '@/hooks/useBookmark'
 import { SymbolView } from 'expo-symbols'
 import { StyleSheet } from 'react-native'
 
@@ -55,7 +55,7 @@ export function BaseBookmark({
           fallback={
             <MaterialCommunityIcons
               name={bookmarked ? 'bookmark' : 'bookmark-outline'}
-              size={theme.fontSize28}
+              size={28}
               color={bookmarkColor}
             />
           }
@@ -67,7 +67,7 @@ export function BaseBookmark({
 
 const styles = StyleSheet.create({
   container: {
-    margin: -theme.space8,
-    padding: theme.space8
+    margin: -8,
+    padding: 8
   }
 })

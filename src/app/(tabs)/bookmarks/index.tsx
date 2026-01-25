@@ -1,19 +1,19 @@
 import React, { useCallback } from 'react'
 import { Platform, Pressable, StyleSheet, View } from 'react-native'
 
-import { ThemedText, useThemeColor } from '@/components/Themed'
-import { theme } from '@/theme'
 import { TalkCard } from '@/components/TalkCard'
+import { ThemedText, useThemeColor } from '@/components/Themed'
+import { ConferenceDay } from '@/consts'
 import { useBookmarkStore } from '@/store/bookmarkStore'
 import { useReactConfStore } from '@/store/reactConfStore'
+import { theme } from '@/theme'
 import { Session } from '@/types'
-import { ConferenceDay } from '@/consts'
+import { Link } from 'expo-router'
 import Animated, {
   FadeIn,
   FadeOut,
   LinearTransition
 } from 'react-native-reanimated'
-import { Link } from 'expo-router'
 import { useSafeAreaInsets } from 'react-native-safe-area-context'
 
 export default function Bookmarks() {
@@ -62,13 +62,10 @@ export default function Bookmarks() {
       ListEmptyComponent={
         <Animated.View entering={FadeIn} exiting={FadeOut}>
           <View style={styles.bookmarks}>
-            <ThemedText fontWeight="bold" fontSize={theme.fontSize20}>
+            <ThemedText fontWeight="bold" fontSize={20}>
               No sessions bookmarked
             </ThemedText>
-            <ThemedText
-              fontSize={theme.fontSize18}
-              color={theme.color.textSecondary}
-            >
+            <ThemedText fontSize={18} color={theme.color.textSecondary}>
               Tap on the bookmark icon on a session to add it to your bookmarks,
               and it will be displayed here.
             </ThemedText>
@@ -76,7 +73,7 @@ export default function Bookmarks() {
               <Pressable>
                 <ThemedText
                   color={theme.color.reactBlue}
-                  style={{ marginTop: theme.space2 }}
+                  style={{ marginTop: 2 }}
                 >
                   View all sessions
                 </ThemedText>
@@ -91,10 +88,10 @@ export default function Bookmarks() {
 
 const styles = StyleSheet.create({
   bookmarks: {
-    gap: theme.space16,
-    paddingHorizontal: theme.space16
+    gap: 16,
+    paddingHorizontal: 16
   },
   flatListContainer: {
-    paddingTop: theme.space16
+    paddingTop: 16
   }
 })

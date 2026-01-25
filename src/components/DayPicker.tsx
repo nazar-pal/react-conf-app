@@ -1,8 +1,8 @@
-import { useThemeColor } from './Themed'
-import { theme } from '@/theme'
-import { useWindowDimensions, View, StyleSheet, Platform } from 'react-native'
 import { ConferenceDay } from '@/consts'
+import { theme } from '@/theme'
 import { Picker } from '@expo/ui/jetpack-compose'
+import { Platform, StyleSheet, useWindowDimensions, View } from 'react-native'
+import { useThemeColor } from './Themed'
 
 interface DayPickerProps {
   selectedDay: ConferenceDay
@@ -29,7 +29,7 @@ export function DayPicker({ selectedDay, onSelectDay }: DayPickerProps) {
   return (
     <View
       style={{
-        paddingVertical: theme.space4,
+        paddingVertical: 4,
         backgroundColor: backgroundColor
       }}
     >
@@ -51,7 +51,7 @@ export function DayPicker({ selectedDay, onSelectDay }: DayPickerProps) {
         variant="segmented"
         style={{
           ...styles.picker,
-          width: width - theme.space24 * 2
+          width: width - 24 * 2
         }}
       />
 
@@ -70,6 +70,6 @@ const styles = StyleSheet.create({
   picker: {
     alignSelf: 'center',
     height: 40,
-    paddingVertical: theme.space24
+    paddingVertical: 24
   }
 })

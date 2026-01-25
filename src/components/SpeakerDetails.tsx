@@ -1,9 +1,9 @@
 import { StyleSheet, View } from 'react-native'
 
+import { Speaker } from '@/types'
+import { theme } from '../theme'
 import { SpeakerImage } from './SpeakerImage'
 import { ThemedText } from './Themed'
-import { theme } from '../theme'
-import { Speaker } from '@/types'
 
 export function SpeakerDetails({ speaker }: { speaker: Speaker }) {
   return (
@@ -14,10 +14,10 @@ export function SpeakerDetails({ speaker }: { speaker: Speaker }) {
         size="small"
       />
       <View style={styles.speakerDetails}>
-        <ThemedText fontSize={theme.fontSize16}>{speaker.fullName}</ThemedText>
+        <ThemedText fontSize={16}>{speaker.fullName}</ThemedText>
         {speaker.tagLine ? (
           <ThemedText
-            fontSize={theme.fontSize14}
+            fontSize={14}
             fontWeight="medium"
             color={theme.color.textSecondary}
           >
@@ -36,7 +36,7 @@ const styles = StyleSheet.create({
   },
   speakerDetails: {
     flex: 1,
-    gap: theme.space2,
+    gap: 2,
     justifyContent: 'center'
   }
 })

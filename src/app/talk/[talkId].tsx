@@ -28,7 +28,6 @@ import {
   DAY_TWO_DATE,
   formatSessionTime
 } from '@/utils/formatDate'
-import { osName } from 'expo-device'
 import { isLiquidGlassAvailable } from 'expo-glass-effect'
 import { scheduleOnRN } from 'react-native-worklets'
 
@@ -149,17 +148,12 @@ export default function TalkDetail() {
               ios: (
                 <HeaderButton
                   buttonProps={{ onPress: router.back }}
-                  style={{ padding: osName === 'iPadOS' ? 40 : 0 }}
+                  style={{ padding: 0 }}
                 />
               ),
               default: undefined
             }),
-          headerRight: () => (
-            <Bookmark
-              session={talk}
-              style={{ padding: osName === 'iPadOS' ? 40 : 0 }}
-            />
-          )
+          headerRight: () => <Bookmark session={talk} style={{ padding: 0 }} />
         }}
       />
 
@@ -171,7 +165,7 @@ export default function TalkDetail() {
             : theme.color.background
         }
       >
-        {isLiquidGlassAvailable() && osName !== 'iPadOS' ? (
+        {isLiquidGlassAvailable() ? (
           <View style={{ height: drawerHeight }}>
             <Animated.View style={[opacityStyle, styles.absolute]}>
               <Canvas
@@ -206,9 +200,9 @@ export default function TalkDetail() {
             styles.contentContainer,
             {
               minHeight: drawerHeight,
-              paddingBottom: insets.bottom + theme.space24,
+              paddingBottom: insets.bottom + 24,
               paddingTop: Platform.select({
-                ios: theme.space24,
+                ios: 24,
                 default: undefined
               })
             }
@@ -217,7 +211,7 @@ export default function TalkDetail() {
           <View style={styles.header} collapsable={false}>
             <ThemedText
               fontWeight="bold"
-              fontSize={theme.fontSize32}
+              fontSize={32}
               style={[
                 styles.talkTitle,
                 { textDecorationColor: highlightColor }
@@ -275,11 +269,11 @@ function SpeakerDetails({ speaker }: { speaker: Speaker }) {
     <View style={styles.speaker}>
       <SpeakerImage profilePicture={speaker.profilePicture} />
       <View style={styles.speakerDetails}>
-        <ThemedText fontSize={theme.fontSize18} fontWeight="semiBold">
+        <ThemedText fontSize={18} fontWeight="semiBold">
           {speaker.fullName}
         </ThemedText>
         <ThemedText
-          fontSize={theme.fontSize14}
+          fontSize={14}
           fontWeight="medium"
           color={theme.color.textSecondary}
         >
@@ -297,11 +291,11 @@ function Section({ title, value }: { title: string; value: string | null }) {
 
   return (
     <View style={styles.sectionContainer}>
-      <ThemedText fontSize={theme.fontSize18} fontWeight="semiBold">
+      <ThemedText fontSize={18} fontWeight="semiBold">
         {title}
       </ThemedText>
       <ThemedText
-        fontSize={theme.fontSize16}
+        fontSize={16}
         fontWeight="medium"
         color={theme.color.textSecondary}
       >
@@ -319,33 +313,33 @@ const styles = StyleSheet.create({
     flex: 1
   },
   content: {
-    gap: theme.space8,
-    paddingHorizontal: theme.space24,
-    paddingTop: theme.space16
+    gap: 8,
+    paddingHorizontal: 24,
+    paddingTop: 16
   },
   contentContainer: {
-    borderBottomLeftRadius: theme.borderRadius20,
-    borderBottomRightRadius: theme.borderRadius20
+    borderBottomLeftRadius: 20,
+    borderBottomRightRadius: 20
   },
   header: {
     marginTop: Platform.select({ ios: 0, android: 30 }),
-    paddingHorizontal: theme.space24
+    paddingHorizontal: 24
   },
   sectionContainer: {
-    gap: theme.space4,
-    marginBottom: theme.space24
+    gap: 4,
+    marginBottom: 24
   },
   speaker: {
     flexDirection: 'row',
-    gap: theme.space8,
-    marginBottom: theme.space12
+    gap: 8,
+    marginBottom: 12
   },
   speakerDetails: {
     flex: 1,
     justifyContent: 'center'
   },
   talkTitle: {
-    marginBottom: theme.space12,
+    marginBottom: 12,
     textAlign: 'center'
   }
 })

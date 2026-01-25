@@ -1,13 +1,12 @@
 import MaterialCommunityIcons from '@expo/vector-icons/MaterialCommunityIcons'
 import { Image, ImageStyle } from 'expo-image'
-import { StyleSheet, useWindowDimensions, View } from 'react-native'
-import { Pressable } from 'react-native-gesture-handler'
-import * as Linking from 'expo-linking'
 import { LinearGradient } from 'expo-linear-gradient'
+import * as Linking from 'expo-linking'
+import { StyleSheet, View } from 'react-native'
+import { Pressable } from 'react-native-gesture-handler'
 import { ThemedText, ThemedView, useThemeColor } from './Themed'
 
 import { theme } from '@/theme'
-import { osName } from 'expo-device'
 
 const venueAddress = '101 Montelago Blvd, Henderson, NV 89011'
 const venueName = 'The Westin Lake Las Vegas Resort & Spa'
@@ -15,16 +14,7 @@ const venueName = 'The Westin Lake Las Vegas Resort & Spa'
 const BOTTOM_OFFSET = 50
 
 export function VenueInfo() {
-  const { width } = useWindowDimensions()
-  const hotelImageSize = width - theme.space24
-
-  const imageStyle: ImageStyle =
-    osName === 'iPadOS'
-      ? {
-          width: hotelImageSize,
-          height: hotelImageSize / 2
-        }
-      : { width: '100%', aspectRatio: 1 }
+  const imageStyle: ImageStyle = { width: '100%', aspectRatio: 1 }
 
   const onOpenVenue = () => {
     Linking.openURL(
@@ -56,30 +46,24 @@ export function VenueInfo() {
           style={styles.venueDetails}
           color={theme.color.backgroundElement}
         >
-          <ThemedText
-            fontSize={theme.fontSize14}
-            color={theme.color.textSecondary}
-          >
+          <ThemedText fontSize={14} color={theme.color.textSecondary}>
             Venue
           </ThemedText>
           <View style={styles.venueName}>
-            <ThemedText fontSize={theme.fontSize18} fontWeight="semiBold">
+            <ThemedText fontSize={18} fontWeight="semiBold">
               The Westin Lake
             </ThemedText>
-            <ThemedText fontSize={theme.fontSize18} fontWeight="semiBold">
+            <ThemedText fontSize={18} fontWeight="semiBold">
               Las Vegas Resort & Spa
             </ThemedText>
           </View>
           <View style={styles.venueAddress}>
             <MaterialCommunityIcons
               name="map-marker-radius"
-              size={theme.fontSize16}
+              size={16}
               color={iconColor}
             />
-            <ThemedText
-              color={theme.color.textSecondary}
-              fontSize={theme.fontSize12}
-            >
+            <ThemedText color={theme.color.textSecondary} fontSize={12}>
               {venueAddress}
             </ThemedText>
           </View>
@@ -92,13 +76,13 @@ export function VenueInfo() {
 const styles = StyleSheet.create({
   container: {
     marginBottom: BOTTOM_OFFSET,
-    marginHorizontal: theme.space16,
-    paddingBottom: theme.space16,
-    paddingTop: theme.space24
+    marginHorizontal: 16,
+    paddingBottom: 16,
+    paddingTop: 24
   },
   imageContainer: {
-    borderTopLeftRadius: theme.borderRadius32,
-    borderTopRightRadius: theme.borderRadius32,
+    borderTopLeftRadius: 32,
+    borderTopRightRadius: 32,
     overflow: 'hidden'
   },
   venueAddress: {
@@ -109,16 +93,16 @@ const styles = StyleSheet.create({
   },
   venueDetails: {
     alignItems: 'center',
-    borderBottomLeftRadius: theme.borderRadius32,
-    borderBottomRightRadius: theme.borderRadius32,
+    borderBottomLeftRadius: 32,
+    borderBottomRightRadius: 32,
     bottom: -BOTTOM_OFFSET,
     left: 0,
-    paddingBottom: theme.space24,
+    paddingBottom: 24,
     position: 'absolute',
     right: 0
   },
   venueName: {
     alignItems: 'center',
-    marginBottom: theme.space16
+    marginBottom: 16
   }
 })
