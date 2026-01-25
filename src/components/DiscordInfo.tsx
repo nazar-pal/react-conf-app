@@ -1,20 +1,20 @@
-import { Button } from "./Button";
-import { ThemedText, ThemedView, useThemeColor } from "./Themed";
-import * as Linking from "expo-linking";
-import { StyleSheet } from "react-native";
-import MaterialIcons from "@expo/vector-icons/MaterialIcons";
+import { Button } from './Button'
+import { ThemedText, ThemedView, useThemeColor } from './Themed'
+import * as Linking from 'expo-linking'
+import { StyleSheet } from 'react-native'
+import MaterialIcons from '@expo/vector-icons/MaterialIcons'
 
-import { theme } from "@/theme";
+import { theme } from '@/theme'
 
 export function DiscordInfo() {
   const handlePress = () => {
-    Linking.openURL("https://discord.gg/reactconf");
-  };
+    Linking.openURL('https://discord.gg/reactconf')
+  }
 
   const iconColor = useThemeColor({
     light: theme.color.textSecondary.light,
-    dark: theme.colorWhite,
-  });
+    dark: theme.colorWhite
+  })
 
   return (
     <ThemedView style={styles.container} color={theme.color.backgroundElement}>
@@ -25,20 +25,20 @@ export function DiscordInfo() {
       </ThemedText>
       <Button onPress={handlePress} title="Join us on Discord" />
     </ThemedView>
-  );
+  )
 }
 
 const styles = StyleSheet.create({
   container: {
-    alignItems: "center",
+    alignItems: 'center',
     borderRadius: theme.borderRadius32,
     gap: theme.space16,
     marginBottom: theme.space16,
     marginHorizontal: theme.space16,
-    padding: theme.space24,
+    padding: theme.space24
   },
   text: {
     marginBottom: theme.space8,
-    textAlign: "center",
-  },
-});
+    textAlign: 'center'
+  }
+})

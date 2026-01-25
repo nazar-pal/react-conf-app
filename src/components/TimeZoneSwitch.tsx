@@ -1,20 +1,20 @@
-import { StyleSheet } from "react-native";
+import { StyleSheet } from 'react-native'
 
-import { ThemedPressable, ThemedText } from "./Themed";
+import { ThemedPressable, ThemedText } from './Themed'
 
-import { useReactConfStore } from "@/store/reactConfStore";
-import { theme } from "@/theme";
-import { getCurrentTimezone } from "@/utils/formatDate";
-import * as Haptics from "expo-haptics";
+import { useReactConfStore } from '@/store/reactConfStore'
+import { theme } from '@/theme'
+import { getCurrentTimezone } from '@/utils/formatDate'
+import * as Haptics from 'expo-haptics'
 
 export function TimeZoneSwitch() {
-  const shouldUseLocalTz = useReactConfStore((state) => state.shouldUseLocalTz);
-  const toggleLocalTz = useReactConfStore((state) => state.toggleLocalTz);
+  const shouldUseLocalTz = useReactConfStore(state => state.shouldUseLocalTz)
+  const toggleLocalTz = useReactConfStore(state => state.toggleLocalTz)
 
   const handleToggleLocalTz = () => {
-    Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Medium);
-    toggleLocalTz();
-  };
+    Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Medium)
+    toggleLocalTz()
+  }
 
   return (
     <ThemedPressable
@@ -23,18 +23,18 @@ export function TimeZoneSwitch() {
       backgroundColor={theme.color.backgroundSecondary}
     >
       <ThemedText fontSize={theme.fontSize12} fontWeight="semiBold">
-        {shouldUseLocalTz ? getCurrentTimezone() : "PDT"}
+        {shouldUseLocalTz ? getCurrentTimezone() : 'PDT'}
       </ThemedText>
     </ThemedPressable>
-  );
+  )
 }
 
 const styles = StyleSheet.create({
   container: {
-    alignSelf: "flex-end",
+    alignSelf: 'flex-end',
     borderRadius: theme.borderRadius40,
     height: 32,
-    justifyContent: "center",
-    paddingHorizontal: theme.space16,
-  },
-});
+    justifyContent: 'center',
+    paddingHorizontal: theme.space16
+  }
+})

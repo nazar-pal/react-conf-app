@@ -1,38 +1,38 @@
-import { Link, Stack, useLocalSearchParams, useRouter } from "expo-router";
-import React from "react";
-import { Platform, StyleSheet, View, useWindowDimensions } from "react-native";
-import { useSafeAreaInsets } from "react-native-safe-area-context";
-import * as Haptics from "expo-haptics";
+import { Canvas, Fill, Shader, Skia, vec } from '@shopify/react-native-skia'
+import * as Haptics from 'expo-haptics'
+import { Link, Stack, useLocalSearchParams, useRouter } from 'expo-router'
+import React from 'react'
+import { Platform, StyleSheet, View, useWindowDimensions } from 'react-native'
+import { Pressable, ScrollView } from 'react-native-gesture-handler'
 import Animated, {
-  useSharedValue,
-  useAnimatedStyle,
   Easing,
   useAnimatedReaction,
-  useDerivedValue,
-  withTiming,
   useAnimatedScrollHandler,
-} from "react-native-reanimated";
-import { Pressable, ScrollView } from "react-native-gesture-handler";
-import { Canvas, Fill, Shader, Skia, vec } from "@shopify/react-native-skia";
+  useAnimatedStyle,
+  useDerivedValue,
+  useSharedValue,
+  withTiming
+} from 'react-native-reanimated'
+import { useSafeAreaInsets } from 'react-native-safe-area-context'
 
-import { NotFound } from "@/components/NotFound";
-import { SpeakerImage } from "@/components/SpeakerImage";
-import { ThemedText, ThemedView, useThemeColor } from "@/components/Themed";
-import { useReactConfStore } from "@/store/reactConfStore";
-import { theme } from "@/theme";
-import { Session, Speaker } from "@/types";
+import { Bookmark } from '@/components/Bookmark'
+import { HeaderButton } from '@/components/HeaderButtons/HeaderButton'
+import { NotFound } from '@/components/NotFound'
+import { SpeakerImage } from '@/components/SpeakerImage'
+import { ThemedText, ThemedView, useThemeColor } from '@/components/Themed'
+import { useReactConfStore } from '@/store/reactConfStore'
+import { theme } from '@/theme'
+import { Session, Speaker } from '@/types'
 import {
   DAY_ONE_DATE,
   DAY_TWO_DATE,
-  formatSessionTime,
-} from "@/utils/formatDate";
-import { HeaderButton } from "@/components/HeaderButtons/HeaderButton";
-import { isLiquidGlassAvailable } from "expo-glass-effect";
-import { scheduleOnRN } from "react-native-worklets";
-import { Bookmark } from "@/components/Bookmark";
-import { osName } from "expo-device";
+  formatSessionTime
+} from '@/utils/formatDate'
+import { osName } from 'expo-device'
+import { isLiquidGlassAvailable } from 'expo-glass-effect'
+import { scheduleOnRN } from 'react-native-worklets'
 
-const AnimatedScrollView = Animated.createAnimatedComponent(ScrollView);
+const AnimatedScrollView = Animated.createAnimatedComponent(ScrollView)
 
 const source = Skia.RuntimeEffect.Make(`
 uniform float sheetAnim;
@@ -54,90 +54,90 @@ vec4 main(vec2 pos) {
 
   vec4 color = mix(colorA, colorB, mixVal);
   return vec4(color);
-}`)!;
+}`)!
 
 const findTalk = (
   talkId: string | string[] | undefined,
-  { dayOne, dayTwo }: { dayOne: Session[]; dayTwo: Session[] },
+  { dayOne, dayTwo }: { dayOne: Session[]; dayTwo: Session[] }
 ) => {
-  const talkDay1 = dayOne.find((session) => session.id === talkId);
+  const talkDay1 = dayOne.find(session => session.id === talkId)
   if (talkDay1) {
-    return { talk: talkDay1, isDayOne: true };
+    return { talk: talkDay1, isDayOne: true }
   }
-  const talkDay2 = dayTwo.find((session) => session.id === talkId);
+  const talkDay2 = dayTwo.find(session => session.id === talkId)
   if (talkDay2) {
-    return { talk: talkDay2, isDayOne: false };
+    return { talk: talkDay2, isDayOne: false }
   }
 
-  return { talk: null, isDayOne: false };
-};
+  return { talk: null, isDayOne: false }
+}
 
 export default function TalkDetail() {
-  const params = useLocalSearchParams();
-  const talkId = params.talkId || undefined;
-  const { dayOne, dayTwo } = useReactConfStore((state) => state.schedule);
-  const shouldUseLocalTz = useReactConfStore((state) => state.shouldUseLocalTz);
-  const { width, height } = useWindowDimensions();
-  const drawerHeight = height * 0.8;
-  const highlightColor = useThemeColor(theme.color.reactBlue);
+  const params = useLocalSearchParams()
+  const talkId = params.talkId || undefined
+  const { dayOne, dayTwo } = useReactConfStore(state => state.schedule)
+  const shouldUseLocalTz = useReactConfStore(state => state.shouldUseLocalTz)
+  const { width, height } = useWindowDimensions()
+  const drawerHeight = height * 0.8
+  const highlightColor = useThemeColor(theme.color.reactBlue)
 
-  const router = useRouter();
+  const router = useRouter()
 
   const triggerHaptic = () => {
-    Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light);
-  };
+    Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light)
+  }
 
-  const overscrollAmount = useSharedValue(0);
+  const overscrollAmount = useSharedValue(0)
 
-  const { talk, isDayOne } = findTalk(talkId, { dayOne, dayTwo });
+  const { talk, isDayOne } = findTalk(talkId, { dayOne, dayTwo })
 
-  const insets = useSafeAreaInsets();
+  const insets = useSafeAreaInsets()
 
-  const sheetAnim = useSharedValue(0);
-  const hasTriggeredHaptic = useSharedValue(false);
+  const sheetAnim = useSharedValue(0)
+  const hasTriggeredHaptic = useSharedValue(false)
 
-  const scrollHandler = useAnimatedScrollHandler((event) => {
-    const { contentOffset, contentSize, layoutMeasurement } = event;
+  const scrollHandler = useAnimatedScrollHandler(event => {
+    const { contentOffset, contentSize, layoutMeasurement } = event
     const scrollPastBottom = Math.max(
       0,
-      contentOffset.y + layoutMeasurement.height - contentSize.height - 20,
-    );
-    overscrollAmount.value = scrollPastBottom;
-  });
+      contentOffset.y + layoutMeasurement.height - contentSize.height - 20
+    )
+    overscrollAmount.value = scrollPastBottom
+  })
 
   useAnimatedReaction(
     () => overscrollAmount.value,
-    (amount) => {
+    amount => {
       if (amount > 0 && !hasTriggeredHaptic.value) {
-        hasTriggeredHaptic.value = true;
-        scheduleOnRN(triggerHaptic);
+        hasTriggeredHaptic.value = true
+        scheduleOnRN(triggerHaptic)
       } else if (amount === 0) {
-        hasTriggeredHaptic.value = false;
+        hasTriggeredHaptic.value = false
       }
 
-      const normalizedAmount = Math.min(amount / 100, 1);
+      const normalizedAmount = Math.min(amount / 100, 1)
       sheetAnim.value = withTiming(normalizedAmount, {
         duration: 600,
-        easing: Easing.out(Easing.quad),
-      });
+        easing: Easing.out(Easing.quad)
+      })
     },
-    [],
-  );
+    []
+  )
 
   const uniforms = useDerivedValue(
     () => ({
       sheetAnim: sheetAnim.value,
-      size: vec(width, drawerHeight),
+      size: vec(width, drawerHeight)
     }),
-    [sheetAnim],
-  );
+    [sheetAnim]
+  )
 
   const opacityStyle = useAnimatedStyle(() => ({
-    opacity: sheetAnim.value * 0.4,
-  }));
+    opacity: sheetAnim.value * 0.4
+  }))
 
   if (!talk) {
-    return <NotFound message="Talk not found" />;
+    return <NotFound message="Talk not found" />
   }
 
   return (
@@ -149,19 +149,17 @@ export default function TalkDetail() {
               ios: (
                 <HeaderButton
                   buttonProps={{ onPress: router.back }}
-                  // eslint-disable-next-line react-native/no-inline-styles
-                  style={{ padding: osName === "iPadOS" ? 40 : 0 }}
+                  style={{ padding: osName === 'iPadOS' ? 40 : 0 }}
                 />
               ),
-              default: undefined,
+              default: undefined
             }),
           headerRight: () => (
             <Bookmark
               session={talk}
-              // eslint-disable-next-line react-native/no-inline-styles
-              style={{ padding: osName === "iPadOS" ? 40 : 0 }}
+              style={{ padding: osName === 'iPadOS' ? 40 : 0 }}
             />
-          ),
+          )
         }}
       />
 
@@ -173,14 +171,14 @@ export default function TalkDetail() {
             : theme.color.background
         }
       >
-        {isLiquidGlassAvailable() && osName !== "iPadOS" ? (
+        {isLiquidGlassAvailable() && osName !== 'iPadOS' ? (
           <View style={{ height: drawerHeight }}>
             <Animated.View style={[opacityStyle, styles.absolute]}>
               <Canvas
                 style={{
                   width: width,
                   height: drawerHeight,
-                  transform: [{ scale: 2 }],
+                  transform: [{ scale: 2 }]
                 }}
               >
                 <Fill>
@@ -211,9 +209,9 @@ export default function TalkDetail() {
               paddingBottom: insets.bottom + theme.space24,
               paddingTop: Platform.select({
                 ios: theme.space24,
-                default: undefined,
-              }),
-            },
+                default: undefined
+              })
+            }
           ]}
         >
           <View style={styles.header} collapsable={false}>
@@ -222,7 +220,7 @@ export default function TalkDetail() {
               fontSize={theme.fontSize32}
               style={[
                 styles.talkTitle,
-                { textDecorationColor: highlightColor },
+                { textDecorationColor: highlightColor }
               ]}
             >
               {talk?.title}
@@ -236,13 +234,13 @@ export default function TalkDetail() {
             }
             style={styles.content}
           >
-            {talk.speakers.map((speaker) => (
+            {talk.speakers.map(speaker => (
               <Link
                 push
                 key={speaker.id}
                 href={{
-                  pathname: "/speaker/[speaker]",
-                  params: { speaker: speaker.id },
+                  pathname: '/speaker/[speaker]',
+                  params: { speaker: speaker.id }
                 }}
                 asChild
               >
@@ -269,7 +267,7 @@ export default function TalkDetail() {
         </AnimatedScrollView>
       </ThemedView>
     </>
-  );
+  )
 }
 
 function SpeakerDetails({ speaker }: { speaker: Speaker }) {
@@ -289,12 +287,12 @@ function SpeakerDetails({ speaker }: { speaker: Speaker }) {
         </ThemedText>
       </View>
     </View>
-  );
+  )
 }
 
 function Section({ title, value }: { title: string; value: string | null }) {
   if (!value) {
-    return null;
+    return null
   }
 
   return (
@@ -310,44 +308,44 @@ function Section({ title, value }: { title: string; value: string | null }) {
         {value}
       </ThemedText>
     </View>
-  );
+  )
 }
 
 const styles = StyleSheet.create({
   absolute: {
-    position: "absolute",
+    position: 'absolute'
   },
   container: {
-    flex: 1,
+    flex: 1
   },
   content: {
     gap: theme.space8,
     paddingHorizontal: theme.space24,
-    paddingTop: theme.space16,
+    paddingTop: theme.space16
   },
   contentContainer: {
     borderBottomLeftRadius: theme.borderRadius20,
-    borderBottomRightRadius: theme.borderRadius20,
+    borderBottomRightRadius: theme.borderRadius20
   },
   header: {
     marginTop: Platform.select({ ios: 0, android: 30 }),
-    paddingHorizontal: theme.space24,
+    paddingHorizontal: theme.space24
   },
   sectionContainer: {
     gap: theme.space4,
-    marginBottom: theme.space24,
+    marginBottom: theme.space24
   },
   speaker: {
-    flexDirection: "row",
+    flexDirection: 'row',
     gap: theme.space8,
-    marginBottom: theme.space12,
+    marginBottom: theme.space12
   },
   speakerDetails: {
     flex: 1,
-    justifyContent: "center",
+    justifyContent: 'center'
   },
   talkTitle: {
     marginBottom: theme.space12,
-    textAlign: "center",
-  },
-});
+    textAlign: 'center'
+  }
+})

@@ -1,30 +1,30 @@
-import { Link, useRouter } from "expo-router";
-import { StyleSheet, useWindowDimensions, View } from "react-native";
+import { Link, useRouter } from 'expo-router'
+import { StyleSheet, useWindowDimensions, View } from 'react-native'
 
-import { Bookmark } from "./Bookmark";
-import { ThemedText, ThemedView } from "./Themed";
-import { theme } from "../theme";
-import { Session, Speaker } from "@/types";
-import { formatSessionTime } from "../utils/formatDate";
+import { Bookmark } from './Bookmark'
+import { ThemedText, ThemedView } from './Themed'
+import { theme } from '../theme'
+import { Session, Speaker } from '@/types'
+import { formatSessionTime } from '../utils/formatDate'
 
-import { useReactConfStore } from "@/store/reactConfStore";
-import { Gesture, GestureDetector } from "react-native-gesture-handler";
-import { SpeakerDetails } from "./SpeakerDetails";
-import { ConferenceDay } from "@/consts";
-import * as Haptics from "expo-haptics";
-import { useMemo } from "react";
-import Animated, { FadeIn, FadeOut } from "react-native-reanimated";
+import { useReactConfStore } from '@/store/reactConfStore'
+import { Gesture, GestureDetector } from 'react-native-gesture-handler'
+import { SpeakerDetails } from './SpeakerDetails'
+import { ConferenceDay } from '@/consts'
+import * as Haptics from 'expo-haptics'
+import { useMemo } from 'react'
+import Animated, { FadeIn, FadeOut } from 'react-native-reanimated'
 
 type Props = {
-  session: Session;
-  day: ConferenceDay;
-  isBookmarked?: boolean;
-};
+  session: Session
+  day: ConferenceDay
+  isBookmarked?: boolean
+}
 
 export function TalkCard({ session, day, isBookmarked = false }: Props) {
-  const shouldUseLocalTz = useReactConfStore((state) => state.shouldUseLocalTz);
-  const { width } = useWindowDimensions();
-  const router = useRouter();
+  const shouldUseLocalTz = useReactConfStore(state => state.shouldUseLocalTz)
+  const { width } = useWindowDimensions()
+  const router = useRouter()
 
   const gestureTalkTap = useMemo(
     () =>
@@ -32,26 +32,26 @@ export function TalkCard({ session, day, isBookmarked = false }: Props) {
         .maxDistance(10)
         .runOnJS(true)
         .onEnd(() => {
-          Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Medium);
+          Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Medium)
           router.push({
-            pathname: "/talk/[talk]",
-            params: { talk: session.id },
-          });
+            pathname: '/talk/[talk]',
+            params: { talk: session.id }
+          })
         }),
-    [router, session.id],
-  );
+    [router, session.id]
+  )
 
   const createSpeakerTapGesture = (speaker: Speaker) =>
     Gesture.Tap()
       .maxDistance(10)
       .runOnJS(true)
       .onEnd(() => {
-        Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light);
+        Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Light)
         router.push({
-          pathname: "/speaker/[speaker]",
-          params: { speaker: speaker.id },
-        });
-      });
+          pathname: '/speaker/[speaker]',
+          params: { speaker: speaker.id }
+        })
+      })
 
   return (
     <Animated.View entering={FadeIn} exiting={FadeOut}>
@@ -77,7 +77,7 @@ export function TalkCard({ session, day, isBookmarked = false }: Props) {
                 marginHorizontal: -theme.space16,
                 paddingHorizontal: theme.space16,
                 marginVertical: -theme.space8,
-                paddingVertical: theme.space8,
+                paddingVertical: theme.space8
               }}
             >
               <View style={styles.titleAndBookmark}>
@@ -103,7 +103,7 @@ export function TalkCard({ session, day, isBookmarked = false }: Props) {
                     fontWeight="medium"
                     color={theme.color.textSecondary}
                   >
-                    {day === ConferenceDay.One ? "Day 1" : "Day 2"}
+                    {day === ConferenceDay.One ? 'Day 1' : 'Day 2'}
                   </ThemedText>
                 </View>
               )}
@@ -111,15 +111,15 @@ export function TalkCard({ session, day, isBookmarked = false }: Props) {
             <View style={styles.bookmarkContainer}>
               <Bookmark session={session} size="small" />
             </View>
-            {session.speakers.map((speaker) => (
+            {session.speakers.map(speaker => (
               <GestureDetector
                 key={speaker.id}
                 gesture={createSpeakerTapGesture(speaker)}
               >
                 <Link
                   href={{
-                    pathname: "/speaker/[speaker]",
-                    params: { speaker: speaker.id },
+                    pathname: '/speaker/[speaker]',
+                    params: { speaker: speaker.id }
                   }}
                   asChild
                 >
@@ -130,7 +130,7 @@ export function TalkCard({ session, day, isBookmarked = false }: Props) {
                         paddingHorizontal: theme.space16,
                         marginVertical: -theme.space8,
                         paddingVertical: theme.space8,
-                        borderRadius: theme.borderRadius32,
+                        borderRadius: theme.borderRadius32
                       }}
                     >
                       <SpeakerDetails speaker={speaker} />
@@ -144,41 +144,41 @@ export function TalkCard({ session, day, isBookmarked = false }: Props) {
         </ThemedView>
       </GestureDetector>
     </Animated.View>
-  );
+  )
 }
 
 const styles = StyleSheet.create({
   bookmarkContainer: {
-    position: "absolute",
+    position: 'absolute',
     right: theme.space24,
-    top: theme.space24,
+    top: theme.space24
   },
   container: {
     borderRadius: theme.borderRadius10,
     marginBottom: theme.space24,
-    marginHorizontal: theme.space16,
+    marginHorizontal: theme.space16
   },
   content: {
     borderRadius: theme.borderRadius32,
     gap: theme.space24,
-    padding: theme.space24,
+    padding: theme.space24
   },
   preview: {
-    height: 420,
+    height: 420
   },
   time: {
     borderRadius: theme.borderRadius10,
-    flexDirection: "row",
-    gap: theme.space8,
+    flexDirection: 'row',
+    gap: theme.space8
   },
   title: {
     flex: 1,
-    marginRight: 40,
+    marginRight: 40
   },
   titleAndBookmark: {
-    alignItems: "center",
-    flexDirection: "row",
+    alignItems: 'center',
+    flexDirection: 'row',
     gap: theme.space8,
-    justifyContent: "space-between",
-  },
-});
+    justifyContent: 'space-between'
+  }
+})

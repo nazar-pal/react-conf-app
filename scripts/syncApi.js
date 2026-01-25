@@ -1,22 +1,22 @@
-const fs = require("node:fs");
+const fs = require('node:fs')
 
 async function fetchAndSync(url, filePath) {
-  const result = await fetch(url);
-  const data = await result.json();
+  const result = await fetch(url)
+  const data = await result.json()
 
-  fs.writeFile(filePath, JSON.stringify(data, null, "  "), (err) => {
+  fs.writeFile(filePath, JSON.stringify(data, null, '  '), err => {
     if (err) {
-      console.info(`❌ error updating ${filePath}`);
-      console.error(err);
+      console.info(`❌ error updating ${filePath}`)
+      console.error(err)
     } else {
-      console.info(`✅ ${filePath} updated`);
+      console.info(`✅ ${filePath} updated`)
     }
-  });
+  })
 }
 
-(async () => {
+;(async () => {
   await fetchAndSync(
-    "https://sessionize.com/api/v2/7l5wob2t/view/All",
-    "./src/data/allSessions.json",
-  );
-})();
+    'https://sessionize.com/api/v2/7l5wob2t/view/All',
+    './src/data/allSessions.json'
+  )
+})()

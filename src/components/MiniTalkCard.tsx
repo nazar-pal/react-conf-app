@@ -1,46 +1,42 @@
-import { Link } from "expo-router";
-import { StyleSheet, View } from "react-native";
-import { Pressable } from "react-native-gesture-handler";
+import { Link } from 'expo-router'
+import { StyleSheet, View } from 'react-native'
+import { Pressable } from 'react-native-gesture-handler'
 
-import { ThemedText, ThemedView, useThemeColor } from "./Themed";
+import { ThemedText, ThemedView, useThemeColor } from './Themed'
 
-import { useReactConfStore } from "@/store/reactConfStore";
-import { theme } from "@/theme";
-import { formatSessionTime } from "@/utils/formatDate";
-import { Bookmark } from "./Bookmark";
+import { useReactConfStore } from '@/store/reactConfStore'
+import { theme } from '@/theme'
+import { formatSessionTime } from '@/utils/formatDate'
+import { Bookmark } from './Bookmark'
 
 export function MiniTalkCard({ sessionId }: { sessionId: string | number }) {
-  const shouldUseLocalTz = useReactConfStore((state) => state.shouldUseLocalTz);
-  const { dayOne, dayTwo } = useReactConfStore((state) => state.schedule);
-  const backgroundColor = useThemeColor(theme.color.backgroundSecondary);
-  const textSecondaryColor = useThemeColor(theme.color.textSecondary);
+  const shouldUseLocalTz = useReactConfStore(state => state.shouldUseLocalTz)
+  const { dayOne, dayTwo } = useReactConfStore(state => state.schedule)
+  const backgroundColor = useThemeColor(theme.color.backgroundSecondary)
+  const textSecondaryColor = useThemeColor(theme.color.textSecondary)
 
   const { talk, isDayOne } = (() => {
-    const dayOneTalk = dayOne.find(
-      (session) => session.id === String(sessionId),
-    );
+    const dayOneTalk = dayOne.find(session => session.id === String(sessionId))
     if (dayOneTalk) {
-      return { talk: dayOneTalk, isDayOne: true };
+      return { talk: dayOneTalk, isDayOne: true }
     }
-    const dayTwoTalk = dayTwo.find(
-      (session) => session.id === String(sessionId),
-    );
+    const dayTwoTalk = dayTwo.find(session => session.id === String(sessionId))
     if (dayTwoTalk) {
-      return { talk: dayTwoTalk, isDayOne: false };
+      return { talk: dayTwoTalk, isDayOne: false }
     }
-    return { talk: null, isDayOne: null };
-  })();
+    return { talk: null, isDayOne: null }
+  })()
 
   if (!talk) {
-    return null;
+    return null
   }
 
   return (
     <Link
       push
       href={{
-        pathname: "/talk/[speaker]",
-        params: { speaker: talk.id },
+        pathname: '/talk/[speaker]',
+        params: { speaker: talk.id }
       }}
       asChild
     >
@@ -57,27 +53,27 @@ export function MiniTalkCard({ sessionId }: { sessionId: string | number }) {
               style={{ marginBottom: theme.space8 }}
             >
               {formatSessionTime(talk, shouldUseLocalTz)}
-              {` `}({isDayOne ? "Day 1" : "Day 2"})
+              {` `}({isDayOne ? 'Day 1' : 'Day 2'})
             </ThemedText>
           </View>
           <Bookmark session={talk} size="small" />
         </ThemedView>
       </Pressable>
     </Link>
-  );
+  )
 }
 
 const styles = StyleSheet.create({
   container: {
-    alignItems: "center",
+    alignItems: 'center',
     borderRadius: theme.borderRadius10,
-    flexDirection: "row",
-    justifyContent: "space-between",
+    flexDirection: 'row',
+    justifyContent: 'space-between',
     marginBottom: theme.space24,
-    padding: theme.space24,
+    padding: theme.space24
   },
   containerInner: {
     flexShrink: 1,
-    gap: theme.space4,
-  },
-});
+    gap: theme.space4
+  }
+})

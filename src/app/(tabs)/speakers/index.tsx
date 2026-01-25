@@ -1,49 +1,49 @@
-import React, { useCallback } from "react";
+import React, { useCallback } from 'react'
 import {
   Keyboard,
   Platform,
   Pressable,
   StyleSheet,
-  useWindowDimensions,
-} from "react-native";
+  useWindowDimensions
+} from 'react-native'
 
-import { NotFound } from "@/components/NotFound";
+import { NotFound } from '@/components/NotFound'
 
-import { ThemedText, ThemedView, useThemeColor } from "@/components/Themed";
-import { useReactConfStore } from "@/store/reactConfStore";
-import { theme } from "@/theme";
-import { Link, useLocalSearchParams } from "expo-router";
-import { SpeakerDetails } from "@/components/SpeakerDetails";
-import { useBookmark } from "@/hooks/useBookmark";
-import { Speaker } from "@/types";
-import { useSafeAreaInsets } from "react-native-safe-area-context";
+import { ThemedText, ThemedView, useThemeColor } from '@/components/Themed'
+import { useReactConfStore } from '@/store/reactConfStore'
+import { theme } from '@/theme'
+import { Link, useLocalSearchParams } from 'expo-router'
+import { SpeakerDetails } from '@/components/SpeakerDetails'
+import { useBookmark } from '@/hooks/useBookmark'
+import { Speaker } from '@/types'
+import { useSafeAreaInsets } from 'react-native-safe-area-context'
 import Animated, {
   FadeIn,
   FadeOut,
-  LinearTransition,
-} from "react-native-reanimated";
+  LinearTransition
+} from 'react-native-reanimated'
 
 export default function Speakers() {
-  const speakers = useReactConfStore((state) => state.allSessions.speakers);
-  const { width, height } = useWindowDimensions();
-  const { bottom, top } = useSafeAreaInsets();
-  const { toggleBookmarkById, isBookmarked, getSessionById } = useBookmark();
-  const backgroundColor = useThemeColor(theme.color.background);
+  const speakers = useReactConfStore(state => state.allSessions.speakers)
+  const { width, height } = useWindowDimensions()
+  const { bottom, top } = useSafeAreaInsets()
+  const { toggleBookmarkById, isBookmarked, getSessionById } = useBookmark()
+  const backgroundColor = useThemeColor(theme.color.background)
 
-  const params = useLocalSearchParams<{ q?: string }>();
+  const params = useLocalSearchParams<{ q?: string }>()
 
-  const searchText = params?.q?.toLowerCase() || "";
+  const searchText = params?.q?.toLowerCase() || ''
 
-  const filteredSpeakers = speakers.filter((speaker) => {
+  const filteredSpeakers = speakers.filter(speaker => {
     if (!searchText) {
-      return true;
+      return true
     }
-    return speaker.fullName.toLowerCase().includes(searchText);
-  });
+    return speaker.fullName.toLowerCase().includes(searchText)
+  })
 
   const dismissKeyboard = () => {
-    Keyboard.dismiss();
-  };
+    Keyboard.dismiss()
+  }
 
   const renderItem = useCallback(
     ({ item }: { item: Speaker }) => {
@@ -53,8 +53,8 @@ export default function Speakers() {
             push
             key={item.id}
             href={{
-              pathname: "/speaker/[speaker]",
-              params: { speaker: item.id },
+              pathname: '/speaker/[speaker]',
+              params: { speaker: item.id }
             }}
             asChild
           >
@@ -71,36 +71,36 @@ export default function Speakers() {
             <Link.Preview style={{ ...styles.preview, width: width }} />
             <Link.Menu title={`Talks by ${item.fullName}`}>
               {item.sessions
-                .map((sessionId) => {
-                  const sessionIdStr = sessionId.toString();
-                  const session = getSessionById(sessionIdStr);
-                  const bookmarked = isBookmarked(sessionIdStr);
+                .map(sessionId => {
+                  const sessionIdStr = sessionId.toString()
+                  const session = getSessionById(sessionIdStr)
+                  const bookmarked = isBookmarked(sessionIdStr)
 
-                  if (!session) return null;
+                  if (!session) return null
 
                   return (
                     <Link.MenuAction
                       key={sessionIdStr}
                       title={session.title}
-                      icon={bookmarked ? "bookmark.fill" : "bookmark"}
+                      icon={bookmarked ? 'bookmark.fill' : 'bookmark'}
                       isOn={bookmarked}
                       onPress={() => toggleBookmarkById(sessionIdStr)}
                     />
-                  );
+                  )
                 })
                 .filter(
-                  (item): item is NonNullable<typeof item> => item !== null,
+                  (item): item is NonNullable<typeof item> => item !== null
                 )}
             </Link.Menu>
           </Link>
         </Animated.View>
-      );
+      )
     },
-    [width, getSessionById, isBookmarked, toggleBookmarkById],
-  );
+    [width, getSessionById, isBookmarked, toggleBookmarkById]
+  )
 
   if (!speakers.length) {
-    return <NotFound message="Speakers unavailable" />;
+    return <NotFound message="Speakers unavailable" />
   }
 
   return (
@@ -113,9 +113,9 @@ export default function Speakers() {
       contentContainerStyle={[
         styles.contentContainer,
         {
-          paddingBottom: Platform.select({ android: 100 + bottom, default: 0 }),
+          paddingBottom: Platform.select({ android: 100 + bottom, default: 0 })
         },
-        { minHeight: height - (bottom + top + 130) },
+        { minHeight: height - (bottom + top + 130) }
       ]}
       ItemSeparatorComponent={() => (
         <ThemedView style={styles.separator} color={theme.color.border} />
@@ -123,36 +123,36 @@ export default function Speakers() {
       extraData={isBookmarked || searchText}
       renderItem={renderItem}
       data={filteredSpeakers}
-      keyExtractor={(item) => item.id}
+      keyExtractor={item => item.id}
       itemLayoutAnimation={LinearTransition}
       ListEmptyComponent={
         <Animated.View entering={FadeIn} exiting={FadeOut}>
           <ThemedView style={styles.noResultsContainer}>
             <ThemedText>
-              No results found for{" "}
+              No results found for{' '}
               <ThemedText fontWeight="bold">{searchText}</ThemedText>
             </ThemedText>
           </ThemedView>
         </Animated.View>
       }
     />
-  );
+  )
 }
 
 export const styles = StyleSheet.create({
   contentContainer: {
-    paddingHorizontal: theme.space16,
+    paddingHorizontal: theme.space16
   },
   noResultsContainer: {
-    padding: theme.space24,
+    padding: theme.space24
   },
   preview: {
-    height: 420,
+    height: 420
   },
   separator: {
-    height: 1,
+    height: 1
   },
   speakerContainer: {
-    paddingVertical: theme.space16,
-  },
-});
+    paddingVertical: theme.space16
+  }
+})

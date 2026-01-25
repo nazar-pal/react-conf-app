@@ -1,40 +1,40 @@
-import { Canvas, Fill, Shader, Skia, vec } from "@shopify/react-native-skia";
-import { useEffect } from "react";
+import { Canvas, Fill, Shader, Skia, vec } from '@shopify/react-native-skia'
+import { useEffect } from 'react'
 import {
   Easing,
   useDerivedValue,
   useSharedValue,
   withRepeat,
-  withTiming,
-} from "react-native-reanimated";
+  withTiming
+} from 'react-native-reanimated'
 
-const CONTAINER_SIZE = 260;
+const CONTAINER_SIZE = 260
 
 export function HolographicGradient() {
-  const sheetAnim = useSharedValue(0);
-  const time = useSharedValue(0);
+  const sheetAnim = useSharedValue(0)
+  const time = useSharedValue(0)
 
   useEffect(() => {
     time.value = withRepeat(
       withTiming(1000, { duration: 1000000, easing: Easing.linear }),
-      -1,
-    );
+      -1
+    )
 
     sheetAnim.value = withRepeat(
       withTiming(1, { duration: 8000, easing: Easing.inOut(Easing.sin) }),
       -1,
-      true,
-    );
-  }, [time, sheetAnim]);
+      true
+    )
+  }, [time, sheetAnim])
 
   const uniforms = useDerivedValue(
     () => ({
       time: time.value,
       sheetAnim: sheetAnim.value,
-      size: vec(CONTAINER_SIZE, CONTAINER_SIZE),
+      size: vec(CONTAINER_SIZE, CONTAINER_SIZE)
     }),
-    [time, sheetAnim],
-  );
+    [time, sheetAnim]
+  )
 
   return (
     <Canvas style={{ width: CONTAINER_SIZE, height: CONTAINER_SIZE }}>
@@ -42,7 +42,7 @@ export function HolographicGradient() {
         <Shader source={HOLO_SOURCE} uniforms={uniforms} />
       </Fill>
     </Canvas>
-  );
+  )
 }
 
 const HOLO_SOURCE = Skia.RuntimeEffect.Make(`
@@ -143,4 +143,4 @@ const HOLO_SOURCE = Skia.RuntimeEffect.Make(`
   
     return vec4(baseColor, alpha);
   }
-  `)!;
+  `)!

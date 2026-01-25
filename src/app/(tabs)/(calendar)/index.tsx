@@ -1,101 +1,101 @@
-import { useScrollToTop } from "@react-navigation/native";
-import { Stack, useFocusEffect } from "expo-router";
-import React, { useCallback, useMemo, useRef, useState } from "react";
-import { Platform, RefreshControl } from "react-native";
-import { FlatList } from "react-native-gesture-handler";
+import { useScrollToTop } from '@react-navigation/native'
+import { Stack, useFocusEffect } from 'expo-router'
+import React, { useCallback, useMemo, useRef, useState } from 'react'
+import { Platform, RefreshControl } from 'react-native'
+import { FlatList } from 'react-native-gesture-handler'
 import Animated, {
   useAnimatedScrollHandler,
   useAnimatedStyle,
   useSharedValue,
   interpolate,
-  Extrapolation,
-} from "react-native-reanimated";
+  Extrapolation
+} from 'react-native-reanimated'
 
-import { ActivityCard } from "@/components/ActivityCard";
-import { NotFound } from "@/components/NotFound";
-import { TalkCard } from "@/components/TalkCard";
-import { ConferenceDay } from "@/consts";
-import { useReactConfStore } from "@/store/reactConfStore";
-import { DayPicker } from "@/components/DayPicker";
-import { useThemeColor } from "@/components/Themed";
-import { theme } from "@/theme";
-import { Session } from "@/types";
-import { isLiquidGlassAvailable } from "expo-glass-effect";
-import { getInitialDay } from "@/utils/formatDate";
-import { useSafeAreaInsets } from "react-native-safe-area-context";
+import { ActivityCard } from '@/components/ActivityCard'
+import { NotFound } from '@/components/NotFound'
+import { TalkCard } from '@/components/TalkCard'
+import { ConferenceDay } from '@/consts'
+import { useReactConfStore } from '@/store/reactConfStore'
+import { DayPicker } from '@/components/DayPicker'
+import { useThemeColor } from '@/components/Themed'
+import { theme } from '@/theme'
+import { Session } from '@/types'
+import { isLiquidGlassAvailable } from 'expo-glass-effect'
+import { getInitialDay } from '@/utils/formatDate'
+import { useSafeAreaInsets } from 'react-native-safe-area-context'
 import {
   CurrentlyLive,
-  type CurrentlyLiveSession,
-} from "@/components/CurrentlyLive";
+  type CurrentlyLiveSession
+} from '@/components/CurrentlyLive'
 
-const AnimatedFlatList = Animated.FlatList;
+const AnimatedFlatList = Animated.FlatList
 
-const HEADER_SCROLL_OFFSET = isLiquidGlassAvailable() ? 110 : 90;
+const HEADER_SCROLL_OFFSET = isLiquidGlassAvailable() ? 110 : 90
 
 export default function Schedule() {
-  const [selectedDay, setSelectedDay] = useState(getInitialDay());
-  const scrollRef = useRef<FlatList>(null);
-  useScrollToTop(scrollRef as any);
-  const backgroundColor = useThemeColor(theme.color.background);
-  const isLiquidGlass = isLiquidGlassAvailable();
-  const [isRefreshing, setIsRefreshing] = useState(false);
-  const insets = useSafeAreaInsets();
-  const animatedTranslateY = useSharedValue(0);
-  const isScrolledDown = useSharedValue(false);
+  const [selectedDay, setSelectedDay] = useState(getInitialDay())
+  const scrollRef = useRef<FlatList>(null)
+  useScrollToTop(scrollRef as any)
+  const backgroundColor = useThemeColor(theme.color.background)
+  const isLiquidGlass = isLiquidGlassAvailable()
+  const [isRefreshing, setIsRefreshing] = useState(false)
+  const insets = useSafeAreaInsets()
+  const animatedTranslateY = useSharedValue(0)
+  const isScrolledDown = useSharedValue(false)
 
-  const scrollHandler = useAnimatedScrollHandler((event) => {
+  const scrollHandler = useAnimatedScrollHandler(event => {
     animatedTranslateY.value = interpolate(
       event.contentOffset.y,
       [-HEADER_SCROLL_OFFSET, 0],
       [0, HEADER_SCROLL_OFFSET],
-      Extrapolation.CLAMP,
-    );
+      Extrapolation.CLAMP
+    )
 
-    isScrolledDown.value = event.contentOffset.y > 10;
-  });
+    isScrolledDown.value = event.contentOffset.y > 10
+  })
 
   const stickyHeaderStyle = useAnimatedStyle(() => {
-    if (Platform.OS !== "ios") {
-      return {};
+    if (Platform.OS !== 'ios') {
+      return {}
     }
 
     return {
       transform: [{ translateY: animatedTranslateY.value }],
-      backgroundColor: isLiquidGlass ? "transparent" : backgroundColor,
-    };
-  });
+      backgroundColor: isLiquidGlass ? 'transparent' : backgroundColor
+    }
+  })
 
   const renderItem = useCallback(
     ({ item }: { item: Session }) => {
       if (item.isServiceSession) {
-        return <ActivityCard session={item} />;
+        return <ActivityCard session={item} />
       } else {
-        return <TalkCard key={item.id} session={item} day={selectedDay} />;
+        return <TalkCard key={item.id} session={item} day={selectedDay} />
       }
     },
-    [selectedDay],
-  );
+    [selectedDay]
+  )
 
-  const { dayOne, dayTwo } = useReactConfStore((state) => state.schedule);
-  const refreshSchedule = useReactConfStore((state) => state.refreshData);
-  const data = selectedDay === ConferenceDay.One ? dayOne : dayTwo;
+  const { dayOne, dayTwo } = useReactConfStore(state => state.schedule)
+  const refreshSchedule = useReactConfStore(state => state.refreshData)
+  const data = selectedDay === ConferenceDay.One ? dayOne : dayTwo
 
   useFocusEffect(() => {
-    refreshSchedule({ ttlMs: 60_000 });
-  });
+    refreshSchedule({ ttlMs: 60_000 })
+  })
 
   const handleSelectDay = useCallback(
     (day: ConferenceDay) => {
-      setSelectedDay(day);
+      setSelectedDay(day)
       if (isScrolledDown.value) {
         scrollRef.current?.scrollToOffset({
           offset: -30 - insets.top,
-          animated: true,
-        });
+          animated: true
+        })
       }
     },
-    [insets.top, isScrolledDown],
-  );
+    [insets.top, isScrolledDown]
+  )
 
   const renderStickyHeader = useMemo(
     () => (
@@ -103,24 +103,24 @@ export default function Schedule() {
         <DayPicker selectedDay={selectedDay} onSelectDay={handleSelectDay} />
       </Animated.View>
     ),
-    [handleSelectDay, selectedDay, stickyHeaderStyle],
-  );
+    [handleSelectDay, selectedDay, stickyHeaderStyle]
+  )
 
   if (!dayOne.length || !dayTwo.length) {
-    return <NotFound message="Schedule unavailable" />;
+    return <NotFound message="Schedule unavailable" />
   }
 
   const handleRefreshSchedule = async () => {
-    setIsRefreshing(true);
+    setIsRefreshing(true)
     await Promise.all([
-      new Promise((resolve) => setTimeout(resolve, 1000)),
-      refreshSchedule(),
-    ]);
-    setIsRefreshing(false);
-  };
+      new Promise(resolve => setTimeout(resolve, 1000)),
+      refreshSchedule()
+    ])
+    setIsRefreshing(false)
+  }
 
   const handleScrollToSession = (currentlyLive: CurrentlyLiveSession) => {
-    setSelectedDay(currentlyLive.day);
+    setSelectedDay(currentlyLive.day)
     setTimeout(() => {
       scrollRef.current?.scrollToIndex({
         index: currentlyLive.sessionIndex,
@@ -133,11 +133,11 @@ export default function Schedule() {
               : 87
             : isScrolledDown.value
               ? 125
-              : 120,
-        }),
-      });
-    }, 200);
-  };
+              : 120
+        })
+      })
+    }, 200)
+  }
 
   return (
     <>
@@ -145,7 +145,7 @@ export default function Schedule() {
         options={{
           headerTitle: () => (
             <CurrentlyLive scrollToSession={handleScrollToSession} />
-          ),
+          )
         }}
       />
       <AnimatedFlatList
@@ -160,8 +160,8 @@ export default function Schedule() {
         contentContainerStyle={{
           paddingBottom: Platform.select({
             android: 100 + insets.bottom,
-            default: 0,
-          }),
+            default: 0
+          })
         }}
         contentInsetAdjustmentBehavior="automatic"
         scrollToOverflowEnabled
@@ -173,5 +173,5 @@ export default function Schedule() {
         renderItem={renderItem}
       />
     </>
-  );
+  )
 }

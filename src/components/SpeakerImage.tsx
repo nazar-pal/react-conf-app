@@ -1,58 +1,58 @@
-import { Image } from "expo-image";
-import { StyleSheet, View, ViewStyle } from "react-native";
-import { useState } from "react";
+import { Image } from 'expo-image'
+import { StyleSheet, View, ViewStyle } from 'react-native'
+import { useState } from 'react'
 
-import { theme } from "@/theme";
-import { ThemedView, useThemeColor } from "./Themed";
+import { theme } from '@/theme'
+import { ThemedView, useThemeColor } from './Themed'
 
 export function SpeakerImage({
   profilePicture,
   size,
   style,
-  animated,
+  animated
 }: {
-  profilePicture?: string | null;
-  size?: "small" | "medium" | "large" | "xlarge";
-  style?: ViewStyle;
-  animated?: boolean;
+  profilePicture?: string | null
+  size?: 'small' | 'medium' | 'large' | 'xlarge'
+  style?: ViewStyle
+  animated?: boolean
 }) {
-  const borderColor = useThemeColor(theme.color.border);
-  const [isLoading, setIsLoading] = useState(false);
+  const borderColor = useThemeColor(theme.color.border)
+  const [isLoading, setIsLoading] = useState(false)
   const imageSize = (() => {
     switch (size) {
-      case "small":
-        return styles.imageSizeSmall;
-      case "large":
-        return styles.imageSizeLarge;
-      case "xlarge":
-        return styles.imageSizeExtraLarge;
-      case "medium":
+      case 'small':
+        return styles.imageSizeSmall
+      case 'large':
+        return styles.imageSizeLarge
+      case 'xlarge':
+        return styles.imageSizeExtraLarge
+      case 'medium':
       default:
-        return styles.imageSizeMedium;
+        return styles.imageSizeMedium
     }
-  })();
-  const imageStyles = [styles.profileImage, imageSize];
+  })()
+  const imageStyles = [styles.profileImage, imageSize]
 
   const reactLogoSize = (() => {
     switch (size) {
-      case "large":
-        return styles.reactLogoSizeLarge;
-      case "xlarge":
-        return styles.reactLogoSizeExtraLarge;
-      case "medium":
+      case 'large':
+        return styles.reactLogoSizeLarge
+      case 'xlarge':
+        return styles.reactLogoSizeExtraLarge
+      case 'medium':
       default:
-        return styles.reactLogoSizeMedium;
+        return styles.reactLogoSizeMedium
     }
-  })();
+  })()
 
   const placeholder = (
     <View style={[imageStyles, styles.fallbackImage]}>
       <Image
-        source={require("@/assets/images/reactlogo-white.png")}
+        source={require('@/assets/images/reactlogo-white.png')}
         style={reactLogoSize}
       />
     </View>
-  );
+  )
 
   return (
     <ThemedView
@@ -72,52 +72,52 @@ export function SpeakerImage({
         placeholder
       )}
     </ThemedView>
-  );
+  )
 }
 
 const styles = StyleSheet.create({
   fallbackImage: {
-    alignItems: "center",
+    alignItems: 'center',
     backgroundColor: theme.color.reactBlue.dark,
-    justifyContent: "center",
+    justifyContent: 'center'
   },
   imageContainer: {
     borderRadius: 100,
     borderWidth: 1,
     marginRight: theme.space12,
-    overflow: "hidden",
+    overflow: 'hidden'
   },
   imageSizeExtraLarge: {
     height: 200,
-    width: 200,
+    width: 200
   },
   imageSizeLarge: {
     height: 96,
-    width: 96,
+    width: 96
   },
   imageSizeMedium: {
     height: 60,
-    width: 60,
+    width: 60
   },
   imageSizeSmall: {
     height: 42,
-    width: 42,
+    width: 42
   },
   profileImage: {
     height: 70,
     width: 50,
-    ...StyleSheet.absoluteFillObject,
+    ...StyleSheet.absoluteFillObject
   },
   reactLogoSizeExtraLarge: {
     height: 100,
-    width: 100,
+    width: 100
   },
   reactLogoSizeLarge: {
     height: 50,
-    width: 50,
+    width: 50
   },
   reactLogoSizeMedium: {
     height: 30,
-    width: 30,
-  },
-});
+    width: 30
+  }
+})

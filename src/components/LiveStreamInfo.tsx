@@ -1,19 +1,19 @@
-import { Button } from "./Button";
-import { ThemedText, ThemedView, useThemeColor } from "./Themed";
-import openWebBrowserAsync from "@/utils/openWebBrowserAsync";
-import { StyleSheet, View } from "react-native";
+import { Button } from './Button'
+import { ThemedText, ThemedView, useThemeColor } from './Themed'
+import openWebBrowserAsync from '@/utils/openWebBrowserAsync'
+import { StyleSheet, View } from 'react-native'
 
-import { theme } from "@/theme";
+import { theme } from '@/theme'
 
 export function LiveStreamInfo() {
   const handlePress = () => {
-    openWebBrowserAsync("https://conf.react.dev/#newsletter");
-  };
+    openWebBrowserAsync('https://conf.react.dev/#newsletter')
+  }
 
   const borderColor = useThemeColor({
     light: theme.color.textSecondary.light,
-    dark: theme.colorWhite,
-  });
+    dark: theme.colorWhite
+  })
   return (
     <ThemedView style={styles.container} color={theme.color.backgroundElement}>
       <View style={[styles.liveStreamContainer, { borderColor }]}>
@@ -25,7 +25,7 @@ export function LiveStreamInfo() {
           fontSize={theme.fontSize14}
           color={{
             light: theme.color.textSecondary.light,
-            dark: theme.colorWhite,
+            dark: theme.colorWhite
           }}
         >
           Live Stream
@@ -34,7 +34,7 @@ export function LiveStreamInfo() {
       <ThemedText
         color={{
           light: theme.color.textSecondary.light,
-          dark: theme.colorWhite,
+          dark: theme.colorWhite
         }}
         style={styles.text}
       >
@@ -43,35 +43,35 @@ export function LiveStreamInfo() {
       </ThemedText>
       <Button onPress={handlePress} title="Sign up" />
     </ThemedView>
-  );
+  )
 }
 
 const styles = StyleSheet.create({
   container: {
-    alignItems: "center",
+    alignItems: 'center',
     borderRadius: theme.borderRadius32,
     marginBottom: theme.space16,
     marginHorizontal: theme.space16,
-    padding: theme.space24,
+    padding: theme.space24
   },
   liveStreamContainer: {
-    alignItems: "center",
+    alignItems: 'center',
     borderRadius: theme.borderRadius32,
     borderWidth: 2,
-    flexDirection: "row",
+    flexDirection: 'row',
     gap: theme.space8,
-    justifyContent: "center",
+    justifyContent: 'center',
     marginBottom: theme.space16,
     paddingHorizontal: theme.space8,
-    paddingVertical: theme.space4,
+    paddingVertical: theme.space4
   },
   liveStreamDot: {
     borderRadius: theme.borderRadius32,
     height: 8,
-    width: 8,
+    width: 8
   },
   text: {
     marginBottom: theme.space24,
-    textAlign: "center",
-  },
-});
+    textAlign: 'center'
+  }
+})

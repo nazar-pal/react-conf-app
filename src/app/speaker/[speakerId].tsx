@@ -1,57 +1,56 @@
-import Feather from "@expo/vector-icons/build/Feather";
-import Ionicons from "@expo/vector-icons/build/Ionicons";
-import { Image } from "expo-image";
+import openWebBrowserAsync from '@/utils/openWebBrowserAsync'
+import Feather from '@expo/vector-icons/build/Feather'
+import Ionicons from '@expo/vector-icons/build/Ionicons'
+import { Image } from 'expo-image'
 import {
-  useLocalSearchParams,
   Stack,
   useIsPreview,
-  useRouter,
-} from "expo-router";
-import { Platform, StyleSheet, View } from "react-native";
-import openWebBrowserAsync from "@/utils/openWebBrowserAsync";
-import { ScrollView } from "react-native-gesture-handler";
+  useLocalSearchParams,
+  useRouter
+} from 'expo-router'
+import { Platform, StyleSheet, View } from 'react-native'
+import { ScrollView } from 'react-native-gesture-handler'
 
-import { IconButton } from "@/components/IconButton";
-import { MiniTalkCard } from "@/components/MiniTalkCard";
-import { NotFound } from "@/components/NotFound";
-import { SpeakerImage } from "@/components/SpeakerImage";
-import { ThemedText, ThemedView, useThemeColor } from "@/components/Themed";
-import { useReactConfStore } from "@/store/reactConfStore";
-import { theme } from "@/theme";
-import { Speaker } from "@/types";
-import { HeaderButton } from "@/components/HeaderButtons/HeaderButton";
-import { osName } from "expo-device";
+import { HeaderButton } from '@/components/HeaderButtons/HeaderButton'
+import { IconButton } from '@/components/IconButton'
+import { MiniTalkCard } from '@/components/MiniTalkCard'
+import { NotFound } from '@/components/NotFound'
+import { SpeakerImage } from '@/components/SpeakerImage'
+import { ThemedText, ThemedView, useThemeColor } from '@/components/Themed'
+import { useReactConfStore } from '@/store/reactConfStore'
+import { theme } from '@/theme'
+import { Speaker } from '@/types'
+import { osName } from 'expo-device'
 
 export default function SpeakerDetail() {
-  const params = useLocalSearchParams();
-  const speakers = useReactConfStore((state) => state.allSessions.speakers);
-  const speaker = speakers.find((speaker) => speaker.id === params.speakerId);
-  const isPreview = useIsPreview();
-  const router = useRouter();
+  const params = useLocalSearchParams()
+  const speakers = useReactConfStore(state => state.allSessions.speakers)
+  const speaker = speakers.find(speaker => speaker.id === params.speakerId)
+  const isPreview = useIsPreview()
+  const router = useRouter()
 
-  const secondaryColor = useThemeColor(theme.color.textSecondary);
-  const borderColor = useThemeColor(theme.color.border);
+  const secondaryColor = useThemeColor(theme.color.textSecondary)
+  const borderColor = useThemeColor(theme.color.border)
   const backgroundColorSecondary = useThemeColor(
-    theme.color.backgroundSecondary,
-  );
+    theme.color.backgroundSecondary
+  )
 
   return (
     <>
       {!isPreview ? (
         <Stack.Screen
           options={{
-            title: "",
+            title: '',
             headerLeft: () =>
               Platform.select({
                 ios: (
                   <HeaderButton
                     buttonProps={{ onPress: router.back }}
-                    // eslint-disable-next-line react-native/no-inline-styles
-                    style={{ padding: osName === "iPadOS" ? 40 : 0 }}
+                    style={{ padding: osName === 'iPadOS' ? 40 : 0 }}
                   />
                 ),
-                default: undefined,
-              }),
+                default: undefined
+              })
           }}
         />
       ) : null}
@@ -61,7 +60,7 @@ export default function SpeakerDetail() {
           light: theme.color.background.light,
           dark: isPreview
             ? backgroundColorSecondary
-            : theme.color.background.dark,
+            : theme.color.background.dark
         }}
       >
         {speaker ? (
@@ -102,13 +101,13 @@ export default function SpeakerDetail() {
                 fontWeight="medium"
                 style={{
                   marginBottom: theme.space24,
-                  lineHeight: theme.fontSize18 * 1.5,
+                  lineHeight: theme.fontSize18 * 1.5
                 }}
               >
                 {speaker.bio}
               </ThemedText>
             ) : null}
-            {speaker.sessions.map((sessionId) => (
+            {speaker.sessions.map(sessionId => (
               <MiniTalkCard sessionId={sessionId} key={sessionId} />
             ))}
           </ScrollView>
@@ -117,38 +116,38 @@ export default function SpeakerDetail() {
         )}
       </ThemedView>
     </>
-  );
+  )
 }
 
 function Socials({ speaker }: { speaker: Speaker }) {
   const iconColor = useThemeColor({
     light: theme.colorBlack,
-    dark: theme.colorWhite,
-  });
+    dark: theme.colorWhite
+  })
   return (
     <View style={styles.socials}>
-      {speaker.links.map((link) => {
+      {speaker.links.map(link => {
         const icon = (() => {
           switch (link.linkType) {
-            case "Twitter": {
+            case 'Twitter': {
               return (
                 <Image
-                  source={require("@/assets/images/x.svg")}
+                  source={require('@/assets/images/x.svg')}
                   style={styles.icon}
                   tintColor={iconColor}
                 />
-              );
+              )
             }
-            case "LinkedIn": {
+            case 'LinkedIn': {
               return (
                 <Image
-                  source={require("@/assets/images/linkedin.svg")}
+                  source={require('@/assets/images/linkedin.svg')}
                   style={styles.icon}
                   tintColor={iconColor}
                 />
-              );
+              )
             }
-            case "Blog": {
+            case 'Blog': {
               return (
                 <Ionicons
                   name="reader"
@@ -156,9 +155,9 @@ function Socials({ speaker }: { speaker: Speaker }) {
                   color={iconColor}
                   style={styles.icon}
                 />
-              );
+              )
             }
-            case "Company_Website": {
+            case 'Company_Website': {
               return (
                 <Feather
                   name="link"
@@ -166,13 +165,13 @@ function Socials({ speaker }: { speaker: Speaker }) {
                   color={iconColor}
                   style={styles.icon}
                 />
-              );
+              )
             }
           }
-        })();
+        })()
 
         if (!icon) {
-          return null;
+          return null
         }
 
         return (
@@ -182,43 +181,43 @@ function Socials({ speaker }: { speaker: Speaker }) {
           >
             {icon}
           </IconButton>
-        );
+        )
       })}
     </View>
-  );
+  )
 }
 
 const styles = StyleSheet.create({
   centered: {
-    alignItems: "center",
+    alignItems: 'center'
   },
   container: {
-    flex: 1,
+    flex: 1
   },
   contentContainer: {
     borderBottomLeftRadius: theme.borderRadius20,
     borderBottomRightRadius: theme.borderRadius20,
     padding: theme.space16,
-    paddingTop: theme.space24,
+    paddingTop: theme.space24
   },
   icon: {
     height: theme.fontSize20,
-    width: theme.fontSize20,
+    width: theme.fontSize20
   },
   separator: {
     borderBottomWidth: StyleSheet.hairlineWidth,
     marginVertical: theme.space24,
-    width: "100%",
+    width: '100%'
   },
   socials: {
-    flexDirection: "row",
-    justifyContent: "center",
-    marginBottom: theme.space24,
+    flexDirection: 'row',
+    justifyContent: 'center',
+    marginBottom: theme.space24
   },
   speakerImage: {
-    marginBottom: theme.space24,
+    marginBottom: theme.space24
   },
   tagLine: {
-    textAlign: "center",
-  },
-});
+    textAlign: 'center'
+  }
+})

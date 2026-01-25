@@ -1,73 +1,73 @@
-import MaterialCommunityIcons from "@expo/vector-icons/MaterialCommunityIcons";
+import MaterialCommunityIcons from '@expo/vector-icons/MaterialCommunityIcons'
 import {
   Badge,
   Icon,
   Label,
   NativeTabs,
-  VectorIcon,
-} from "expo-router/unstable-native-tabs";
-import React from "react";
+  VectorIcon
+} from 'expo-router/unstable-native-tabs'
+import React from 'react'
 import {
   ColorValue,
   ImageSourcePropType,
   Platform,
   // eslint-disable-next-line react-native/split-platform-components
-  DynamicColorIOS,
-} from "react-native";
+  DynamicColorIOS
+} from 'react-native'
 
-import { theme } from "@/theme";
-import { useBookmarkStore } from "@/store/bookmarkStore";
-import { isLiquidGlassAvailable } from "expo-glass-effect";
-import { useThemeColor } from "@/components/Themed";
+import { theme } from '@/theme'
+import { useBookmarkStore } from '@/store/bookmarkStore'
+import { isLiquidGlassAvailable } from 'expo-glass-effect'
+import { useThemeColor } from '@/components/Themed'
 
 // Todo (betomoedano): In the future we can remove this type. Learn more: https://exponent-internal.slack.com/archives/C0447EFTS74/p1758042759724779?thread_ts=1758039375.241799&cid=C0447EFTS74
 type VectorIconFamily = {
   getImageSource: (
     name: string,
     size: number,
-    color: ColorValue,
-  ) => Promise<ImageSourcePropType>;
-};
+    color: ColorValue
+  ) => Promise<ImageSourcePropType>
+}
 
 export default function TabLayout() {
-  const bookmarks = useBookmarkStore((state) => state.bookmarks);
-  const hasBookmarks = bookmarks.length > 0;
-  const tintColor = useThemeColor(theme.color.reactBlue);
+  const bookmarks = useBookmarkStore(state => state.bookmarks)
+  const hasBookmarks = bookmarks.length > 0
+  const tintColor = useThemeColor(theme.color.reactBlue)
   const inactiveTintColor = useThemeColor({
-    light: "#00000090",
-    dark: "#FFFFFF90",
-  });
+    light: '#00000090',
+    dark: '#FFFFFF90'
+  })
 
   const labelSelectedStyle =
-    Platform.OS === "ios" ? { color: tintColor } : undefined;
+    Platform.OS === 'ios' ? { color: tintColor } : undefined
 
   return (
     <NativeTabs
       badgeBackgroundColor={tintColor}
       labelStyle={{
         color:
-          Platform.OS === "ios" && isLiquidGlassAvailable()
+          Platform.OS === 'ios' && isLiquidGlassAvailable()
             ? DynamicColorIOS({
                 light: theme.colorBlack,
-                dark: theme.colorWhite,
+                dark: theme.colorWhite
               })
-            : inactiveTintColor,
+            : inactiveTintColor
       }}
       iconColor={
-        Platform.OS === "ios" && isLiquidGlassAvailable()
+        Platform.OS === 'ios' && isLiquidGlassAvailable()
           ? DynamicColorIOS({
               light: theme.colorBlack,
-              dark: theme.colorWhite,
+              dark: theme.colorWhite
             })
           : inactiveTintColor
       }
       tintColor={
-        Platform.OS === "ios"
+        Platform.OS === 'ios'
           ? DynamicColorIOS(theme.color.reactBlue)
           : inactiveTintColor
       }
       labelVisibilityMode="labeled"
-      indicatorColor={tintColor + "25"}
+      indicatorColor={tintColor + '25'}
       disableTransparentOnScrollEdge={true} // Used to prevent transparent background on iOS 18 and older
     >
       <NativeTabs.Trigger name="(calendar)">
@@ -83,7 +83,7 @@ export default function TabLayout() {
               }
               selectedColor={tintColor}
             />
-          ),
+          )
         })}
         <Label selectedStyle={labelSelectedStyle}>Calendar</Label>
       </NativeTabs.Trigger>
@@ -100,7 +100,7 @@ export default function TabLayout() {
               }
               selectedColor={tintColor}
             />
-          ),
+          )
         })}
         <Label selectedStyle={labelSelectedStyle}>Bookmarked</Label>
         {hasBookmarks && !isLiquidGlassAvailable() && (
@@ -109,7 +109,7 @@ export default function TabLayout() {
       </NativeTabs.Trigger>
       <NativeTabs.Trigger
         name="speakers"
-        role={isLiquidGlassAvailable() ? "search" : undefined}
+        role={isLiquidGlassAvailable() ? 'search' : undefined}
       >
         {Platform.select({
           ios: <Icon sf="person.2" />,
@@ -123,7 +123,7 @@ export default function TabLayout() {
               }
               selectedColor={tintColor}
             />
-          ),
+          )
         })}
         <Label selectedStyle={labelSelectedStyle}>Speakers</Label>
       </NativeTabs.Trigger>
@@ -140,10 +140,10 @@ export default function TabLayout() {
               }
               selectedColor={tintColor}
             />
-          ),
+          )
         })}
         <Label selectedStyle={labelSelectedStyle}>Info</Label>
       </NativeTabs.Trigger>
     </NativeTabs>
-  );
+  )
 }

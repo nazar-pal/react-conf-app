@@ -1,27 +1,27 @@
-import { StyleSheet, ActivityIndicator } from "react-native";
-import { Pressable } from "react-native-gesture-handler";
+import { StyleSheet, ActivityIndicator } from 'react-native'
+import { Pressable } from 'react-native-gesture-handler'
 
-import { ThemedText, useThemeColor } from "./Themed";
+import { ThemedText, useThemeColor } from './Themed'
 
-import { theme } from "@/theme";
+import { theme } from '@/theme'
 
 export function Button({
   title,
   onPress,
-  isLoading,
+  isLoading
 }: {
-  title: string;
-  onPress: () => void;
-  isLoading?: boolean;
+  title: string
+  onPress: () => void
+  isLoading?: boolean
 }) {
   const backgroundColor = useThemeColor({
     light: theme.colorBlack,
-    dark: theme.colorWhite,
-  });
+    dark: theme.colorWhite
+  })
   const textColor = useThemeColor({
     light: theme.colorWhite,
-    dark: theme.colorBlack,
-  });
+    dark: theme.colorBlack
+  })
 
   return (
     <Pressable onPress={onPress} style={[styles.button, { backgroundColor }]}>
@@ -37,21 +37,21 @@ export function Button({
         </ThemedText>
       )}
     </Pressable>
-  );
+  )
 }
 
 const styles = StyleSheet.create({
   button: {
-    alignItems: "center",
+    alignItems: 'center',
     borderRadius: theme.borderRadius34,
-    justifyContent: "center",
+    justifyContent: 'center',
     minHeight: 40,
     minWidth: 150,
     paddingHorizontal: theme.space24,
     paddingVertical: theme.space8,
-    width: "100%",
+    width: '100%'
   },
   text: {
-    color: theme.colorWhite,
-  },
-});
+    color: theme.colorWhite
+  }
+})

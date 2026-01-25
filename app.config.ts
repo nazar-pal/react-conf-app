@@ -1,131 +1,130 @@
-import { ExpoConfig } from "expo/config";
+import { ExpoConfig } from 'expo/config'
 // Update this value to something unique in order to be able to build for a
 // physical iOS device.
-const APP_ID_PREFIX = "com.devnazar.reactconf";
+const APP_ID_PREFIX = 'com.devnazar.reactconf'
 
 // These values are tied to EAS. If you would like to use EAS Build or Update
 // on this project while playing with it, then remove these values and run
 // `eas init` and `eas update:configure` to get new values for your account.
-const EAS_UPDATE_URL =
-  "https://u.expo.dev/66251e1b-0290-4ef8-87a4-e533cac914dd";
-const EAS_PROJECT_ID = "66251e1b-0290-4ef8-87a4-e533cac914dd";
-const EAS_APP_OWNER = "expo";
+const EAS_UPDATE_URL = 'https://u.expo.dev/66251e1b-0290-4ef8-87a4-e533cac914dd'
+const EAS_PROJECT_ID = '66251e1b-0290-4ef8-87a4-e533cac914dd'
+const EAS_APP_OWNER = 'expo'
 
-const IS_DEV = process.env.APP_VARIANT === "development";
-const IS_PREVIEW = process.env.APP_VARIANT === "preview";
+const IS_DEV = process.env.APP_VARIANT === 'development'
+const IS_PREVIEW = process.env.APP_VARIANT === 'preview'
 
 const getName = () => {
   if (IS_DEV) {
-    return "React Conf (Dev)";
+    return 'React Conf (Dev)'
   }
 
   if (IS_PREVIEW) {
-    return "React Conf (Prev)";
+    return 'React Conf (Prev)'
   }
 
-  return "React Conf";
-};
+  return 'React Conf'
+}
 
 const getAppId = () => {
   if (IS_DEV) {
-    return `${APP_ID_PREFIX}.dev`;
+    return `${APP_ID_PREFIX}.dev`
   }
 
   if (IS_PREVIEW) {
-    return `${APP_ID_PREFIX}.preview`;
+    return `${APP_ID_PREFIX}.preview`
   }
 
-  return `${APP_ID_PREFIX}.app`;
-};
+  return `${APP_ID_PREFIX}.app`
+}
 
 const config: ExpoConfig = {
   name: getName(),
-  slug: "react-conf-app",
-  version: "1.1.3",
-  orientation: "portrait",
-  icon: "./assets/app-icons/icon-default.png",
-  userInterfaceStyle: "automatic",
-  scheme: "reactconfapp",
-  assetBundlePatterns: ["**/*"],
+  slug: 'react-conf-app',
+  version: '1.1.3',
+  orientation: 'portrait',
+  icon: './assets/app-icons/icon-default.png',
+  userInterfaceStyle: 'automatic',
+  scheme: 'reactconfapp',
+  assetBundlePatterns: ['**/*'],
   newArchEnabled: true,
   ios: {
-    icon: "./assets/app-icons/react-conf.icon",
+    icon: './assets/app-icons/react-conf.icon',
     supportsTablet: true,
     bundleIdentifier: getAppId(),
-    userInterfaceStyle: "automatic",
+    userInterfaceStyle: 'automatic',
     config: {
-      usesNonExemptEncryption: false,
-    },
+      usesNonExemptEncryption: false
+    }
   },
   android: {
     adaptiveIcon: {
-      foregroundImage: "./assets/app-icons/icon-android.png",
-      monochromeImage: "./assets/app-icons/icon-monochrome-android.png",
-      backgroundColor: "#087EA4",
+      foregroundImage: './assets/app-icons/icon-android.png',
+      monochromeImage: './assets/app-icons/icon-monochrome-android.png',
+      backgroundColor: '#087EA4'
     },
-    userInterfaceStyle: "automatic",
+    userInterfaceStyle: 'automatic',
     package: getAppId(),
     edgeToEdgeEnabled: true,
-    softwareKeyboardLayoutMode: "pan",
+    softwareKeyboardLayoutMode: 'pan'
   },
   web: {
-    favicon: "./assets/favicon.png",
+    favicon: './assets/favicon.png'
   },
   extra: {
     eas: {
-      projectId: EAS_PROJECT_ID,
-    },
+      projectId: EAS_PROJECT_ID
+    }
   },
   owner: EAS_APP_OWNER,
   plugins: [
-    "expo-asset",
+    'expo-asset',
     [
-      "expo-build-properties",
+      'expo-build-properties',
       {
         android: {
-          reactNativeReleaseLevel: "experimental",
+          reactNativeReleaseLevel: 'experimental'
         },
         ios: {
-          reactNativeReleaseLevel: "experimental",
-        },
-      },
+          reactNativeReleaseLevel: 'experimental'
+        }
+      }
     ],
-    "expo-web-browser",
-    "expo-router",
+    'expo-web-browser',
+    'expo-router',
     [
-      "expo-font",
+      'expo-font',
       {
         fonts: [
-          "./assets/fonts/Montserrat-Light.ttf",
-          "./assets/fonts/Montserrat-LightItalic.ttf",
+          './assets/fonts/Montserrat-Light.ttf',
+          './assets/fonts/Montserrat-LightItalic.ttf',
 
-          "./assets/fonts/Montserrat-Medium.ttf",
-          "./assets/fonts/Montserrat-MediumItalic.ttf",
+          './assets/fonts/Montserrat-Medium.ttf',
+          './assets/fonts/Montserrat-MediumItalic.ttf',
 
-          "./assets/fonts/Montserrat-Bold.ttf",
-          "./assets/fonts/Montserrat-BoldItalic.ttf",
+          './assets/fonts/Montserrat-Bold.ttf',
+          './assets/fonts/Montserrat-BoldItalic.ttf',
 
-          "./assets/fonts/Montserrat-SemiBold.ttf",
-          "./assets/fonts/Montserrat-SemiBoldItalic.ttf",
-        ],
-      },
+          './assets/fonts/Montserrat-SemiBold.ttf',
+          './assets/fonts/Montserrat-SemiBoldItalic.ttf'
+        ]
+      }
     ],
     [
-      "expo-splash-screen",
+      'expo-splash-screen',
       {
-        backgroundColor: "#23272F",
-        image: "./assets/splash-icon.png",
-        imageWidth: 190,
-      },
+        backgroundColor: '#23272F',
+        image: './assets/splash-icon.png',
+        imageWidth: 190
+      }
     ],
     [
-      "@zoontek/react-native-navigation-bar",
+      '@zoontek/react-native-navigation-bar',
       {
         android: {
-          enforceNavigationBarContrast: false,
-        },
-      },
-    ],
+          enforceNavigationBarContrast: false
+        }
+      }
+    ]
   ],
   updates: {
     url: EAS_UPDATE_URL,
@@ -134,15 +133,15 @@ const config: ExpoConfig = {
     // based on the value provided in the build profile, and that will
     // overwrite this value.
     requestHeaders: {
-      "expo-channel-name": "local",
-    },
+      'expo-channel-name': 'local'
+    }
   },
   runtimeVersion: {
-    policy: "appVersion",
+    policy: 'appVersion'
   },
   experiments: {
-    reactCompiler: true,
-  },
-};
+    reactCompiler: true
+  }
+}
 
-export default config;
+export default config

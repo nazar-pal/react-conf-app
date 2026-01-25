@@ -1,37 +1,37 @@
-import React, { useCallback } from "react";
-import { Platform, Pressable, StyleSheet, View } from "react-native";
+import React, { useCallback } from 'react'
+import { Platform, Pressable, StyleSheet, View } from 'react-native'
 
-import { ThemedText, useThemeColor } from "@/components/Themed";
-import { theme } from "@/theme";
-import { TalkCard } from "@/components/TalkCard";
-import { useBookmarkStore } from "@/store/bookmarkStore";
-import { useReactConfStore } from "@/store/reactConfStore";
-import { Session } from "@/types";
-import { ConferenceDay } from "@/consts";
+import { ThemedText, useThemeColor } from '@/components/Themed'
+import { theme } from '@/theme'
+import { TalkCard } from '@/components/TalkCard'
+import { useBookmarkStore } from '@/store/bookmarkStore'
+import { useReactConfStore } from '@/store/reactConfStore'
+import { Session } from '@/types'
+import { ConferenceDay } from '@/consts'
 import Animated, {
   FadeIn,
   FadeOut,
-  LinearTransition,
-} from "react-native-reanimated";
-import { Link } from "expo-router";
-import { useSafeAreaInsets } from "react-native-safe-area-context";
+  LinearTransition
+} from 'react-native-reanimated'
+import { Link } from 'expo-router'
+import { useSafeAreaInsets } from 'react-native-safe-area-context'
 
 export default function Bookmarks() {
-  const bookmarks = useBookmarkStore((state) => state.bookmarks);
+  const bookmarks = useBookmarkStore(state => state.bookmarks)
 
-  const { dayOne, dayTwo } = useReactConfStore((state) => state.schedule);
+  const { dayOne, dayTwo } = useReactConfStore(state => state.schedule)
 
-  const backgroundColor = useThemeColor(theme.color.background);
+  const backgroundColor = useThemeColor(theme.color.background)
 
-  const { bottom } = useSafeAreaInsets();
+  const { bottom } = useSafeAreaInsets()
 
   const dayOneFiltered = dayOne.filter(
-    (session) => !!bookmarks.find((b) => b.sessionId === session.id),
-  );
+    session => !!bookmarks.find(b => b.sessionId === session.id)
+  )
 
   const dayTwoFiltered = dayTwo.filter(
-    (session) => !!bookmarks.find((b) => b.sessionId === session.id),
-  );
+    session => !!bookmarks.find(b => b.sessionId === session.id)
+  )
 
   const renderItem = useCallback(
     ({ item }: { item: { talk: Session; day: ConferenceDay } }) => (
@@ -39,8 +39,8 @@ export default function Bookmarks() {
         <TalkCard session={item.talk} day={item.day} isBookmarked={true} />
       </Animated.View>
     ),
-    [],
-  );
+    []
+  )
 
   return (
     <Animated.FlatList
@@ -49,15 +49,15 @@ export default function Bookmarks() {
       contentContainerStyle={[
         styles.flatListContainer,
         {
-          paddingBottom: Platform.select({ android: 100 + bottom, default: 0 }),
-        },
+          paddingBottom: Platform.select({ android: 100 + bottom, default: 0 })
+        }
       ]}
       data={[
-        ...dayOneFiltered.map((talk) => ({ talk, day: ConferenceDay.One })),
-        ...dayTwoFiltered.map((talk) => ({ talk, day: ConferenceDay.Two })),
+        ...dayOneFiltered.map(talk => ({ talk, day: ConferenceDay.One })),
+        ...dayTwoFiltered.map(talk => ({ talk, day: ConferenceDay.Two }))
       ]}
       renderItem={renderItem}
-      keyExtractor={(item) => item.talk.id}
+      keyExtractor={item => item.talk.id}
       itemLayoutAnimation={LinearTransition}
       ListEmptyComponent={
         <Animated.View entering={FadeIn} exiting={FadeOut}>
@@ -86,15 +86,15 @@ export default function Bookmarks() {
         </Animated.View>
       }
     />
-  );
+  )
 }
 
 const styles = StyleSheet.create({
   bookmarks: {
     gap: theme.space16,
-    paddingHorizontal: theme.space16,
+    paddingHorizontal: theme.space16
   },
   flatListContainer: {
-    paddingTop: theme.space16,
-  },
-});
+    paddingTop: theme.space16
+  }
+})

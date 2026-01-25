@@ -1,16 +1,16 @@
-import { ThemedText, useThemeColor } from "@/components/Themed";
-import { theme } from "@/theme";
-import { isLiquidGlassAvailable } from "expo-glass-effect";
-import { Stack, useRouter } from "expo-router";
-import { Platform } from "react-native";
+import { ThemedText, useThemeColor } from '@/components/Themed'
+import { theme } from '@/theme'
+import { isLiquidGlassAvailable } from 'expo-glass-effect'
+import { Stack, useRouter } from 'expo-router'
+import { Platform } from 'react-native'
 
 export default function Layout() {
-  const router = useRouter();
-  const tabBarBackgroundColor = useThemeColor(theme.color.background);
+  const router = useRouter()
+  const tabBarBackgroundColor = useThemeColor(theme.color.background)
   const tabBarTintColor = useThemeColor({
     light: theme.colorBlack,
-    dark: theme.colorWhite,
-  });
+    dark: theme.colorWhite
+  })
 
   return (
     <Stack>
@@ -19,13 +19,13 @@ export default function Layout() {
         options={{
           headerStyle: {
             backgroundColor: isLiquidGlassAvailable()
-              ? "transparent"
-              : tabBarBackgroundColor,
+              ? 'transparent'
+              : tabBarBackgroundColor
           },
           headerLargeTitle: true,
-          title: "Speakers",
+          title: 'Speakers',
           headerTitle: () =>
-            Platform.OS === "android" ? (
+            Platform.OS === 'android' ? (
               <ThemedText fontSize={theme.fontSize20} fontWeight="bold">
                 Speakers
               </ThemedText>
@@ -36,15 +36,15 @@ export default function Layout() {
             tintColor: tabBarTintColor,
             textColor: tabBarTintColor,
             hintTextColor: tabBarTintColor,
-            placeholder: "Search speakers",
-            onChangeText: (event) => {
+            placeholder: 'Search speakers',
+            onChangeText: event => {
               router.setParams({
-                q: event.nativeEvent.text,
-              });
-            },
-          },
+                q: event.nativeEvent.text
+              })
+            }
+          }
         }}
       />
     </Stack>
-  );
+  )
 }
