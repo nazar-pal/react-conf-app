@@ -1,22 +1,23 @@
+import { ActionSheetProvider } from "@expo/react-native-action-sheet";
 import {
   DarkTheme,
   DefaultTheme,
   ThemeProvider,
 } from "@react-navigation/native";
 import { differenceInMinutes } from "date-fns";
+import { isLiquidGlassAvailable } from "expo-glass-effect";
+import * as NavigationBar from "expo-navigation-bar";
+import * as Notifications from "expo-notifications";
 import { usePathname, useRouter } from "expo-router";
 import { Stack } from "expo-router/stack";
+import * as SplashScreen from "expo-splash-screen";
 import { StatusBar } from "expo-status-bar";
-import * as NavigationBar from "expo-navigation-bar";
+import { setBackgroundColorAsync } from "expo-system-ui";
 import { useEffect } from "react";
 import { Platform, StyleSheet, useColorScheme } from "react-native";
-import { setBackgroundColorAsync } from "expo-system-ui";
-import { ActionSheetProvider } from "@expo/react-native-action-sheet";
 import { GestureHandlerRootView } from "react-native-gesture-handler";
-import * as Notifications from "expo-notifications";
-import { isLiquidGlassAvailable } from "expo-glass-effect";
-import * as SplashScreen from "expo-splash-screen";
 
+import "../global.css";
 import { theme } from "../theme";
 
 import { ThemedText, useThemeColor } from "@/components/Themed";
