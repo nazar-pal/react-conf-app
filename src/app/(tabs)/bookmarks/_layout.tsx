@@ -20,9 +20,7 @@ export default function Layout() {
           title: 'Bookmarks',
           headerTitle: () =>
             Platform.OS === 'android' ? (
-              <ThemedText fontSize={20} fontWeight="bold">
-                Bookmarks
-              </ThemedText>
+              <ThemedText className="text-xl font-bold">Bookmarks</ThemedText>
             ) : undefined,
 
           headerStyle: {

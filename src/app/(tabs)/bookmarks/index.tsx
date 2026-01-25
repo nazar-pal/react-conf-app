@@ -62,10 +62,10 @@ export default function Bookmarks() {
       ListEmptyComponent={
         <Animated.View entering={FadeIn} exiting={FadeOut}>
           <View style={styles.bookmarks}>
-            <ThemedText fontWeight="bold" fontSize={20}>
+            <ThemedText className="text-xl font-bold">
               No sessions bookmarked
             </ThemedText>
-            <ThemedText fontSize={18} color={theme.color.textSecondary}>
+            <ThemedText className="text-lg" color={theme.color.textSecondary}>
               Tap on the bookmark icon on a session to add it to your bookmarks,
               and it will be displayed here.
             </ThemedText>

@@ -46,14 +46,14 @@ export function VenueInfo() {
           style={styles.venueDetails}
           color={theme.color.backgroundElement}
         >
-          <ThemedText fontSize={14} color={theme.color.textSecondary}>
+          <ThemedText className="text-sm" color={theme.color.textSecondary}>
             Venue
           </ThemedText>
           <View style={styles.venueName}>
-            <ThemedText fontSize={18} fontWeight="semiBold">
+            <ThemedText className="text-lg font-semibold">
               The Westin Lake
             </ThemedText>
-            <ThemedText fontSize={18} fontWeight="semiBold">
+            <ThemedText className="text-lg font-semibold">
               Las Vegas Resort & Spa
             </ThemedText>
           </View>
@@ -63,7 +63,7 @@ export function VenueInfo() {
               size={16}
               color={iconColor}
             />
-            <ThemedText color={theme.color.textSecondary} fontSize={12}>
+            <ThemedText className="text-xs" color={theme.color.textSecondary}>
               {venueAddress}
             </ThemedText>
           </View>

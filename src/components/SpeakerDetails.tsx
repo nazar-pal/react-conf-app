@@ -14,11 +14,10 @@ export function SpeakerDetails({ speaker }: { speaker: Speaker }) {
         size="small"
       />
       <View style={styles.speakerDetails}>
-        <ThemedText fontSize={16}>{speaker.fullName}</ThemedText>
+        <ThemedText>{speaker.fullName}</ThemedText>
         {speaker.tagLine ? (
           <ThemedText
-            fontSize={14}
-            fontWeight="medium"
+            className="text-sm font-medium"
             color={theme.color.textSecondary}
           >
             {speaker.tagLine}

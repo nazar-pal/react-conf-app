@@ -59,10 +59,8 @@ export function TalkCard({ session, day, isBookmarked = false }: Props) {
         <ThemedView style={styles.container}>
           {!isBookmarked && (
             <ThemedText
-              fontSize={14}
-              fontWeight="medium"
+              className="mb-2 text-sm font-medium"
               color={theme.color.textSecondary}
-              marginBottom={8}
               style={{ marginLeft: 24 }}
             >
               {formatSessionTime(session, shouldUseLocalTz)}
@@ -82,8 +80,7 @@ export function TalkCard({ session, day, isBookmarked = false }: Props) {
             >
               <View style={styles.titleAndBookmark}>
                 <ThemedText
-                  fontSize={18}
-                  fontWeight="semiBold"
+                  className="text-lg font-semibold"
                   style={styles.title}
                 >
                   {session.title}
@@ -92,15 +89,13 @@ export function TalkCard({ session, day, isBookmarked = false }: Props) {
               {isBookmarked && (
                 <View style={styles.time}>
                   <ThemedText
-                    fontSize={14}
-                    fontWeight="medium"
+                    className="text-sm font-medium"
                     color={theme.color.textSecondary}
                   >
                     {formatSessionTime(session, shouldUseLocalTz)},
                   </ThemedText>
                   <ThemedText
-                    fontSize={14}
-                    fontWeight="medium"
+                    className="text-sm font-medium"
                     color={theme.color.textSecondary}
                   >
                     {day === ConferenceDay.One ? 'Day 1' : 'Day 2'}

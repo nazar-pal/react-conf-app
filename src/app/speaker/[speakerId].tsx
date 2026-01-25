@@ -75,13 +75,12 @@ export default function SpeakerDetail() {
                 profilePicture={speaker.profilePicture}
                 size="large"
               />
-              <ThemedText fontSize={18} fontWeight="medium">
+              <ThemedText className="text-lg font-medium">
                 {speaker.fullName}
               </ThemedText>
               {speaker.tagLine ? (
                 <ThemedText
-                  fontSize={16}
-                  fontWeight="medium"
+                  className="font-medium"
                   color={{ light: secondaryColor, dark: secondaryColor }}
                   style={styles.tagLine}
                 >
@@ -96,8 +95,7 @@ export default function SpeakerDetail() {
             {speaker.links.length ? <Socials speaker={speaker} /> : null}
             {speaker.bio ? (
               <ThemedText
-                fontSize={14}
-                fontWeight="medium"
+                className="text-sm font-medium"
                 style={{
                   marginBottom: 24,
                   lineHeight: 18 * 1.5

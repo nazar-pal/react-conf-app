@@ -21,8 +21,7 @@ export function LiveStreamInfo() {
           style={[styles.liveStreamDot, { backgroundColor: borderColor }]}
         />
         <ThemedText
-          fontWeight="semiBold"
-          fontSize={14}
+          className="text-sm font-semibold"
           color={{
             light: theme.color.textSecondary.light,
             dark: theme.colorWhite

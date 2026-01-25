@@ -163,7 +163,7 @@ export default function Layout() {
                     : 'light',
                 headerTitle: Platform.select({
                   android: props => (
-                    <ThemedText fontSize={24} fontWeight="bold">
+                    <ThemedText className="text-2xl font-bold">
                       {props.children}
                     </ThemedText>
                   ),

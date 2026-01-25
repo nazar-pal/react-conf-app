@@ -72,7 +72,7 @@ type Sponsor = (typeof sponsors)[keyof typeof sponsors]
 export function Sponsors() {
   return (
     <ThemedView style={styles.container}>
-      <ThemedText fontSize={18} fontWeight="semiBold" style={styles.title}>
+      <ThemedText className="text-lg font-semibold" style={styles.title}>
         Sponsors
       </ThemedText>
       <ThemedView style={styles.content} color={theme.color.backgroundElement}>

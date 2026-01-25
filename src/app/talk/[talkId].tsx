@@ -210,8 +210,7 @@ export default function TalkDetail() {
         >
           <View style={styles.header} collapsable={false}>
             <ThemedText
-              fontWeight="bold"
-              fontSize={32}
+              className="text-3xl font-bold"
               style={[
                 styles.talkTitle,
                 { textDecorationColor: highlightColor }
@@ -269,12 +268,11 @@ function SpeakerDetails({ speaker }: { speaker: Speaker }) {
     <View style={styles.speaker}>
       <SpeakerImage profilePicture={speaker.profilePicture} />
       <View style={styles.speakerDetails}>
-        <ThemedText fontSize={18} fontWeight="semiBold">
+        <ThemedText className="text-lg font-semibold">
           {speaker.fullName}
         </ThemedText>
         <ThemedText
-          fontSize={14}
-          fontWeight="medium"
+          className="text-sm font-medium"
           color={theme.color.textSecondary}
         >
           {speaker.tagLine}
@@ -291,14 +289,8 @@ function Section({ title, value }: { title: string; value: string | null }) {
 
   return (
     <View style={styles.sectionContainer}>
-      <ThemedText fontSize={18} fontWeight="semiBold">
-        {title}
-      </ThemedText>
-      <ThemedText
-        fontSize={16}
-        fontWeight="medium"
-        color={theme.color.textSecondary}
-      >
+      <ThemedText className="text-lg font-semibold">{title}</ThemedText>
+      <ThemedText className="font-medium" color={theme.color.textSecondary}>
         {value}
       </ThemedText>
     </View>

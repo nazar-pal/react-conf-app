@@ -20,9 +20,7 @@ export default function Layout() {
           title: 'Info',
           headerTitle: () =>
             Platform.OS === 'android' ? (
-              <ThemedText fontSize={20} fontWeight="bold">
-                Info
-              </ThemedText>
+              <ThemedText className="text-xl font-bold">Info</ThemedText>
             ) : undefined,
 
           headerStyle: {

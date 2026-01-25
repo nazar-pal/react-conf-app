@@ -26,9 +26,7 @@ export default function Layout() {
           title: 'Speakers',
           headerTitle: () =>
             Platform.OS === 'android' ? (
-              <ThemedText fontSize={20} fontWeight="bold">
-                Speakers
-              </ThemedText>
+              <ThemedText className="text-xl font-bold">Speakers</ThemedText>
             ) : undefined,
 
           headerSearchBarOptions: {

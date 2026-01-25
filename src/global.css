@@ -1,2 +1,17 @@
-@import "tailwindcss";
-@import "uniwind";
+@import 'tailwindcss';
+@import 'uniwind';
+
+@theme {
+  /* Montserrat font families - React Native requires single font names (no fallbacks) */
+  --font-light: 'Montserrat-Light';
+  --font-light-italic: 'Montserrat-LightItalic';
+
+  --font-medium: 'Montserrat-Medium';
+  --font-medium-italic: 'Montserrat-MediumItalic';
+
+  --font-semibold: 'Montserrat-SemiBold';
+  --font-semibold-italic: 'Montserrat-SemiBoldItalic';
+
+  --font-bold: 'Montserrat-Bold';
+  --font-bold-italic: 'Montserrat-BoldItalic';
+}

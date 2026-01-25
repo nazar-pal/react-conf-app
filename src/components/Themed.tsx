@@ -3,15 +3,19 @@ import {
   Pressable,
   PressableProps,
   Text,
-  TextStyle,
   View,
   useColorScheme
 } from 'react-native'
 import Animated from 'react-native-reanimated'
-
+import { withUniwind } from 'uniwind'
 import { theme } from '../theme'
+import { cn } from '../utils/cn'
 
-const AnimatedPressable = Animated.createAnimatedComponent(Pressable)
+const AnimatedPressable = withUniwind(
+  Animated.createAnimatedComponent(Pressable)
+)
+const AnimatedText = withUniwind(Animated.Text)
+const AnimatedView = withUniwind(Animated.View)
 
 type ThemeProps = {
   color?: { light: string; dark: string }
@@ -22,11 +26,8 @@ type ThemeProps = {
 }
 
 export type TextProps = ThemeProps & {
-  marginBottom?: number
-  fontSize?: TextStyle['fontSize']
-  fontWeight?: 'light' | 'medium' | 'semiBold' | 'bold'
-  italic?: boolean
   animated?: boolean
+  className?: string
 } & Text['props']
 export type ViewProps = ThemeProps & View['props'] & { animated?: boolean }
 
@@ -41,44 +42,29 @@ export function ThemedText(props: TextProps) {
     style,
     lightColor,
     darkColor,
-    marginBottom = 0,
-    fontSize = 16,
-    fontWeight,
-    italic,
     animated,
     color: themeColor,
+    className,
     ...otherProps
   } = props
 
   const color = useThemeColor(themeColor ?? theme.color.text)
 
-  const fontFamily = (() => {
-    if (fontWeight === 'light') {
-      return italic ? theme.fontFamilyLightItalic : theme.fontFamilyLight
-    } else if (fontWeight === 'semiBold') {
-      return italic ? theme.fontFamilySemiBoldItalic : theme.fontFamilySemiBold
-    } else if (fontWeight === 'bold') {
-      return italic ? theme.fontFamilyBoldItalic : theme.fontFamilyBold
-    } else {
-      return italic ? theme.fontFamilyItalic : theme.fontFamily
-    }
-  })()
+  const mergedClassName = cn('text-base font-medium', className)
+
+  const baseStyle = [{ color }, style]
 
   if (animated) {
     return (
-      <Animated.Text
-        style={[{ color, marginBottom, fontSize, fontFamily }, style]}
+      <AnimatedText
+        className={mergedClassName}
+        style={baseStyle}
         {...otherProps}
       />
     )
   }
 
-  return (
-    <Text
-      style={[{ color, marginBottom, fontSize, fontFamily }, style]}
-      {...otherProps}
-    />
-  )
+  return <Text className={mergedClassName} style={baseStyle} {...otherProps} />
 }
 
 export function ThemedView(props: ViewProps) {
@@ -86,9 +72,7 @@ export function ThemedView(props: ViewProps) {
   const backgroundColor = useThemeColor(props.color ?? theme.color.background)
 
   if (animated) {
-    return (
-      <Animated.View style={[{ backgroundColor }, style]} {...otherProps} />
-    )
+    return <AnimatedView style={[{ backgroundColor }, style]} {...otherProps} />
   }
 
   return <View style={[{ backgroundColor }, style]} {...otherProps} />

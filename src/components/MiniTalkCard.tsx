@@ -43,14 +43,10 @@ export function MiniTalkCard({ sessionId }: { sessionId: string | number }) {
       <Pressable>
         <ThemedView style={[styles.container, { backgroundColor }]}>
           <View style={styles.containerInner}>
-            <ThemedText fontSize={16} fontWeight="semiBold">
-              {talk.title}
-            </ThemedText>
+            <ThemedText className="font-semibold">{talk.title}</ThemedText>
             <ThemedText
-              fontSize={14}
-              fontWeight="medium"
+              className="mb-2 text-sm font-medium"
               color={{ light: textSecondaryColor, dark: textSecondaryColor }}
-              style={{ marginBottom: 8 }}
             >
               {formatSessionTime(talk, shouldUseLocalTz)}
               {` `}({isDayOne ? 'Day 1' : 'Day 2'})

@@ -37,18 +37,6 @@ export const theme = {
 
   lightActiveContent: 'rgba(0,0,0, 0.1)',
 
-  fontFamilyLight: 'Montserrat-Light',
-  fontFamilyLightItalic: 'Montserrat-LightItalic',
-
-  fontFamily: 'Montserrat-Medium',
-  fontFamilyItalic: 'Montserrat-MediumItalic',
-
-  fontFamilySemiBold: 'Montserrat-SemiBold',
-  fontFamilySemiBoldItalic: 'Montserrat-SemiBoldItalic',
-
-  fontFamilyBold: 'Montserrat-Bold',
-  fontFamilyBoldItalic: 'Montserrat-BoldItalic',
-
   dropShadow: {
     boxShadow: '0 2px 4px 0 rgba(0, 0, 0, 0.1)'
   }

@@ -130,7 +130,7 @@ export default function Speakers() {
           <ThemedView style={styles.noResultsContainer}>
             <ThemedText>
               No results found for{' '}
-              <ThemedText fontWeight="bold">{searchText}</ThemedText>
+              <ThemedText className="font-bold">{searchText}</ThemedText>
             </ThemedText>
           </ThemedView>
         </Animated.View>
