@@ -10,7 +10,7 @@ import {
 
 import { NotFound } from '@/components/NotFound'
 
-import { SpeakerDetails } from '@/components/SpeakerDetails'
+import { SpeakerDetails } from '@/components/speaker-details'
 import { useBookmark } from '@/hooks/useBookmark'
 import { useReactConfStore } from '@/store/reactConfStore'
 import { Speaker } from '@/types'

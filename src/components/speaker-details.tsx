@@ -1,7 +1,7 @@
 import { Text, View } from 'react-native'
 
 import { Speaker } from '@/types'
-import { SpeakerImage } from './SpeakerImage'
+import { SpeakerImage } from './speaker-image'
 
 export function SpeakerDetails({ speaker }: { speaker: Speaker }) {
   return (

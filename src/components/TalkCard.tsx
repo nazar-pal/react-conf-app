@@ -10,7 +10,7 @@ import { Gesture, GestureDetector } from 'react-native-gesture-handler'
 import Animated, { FadeIn, FadeOut } from 'react-native-reanimated'
 import { formatSessionTime } from '../utils/formatDate'
 import { Bookmark } from './bookmark'
-import { SpeakerDetails } from './SpeakerDetails'
+import { SpeakerDetails } from './speaker-details'
 
 type Props = {
   session: Session
