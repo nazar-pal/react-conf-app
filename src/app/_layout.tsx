@@ -1,14 +1,12 @@
 import { RootStack } from '@/components/root-stack'
-import { useReactConfStore } from '@/store'
+import { useAutoRefreshData, useNotificationNavigation } from '@/hooks'
 import {
   DarkTheme,
   DefaultTheme,
   ThemeProvider
 } from '@react-navigation/native'
-import { differenceInMinutes } from 'date-fns'
 import * as NavigationBar from 'expo-navigation-bar'
 import * as Notifications from 'expo-notifications'
-import { usePathname, useRouter } from 'expo-router'
 import * as SplashScreen from 'expo-splash-screen'
 import { StatusBar } from 'expo-status-bar'
 import { setBackgroundColorAsync } from 'expo-system-ui'
@@ -33,56 +31,21 @@ Notifications.setNotificationHandler({
 })
 
 export default function Layout() {
-  const router = useRouter()
-  const pathName = usePathname()
   const { theme } = useUniwind()
 
-  const { refreshData, lastRefreshed } = useReactConfStore()
-
-  const tabBarBackgroundColor = useCSSVariable('--color-background') as string
-
   useEffect(() => {
-    if (Platform.OS === 'android') {
+    if (Platform.OS === 'android')
       NavigationBar.setButtonStyleAsync(theme === 'light' ? 'dark' : 'light')
-    }
   }, [theme])
 
   // Keep the root view background color in sync with the current theme
+  const tabBarBackgroundColor = useCSSVariable('--color-background') as string
   useEffect(() => {
     setBackgroundColorAsync(tabBarBackgroundColor)
   }, [theme, tabBarBackgroundColor])
 
-  const lastNotificationResponse = Notifications.useLastNotificationResponse()
-  useEffect(() => {
-    if (
-      lastNotificationResponse &&
-      lastNotificationResponse.actionIdentifier ===
-        Notifications.DEFAULT_ACTION_IDENTIFIER
-    ) {
-      try {
-        const url = lastNotificationResponse.notification.request.content.data
-          .url as string
-        if (url && pathName !== url) {
-          router.push(url)
-        }
-      } catch {}
-    }
-    // eslint-disable-next-line react-compiler/react-compiler
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [lastNotificationResponse])
-
-  useEffect(() => {
-    const fetchData = async () => {
-      if (
-        !lastRefreshed ||
-        differenceInMinutes(new Date(), new Date(lastRefreshed)) > 5
-      ) {
-        await refreshData()
-      }
-    }
-
-    fetchData()
-  }, [lastRefreshed, refreshData])
+  useNotificationNavigation()
+  useAutoRefreshData()
 
   return (
     <StyledGestureHandlerRootView className="flex-1">
