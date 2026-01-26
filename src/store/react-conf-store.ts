@@ -1,10 +1,9 @@
-import AsyncStorage from '@react-native-async-storage/async-storage'
-import { create } from 'zustand'
-import { persist, createJSONStorage } from 'zustand/middleware'
-
 import initialAllSessions from '@/data/allSessions.json'
 import { ApiAllSessions, Session } from '@/types'
 import { formatSessions } from '@/utils/sessions'
+import { create } from 'zustand'
+import { createJSONStorage, persist } from 'zustand/middleware'
+import { LocalStore } from './mmkv'
 
 const doFetch = async (url: string) => {
   try {
@@ -93,7 +92,8 @@ export const useReactConfStore = create(
     }),
     {
       name: 'react-conf-2025-store',
-      storage: createJSONStorage(() => AsyncStorage),
+      storage: createJSONStorage(() => LocalStore),
+      version: 1,
       partialize: state => {
         const { isRefreshing: _, ...dataToPersist } = state
         return dataToPersist

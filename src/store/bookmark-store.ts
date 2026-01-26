@@ -1,6 +1,6 @@
-import AsyncStorage from '@react-native-async-storage/async-storage'
 import { create } from 'zustand'
-import { persist, createJSONStorage } from 'zustand/middleware'
+import { createJSONStorage, persist } from 'zustand/middleware'
+import { LocalStore } from './mmkv'
 
 type BookmarkState = {
   bookmarks: { sessionId: string; notificationId?: string }[]
@@ -30,7 +30,8 @@ export const useBookmarkStore = create(
     }),
     {
       name: 'react-conf-2025-bookmarks',
-      storage: createJSONStorage(() => AsyncStorage)
+      storage: createJSONStorage(() => LocalStore),
+      version: 1
     }
   )
 )
