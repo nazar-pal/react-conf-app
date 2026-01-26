@@ -1,4 +1,4 @@
-import { useOpenWebBrowser } from '@/hooks/useOpenWebBrowser'
+import { useOpenWebBrowser } from '@/hooks'
 import { Image as ExpoImage } from 'expo-image'
 import { Pressable, Text, View } from 'react-native'
 import { withUniwind } from 'uniwind'

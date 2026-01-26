@@ -1,13 +1,12 @@
-import { Platform } from 'react-native'
-import * as Haptics from 'expo-haptics'
-import * as Notifications from 'expo-notifications'
-import { isPast, subMinutes } from 'date-fns'
-
 import { useBookmarkStore } from '@/store/bookmarkStore'
 import { useReactConfStore } from '@/store/reactConfStore'
+import { Session } from '@/types'
 import { registerForPushNotificationsAsync } from '@/utils/registerForPushNotificationsAsync'
 import { formatSession } from '@/utils/sessions'
-import { Session } from '@/types'
+import { isPast, subMinutes } from 'date-fns'
+import * as Haptics from 'expo-haptics'
+import * as Notifications from 'expo-notifications'
+import { Platform } from 'react-native'
 
 export function useBookmark() {
   const toggleBookmarked = useBookmarkStore(state => state.toggleBookmarked)

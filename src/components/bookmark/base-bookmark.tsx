@@ -1,4 +1,4 @@
-import { useBookmark } from '@/hooks/useBookmark'
+import { useBookmark } from '@/hooks'
 import { Session } from '@/types'
 import MaterialCommunityIcons from '@expo/vector-icons/build/MaterialCommunityIcons'
 import { SymbolView } from 'expo-symbols'

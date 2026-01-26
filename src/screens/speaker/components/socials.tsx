@@ -1,4 +1,4 @@
-import { useOpenWebBrowser } from '@/hooks/useOpenWebBrowser'
+import { useOpenWebBrowser } from '@/hooks'
 import { Speaker } from '@/types'
 import Feather from '@expo/vector-icons/build/Feather'
 import Ionicons from '@expo/vector-icons/build/Ionicons'

@@ -11,7 +11,7 @@ import {
 import { NotFound } from '@/components/not-found'
 
 import { SpeakerDetails } from '@/components/speaker-details'
-import { useBookmark } from '@/hooks/useBookmark'
+import { useBookmark } from '@/hooks'
 import { useReactConfStore } from '@/store/reactConfStore'
 import { Speaker } from '@/types'
 import { Link, useLocalSearchParams } from 'expo-router'

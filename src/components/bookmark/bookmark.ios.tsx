@@ -1,4 +1,4 @@
-import { useBookmark } from '@/hooks/useBookmark'
+import { useBookmark } from '@/hooks'
 import { Session } from '@/types'
 import { frame } from '@expo/ui/swift-ui/modifiers'
 import { isLiquidGlassAvailable } from 'expo-glass-effect'

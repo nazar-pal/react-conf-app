@@ -1,5 +1,5 @@
 import { Button } from '@/components/button'
-import { useOpenWebBrowser } from '@/hooks/useOpenWebBrowser'
+import { useOpenWebBrowser } from '@/hooks'
 import { Text, View } from 'react-native'
 
 export function LiveStreamInfo() {
