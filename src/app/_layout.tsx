@@ -1,5 +1,5 @@
 import { RootStack } from '@/components/root-stack'
-import { useReactConfStore } from '@/store/reactConfStore'
+import { useReactConfStore } from '@/store'
 import {
   DarkTheme,
   DefaultTheme,

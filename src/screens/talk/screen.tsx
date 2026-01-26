@@ -1,7 +1,7 @@
 import { Bookmark } from '@/components/bookmark'
 import { HeaderButton } from '@/components/header-button'
 import { NotFound } from '@/components/not-found'
-import { useReactConfStore } from '@/store/reactConfStore'
+import { useReactConfStore } from '@/store'
 import { cn } from '@/utils/cn'
 import {
   DAY_ONE_DATE,

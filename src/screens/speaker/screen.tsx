@@ -1,7 +1,7 @@
 import { HeaderButton } from '@/components/header-button'
 import { NotFound } from '@/components/not-found'
 import { SpeakerImage } from '@/components/speaker-image'
-import { useReactConfStore } from '@/store/reactConfStore'
+import { useReactConfStore } from '@/store'
 import { cn } from '@/utils/cn'
 import {
   Stack,

@@ -15,7 +15,7 @@ import {
   Platform
 } from 'react-native'
 
-import { useBookmarkStore } from '@/store/bookmarkStore'
+import { useBookmarkStore } from '@/store'
 import { isLiquidGlassAvailable } from 'expo-glass-effect'
 import { useCSSVariable, useUniwind } from 'uniwind'
 

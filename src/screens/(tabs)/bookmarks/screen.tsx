@@ -3,8 +3,7 @@ import { Platform, Pressable, Text, View } from 'react-native'
 
 import { TalkCard } from '@/components/talk-card'
 import { ConferenceDay } from '@/consts'
-import { useBookmarkStore } from '@/store/bookmarkStore'
-import { useReactConfStore } from '@/store/reactConfStore'
+import { useBookmarkStore, useReactConfStore } from '@/store'
 import { Session } from '@/types'
 import { Link } from 'expo-router'
 import Animated, {

@@ -1,5 +1,5 @@
 import { ConferenceDay } from '@/consts'
-import { useReactConfStore } from '@/store/reactConfStore'
+import { useReactConfStore } from '@/store'
 import { Session, Speaker } from '@/types'
 import * as Haptics from 'expo-haptics'
 import { Link, useRouter } from 'expo-router'

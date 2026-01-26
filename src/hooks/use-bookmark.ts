@@ -1,5 +1,4 @@
-import { useBookmarkStore } from '@/store/bookmarkStore'
-import { useReactConfStore } from '@/store/reactConfStore'
+import { useBookmarkStore, useReactConfStore } from '@/store'
 import { Session } from '@/types'
 import { registerForPushNotificationsAsync } from '@/utils/registerForPushNotificationsAsync'
 import { formatSession } from '@/utils/sessions'

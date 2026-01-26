@@ -1,11 +1,11 @@
 import { ConferenceDay } from '@/consts'
-import { useReactConfStore } from '@/store/reactConfStore'
+import { useReactConfStore } from '@/store'
 import { Session } from '@/types'
+import { cn } from '@/utils/cn'
 import { getCurrentConferenceDay } from '@/utils/formatDate'
 import { useCallback, useEffect, useState } from 'react'
 import { Platform, Pressable, Text, View } from 'react-native'
 import Animated, { FadeIn, FadeOutUp } from 'react-native-reanimated'
-import { cn } from '@/utils/cn'
 
 const AnimatedPressable = Animated.createAnimatedComponent(Pressable)
 

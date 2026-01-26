@@ -1,5 +1,5 @@
 import { Bookmark } from '@/components/bookmark'
-import { useReactConfStore } from '@/store/reactConfStore'
+import { useReactConfStore } from '@/store'
 import { formatSessionTime } from '@/utils/formatDate'
 import { Link } from 'expo-router'
 import { Text, View } from 'react-native'

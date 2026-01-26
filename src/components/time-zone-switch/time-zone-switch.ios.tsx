@@ -1,4 +1,4 @@
-import { useReactConfStore } from '@/store/reactConfStore'
+import { useReactConfStore } from '@/store'
 import { getCurrentTimezone } from '@/utils/formatDate'
 import {
   ContextMenu,

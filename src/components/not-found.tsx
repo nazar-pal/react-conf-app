@@ -1,4 +1,4 @@
-import { useReactConfStore } from '@/store/reactConfStore'
+import { useReactConfStore } from '@/store'
 import { Image as ExpoImage } from 'expo-image'
 import { Text, View } from 'react-native'
 import { useCSSVariable, useUniwind, withUniwind } from 'uniwind'

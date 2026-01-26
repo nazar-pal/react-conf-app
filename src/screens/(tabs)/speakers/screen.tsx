@@ -12,7 +12,7 @@ import { NotFound } from '@/components/not-found'
 
 import { SpeakerDetails } from '@/components/speaker-details'
 import { useBookmark } from '@/hooks'
-import { useReactConfStore } from '@/store/reactConfStore'
+import { useReactConfStore } from '@/store'
 import { Speaker } from '@/types'
 import { Link, useLocalSearchParams } from 'expo-router'
 import Animated, {

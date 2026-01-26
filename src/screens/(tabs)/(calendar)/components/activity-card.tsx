@@ -1,4 +1,4 @@
-import { useReactConfStore } from '@/store/reactConfStore'
+import { useReactConfStore } from '@/store'
 import { Session } from '@/types'
 import { formatSessionTime } from '@/utils/formatDate'
 import { Text, View } from 'react-native'

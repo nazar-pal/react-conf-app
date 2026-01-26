@@ -1,7 +1,7 @@
 import { NotFound } from '@/components/not-found'
 import { TalkCard } from '@/components/talk-card'
 import { ConferenceDay } from '@/consts'
-import { useReactConfStore } from '@/store/reactConfStore'
+import { useReactConfStore } from '@/store'
 import { Session } from '@/types'
 import { getInitialDay } from '@/utils/formatDate'
 import { useScrollToTop } from '@react-navigation/native'
