@@ -1,4 +1,4 @@
-import { TimeZoneSwitch } from '@/components/TimeZoneSwitch'
+import { TimeZoneSwitch } from '@/components/time-zone-switch'
 import { isLiquidGlassAvailable } from 'expo-glass-effect'
 import { Image } from 'expo-image'
 import { Stack } from 'expo-router'
