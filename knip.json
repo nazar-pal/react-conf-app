@@ -8,5 +8,6 @@
     "@react-navigation/native",
     "babel-preset-expo"
   ],
+  "ignore": ["metro.config.js"],
   "tags": ["-lintignore"]
 }
