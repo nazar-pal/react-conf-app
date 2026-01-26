@@ -1,8 +1,7 @@
+import { cn } from '@/utils/cn'
+import * as Haptics from 'expo-haptics'
 import { View } from 'react-native'
 import { Pressable } from 'react-native-gesture-handler'
-
-import * as Haptics from 'expo-haptics'
-import { cn } from '../utils/cn'
 
 export function IconButton({
   onPress,
