@@ -8,7 +8,7 @@ import {
   View
 } from 'react-native'
 
-import { NotFound } from '@/components/NotFound'
+import { NotFound } from '@/components/not-found'
 
 import { SpeakerDetails } from '@/components/speaker-details'
 import { useBookmark } from '@/hooks/useBookmark'

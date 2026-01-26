@@ -1,10 +1,9 @@
+import { Bookmark } from '@/components/bookmark'
+import { useReactConfStore } from '@/store/reactConfStore'
+import { formatSessionTime } from '@/utils/formatDate'
 import { Link } from 'expo-router'
 import { Text, View } from 'react-native'
 import { Pressable } from 'react-native-gesture-handler'
-
-import { useReactConfStore } from '@/store/reactConfStore'
-import { formatSessionTime } from '@/utils/formatDate'
-import { Bookmark } from './bookmark'
 
 export function MiniTalkCard({ sessionId }: { sessionId: string | number }) {
   const shouldUseLocalTz = useReactConfStore(state => state.shouldUseLocalTz)

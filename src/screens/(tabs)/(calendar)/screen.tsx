@@ -1,5 +1,5 @@
-import { NotFound } from '@/components/NotFound'
-import { TalkCard } from '@/components/TalkCard'
+import { NotFound } from '@/components/not-found'
+import { TalkCard } from '@/components/talk-card'
 import { ConferenceDay } from '@/consts'
 import { useReactConfStore } from '@/store/reactConfStore'
 import { Session } from '@/types'

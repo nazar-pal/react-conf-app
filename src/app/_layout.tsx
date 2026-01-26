@@ -1,4 +1,4 @@
-import { RootStack } from '@/components/RootStack'
+import { RootStack } from '@/components/root-stack'
 import { useReactConfStore } from '@/store/reactConfStore'
 import {
   DarkTheme,

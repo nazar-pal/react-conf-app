@@ -1,11 +1,10 @@
-import { Link, useRouter } from 'expo-router'
-import { Text, useWindowDimensions, View } from 'react-native'
-
 import { ConferenceDay } from '@/consts'
 import { useReactConfStore } from '@/store/reactConfStore'
 import { Session, Speaker } from '@/types'
 import * as Haptics from 'expo-haptics'
+import { Link, useRouter } from 'expo-router'
 import { useMemo } from 'react'
+import { Text, useWindowDimensions, View } from 'react-native'
 import { Gesture, GestureDetector } from 'react-native-gesture-handler'
 import Animated, { FadeIn, FadeOut } from 'react-native-reanimated'
 import { formatSessionTime } from '../utils/formatDate'

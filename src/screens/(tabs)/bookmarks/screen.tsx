@@ -1,7 +1,7 @@
 import React, { useCallback } from 'react'
 import { Platform, Pressable, Text, View } from 'react-native'
 
-import { TalkCard } from '@/components/TalkCard'
+import { TalkCard } from '@/components/talk-card'
 import { ConferenceDay } from '@/consts'
 import { useBookmarkStore } from '@/store/bookmarkStore'
 import { useReactConfStore } from '@/store/reactConfStore'

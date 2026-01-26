@@ -1,3 +1,8 @@
+import { HeaderButton } from '@/components/header-button'
+import { NotFound } from '@/components/not-found'
+import { SpeakerImage } from '@/components/speaker-image'
+import { useReactConfStore } from '@/store/reactConfStore'
+import { cn } from '@/utils/cn'
 import {
   Stack,
   useIsPreview,
@@ -6,15 +11,8 @@ import {
 } from 'expo-router'
 import { Platform, StyleSheet, Text, View } from 'react-native'
 import { ScrollView } from 'react-native-gesture-handler'
-
-import { HeaderButton } from '@/components/header-button'
-import { MiniTalkCard } from '@/components/MiniTalkCard'
-import { NotFound } from '@/components/NotFound'
-import { SpeakerImage } from '@/components/speaker-image'
-import { useReactConfStore } from '@/store/reactConfStore'
-import { cn } from '@/utils/cn'
 import { withUniwind } from 'uniwind'
-import { Socials } from './components'
+import { MiniTalkCard, Socials } from './components'
 
 const StyledScrollView = withUniwind(ScrollView)
 
