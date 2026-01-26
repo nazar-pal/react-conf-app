@@ -11,7 +11,7 @@ import {
 import { buttonStyle, frame } from '@expo/ui/swift-ui/modifiers'
 import { isLiquidGlassAvailable } from 'expo-glass-effect'
 import * as Haptics from 'expo-haptics'
-import { StyleSheet, useColorScheme } from 'react-native'
+import { useColorScheme } from 'react-native'
 
 const options = ['PDT (Venue)', `${getCurrentTimezone()} (Local)`]
 
@@ -30,7 +30,7 @@ export function TimeZoneSwitch() {
   }
 
   return (
-    <Host style={styles.container}>
+    <Host style={{ height: 34, width: 94 }}>
       <ContextMenu
         modifiers={[
           buttonStyle(isLiquidGlassAvailable() ? 'glass' : 'bordered')
@@ -71,10 +71,3 @@ export function TimeZoneSwitch() {
     </Host>
   )
 }
-
-const styles = StyleSheet.create({
-  container: {
-    height: 34,
-    width: 94
-  }
-})

@@ -14,4 +14,44 @@
 
   --font-bold: 'Montserrat-Bold';
   --font-bold-italic: 'Montserrat-BoldItalic';
+
+  /* Shared (theme-agnostic) colors */
+  --color-red: #ff0000;
+  --color-white: #ffffff;
+  --color-black: #000000;
+  --color-light-green: #9bdfb1;
+  --color-dark-green: #1ac9a2;
+  --color-grey: #adb5bd;
+}
+
+@layer theme {
+  :root {
+    @variant light {
+      --color-text: #121212;
+      --color-text-reverse: #ffffff;
+      --color-text-secondary: #606060;
+      --color-background: #ffffff;
+      --color-background-secondary: #f1f1f1;
+      --color-background-tertiary: #f5f5f5;
+      --color-background-element: #f1f1f1;
+      --color-border: #d9d9d0;
+      --color-react-blue: #087ea4;
+      --color-transparent: rgba(255, 255, 255, 0);
+      --color-active-content: rgba(0, 0, 0, 0.1);
+    }
+
+    @variant dark {
+      --color-text: #ffffff;
+      --color-text-reverse: #121212;
+      --color-text-secondary: #cccccc;
+      --color-background: #000000;
+      --color-background-secondary: #242424;
+      --color-background-tertiary: #141414;
+      --color-background-element: #141414;
+      --color-border: #363a3f;
+      --color-react-blue: #58c4dc;
+      --color-transparent: rgba(0, 0, 0, 0);
+      --color-active-content: rgba(255, 255, 255, 0.3);
+    }
+  }
 }

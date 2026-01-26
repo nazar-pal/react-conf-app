@@ -1,8 +1,9 @@
-import { theme } from '@/theme'
-import openWebBrowserAsync from '@/utils/openWebBrowserAsync'
-import { Image } from 'expo-image'
-import { Pressable, StyleSheet, View } from 'react-native'
-import { ThemedText, ThemedView } from './Themed'
+import { useOpenWebBrowser } from '@/hooks/useOpenWebBrowser'
+import { Image as ExpoImage } from 'expo-image'
+import { Pressable, Text, View } from 'react-native'
+import { withUniwind } from 'uniwind'
+
+const Image = withUniwind(ExpoImage)
 
 const sponsors = {
   amazon: {
@@ -71,19 +72,19 @@ type Sponsor = (typeof sponsors)[keyof typeof sponsors]
 
 export function Sponsors() {
   return (
-    <ThemedView style={styles.container}>
-      <ThemedText className="text-lg font-semibold" style={styles.title}>
+    <View className="bg-background pt-6">
+      <Text className="text-text px-4 pb-4 text-lg font-semibold">
         Sponsors
-      </ThemedText>
-      <ThemedView style={styles.content} color={theme.color.backgroundElement}>
-        <ThemedText color={theme.color.textSecondary} style={styles.level}>
+      </Text>
+      <View className="bg-background-element px-4 pb-4">
+        <Text className="text-text-secondary py-4 text-base font-medium">
           Platinum
-        </ThemedText>
+        </Text>
         <SponsorCard sponsor={sponsors.amazon} />
-        <ThemedText color={theme.color.textSecondary} style={styles.level}>
+        <Text className="text-text-secondary py-4 text-base font-medium">
           Gold
-        </ThemedText>
-        <View style={styles.sponsors}>
+        </Text>
+        <View className="gap-4">
           <SponsorCard sponsor={sponsors.agGrid} />
           <SponsorCard sponsor={sponsors.mui} />
           <SponsorCard sponsor={sponsors.resend} />
@@ -92,68 +93,41 @@ export function Sponsors() {
           <SponsorCard sponsor={sponsors.expo} />
           <SponsorCard sponsor={sponsors.redwood} />
         </View>
-        <ThemedText color={theme.color.textSecondary} style={styles.level}>
+        <Text className="text-text-secondary py-4 text-base font-medium">
           Livestream
-        </ThemedText>
+        </Text>
         <SponsorCard sponsor={sponsors.livestream} />
-        <ThemedText color={theme.color.textSecondary} style={styles.level}>
+        <Text className="text-text-secondary py-4 text-base font-medium">
           Silver
-        </ThemedText>
-        <View style={styles.sponsors}>
+        </Text>
+        <View className="gap-4">
           <SponsorCard sponsor={sponsors.oldMission} />
           <SponsorCard sponsor={sponsors.arcjet} />
           <SponsorCard sponsor={sponsors.renderAtl} />
           <SponsorCard sponsor={sponsors.infiniteRed} />
         </View>
-        <ThemedText color={theme.color.textSecondary} style={styles.level}>
+        <Text className="text-text-secondary py-4 text-base font-medium">
           Organizers
-        </ThemedText>
-        <View style={styles.sponsors}>
+        </Text>
+        <View className="gap-4">
           <SponsorCard sponsor={sponsors.meta} />
           <SponsorCard sponsor={sponsors.callstack} />
         </View>
-      </ThemedView>
-    </ThemedView>
+      </View>
+    </View>
   )
 }
 
 function SponsorCard({ sponsor }: { sponsor: Sponsor }) {
+  const openWebBrowserAsync = useOpenWebBrowser()
   return (
     <Pressable
-      style={styles.imageContainer}
+      className="rounded-xl bg-white p-2"
       onPress={() => {
         openWebBrowserAsync(sponsor.url)
       }}
     >
-      <Image source={sponsor.image} style={styles.image} contentFit="contain" />
+      <Image source={sponsor.image} className="h-[58px]" contentFit="contain" />
     </Pressable>
   )
 }
-
-const styles = StyleSheet.create({
-  container: {
-    paddingTop: 24
-  },
-  content: {
-    paddingBottom: 16,
-    paddingHorizontal: 16
-  },
-  image: {
-    height: 58
-  },
-  imageContainer: {
-    backgroundColor: theme.colorWhite,
-    borderRadius: 12,
-    padding: 8
-  },
-  level: {
-    paddingVertical: 16
-  },
-  sponsors: {
-    gap: 16
-  },
-  title: {
-    paddingBottom: 16,
-    paddingHorizontal: 16
-  }
-})

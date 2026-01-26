@@ -1,69 +1,64 @@
-import { Image } from 'expo-image'
+import { Image as ExpoImage } from 'expo-image'
 import { useState } from 'react'
 import { StyleSheet, View, ViewStyle } from 'react-native'
+import { withUniwind } from 'uniwind'
 
-import { theme } from '@/theme'
-import { ThemedView, useThemeColor } from './Themed'
+import { cn } from '../utils/cn'
+
+const Image = withUniwind(ExpoImage)
+
+type SpeakerImageSize = 'small' | 'medium' | 'large' | 'xlarge'
+
+const sizeVariants: Record<
+  SpeakerImageSize,
+  { className: string; logoClassName: string }
+> = {
+  small: { className: 'size-[42px]', logoClassName: 'size-5' },
+  medium: { className: 'size-[60px]', logoClassName: 'size-[30px]' },
+  large: { className: 'size-[96px]', logoClassName: 'size-[50px]' },
+  xlarge: { className: 'size-[200px]', logoClassName: 'size-[100px]' }
+}
 
 export function SpeakerImage({
   profilePicture,
-  size,
+  size = 'medium',
   style,
   animated
 }: {
   profilePicture?: string | null
-  size?: 'small' | 'medium' | 'large' | 'xlarge'
+  size?: SpeakerImageSize
   style?: ViewStyle
   animated?: boolean
 }) {
-  const borderColor = useThemeColor(theme.color.border)
   const [isLoading, setIsLoading] = useState(false)
-  const imageSize = (() => {
-    switch (size) {
-      case 'small':
-        return styles.imageSizeSmall
-      case 'large':
-        return styles.imageSizeLarge
-      case 'xlarge':
-        return styles.imageSizeExtraLarge
-      case 'medium':
-      default:
-        return styles.imageSizeMedium
-    }
-  })()
-  const imageStyles = [styles.profileImage, imageSize]
 
-  const reactLogoSize = (() => {
-    switch (size) {
-      case 'large':
-        return styles.reactLogoSizeLarge
-      case 'xlarge':
-        return styles.reactLogoSizeExtraLarge
-      case 'medium':
-      default:
-        return styles.reactLogoSizeMedium
-    }
-  })()
+  const { className: sizeClassName, logoClassName } = sizeVariants[size]
 
   const placeholder = (
-    <View style={[imageStyles, styles.fallbackImage]}>
+    <View
+      className={cn('bg-react-blue items-center justify-center', sizeClassName)}
+      style={StyleSheet.absoluteFillObject}
+    >
       <Image
         source={require('@/assets/images/reactlogo-white.png')}
-        style={reactLogoSize}
+        className={logoClassName}
       />
     </View>
   )
 
   return (
-    <ThemedView
-      lightColor="rgba(255,255,255,0.15)"
-      darkColor="rgba(0,0,0,0.15)"
-      style={[imageSize, styles.imageContainer, style, { borderColor }]}
+    <View
+      className={cn(
+        'border-border mr-3 overflow-hidden rounded-full border bg-[rgba(255,255,255,0.15)] dark:bg-[rgba(0,0,0,0.15)]',
+        sizeClassName
+      )}
+      style={style}
     >
       {profilePicture ? (
         <Image
+          className={sizeClassName}
           source={{ uri: profilePicture }}
-          style={imageStyles}
+          style={StyleSheet.absoluteFillObject}
           transition={animated && isLoading ? 300 : 0}
           onLoadStart={() => setIsLoading(true)}
           onLoadEnd={() => setIsLoading(false)}
@@ -71,53 +66,6 @@ export function SpeakerImage({
       ) : (
         placeholder
       )}
-    </ThemedView>
+    </View>
   )
 }
-
-const styles = StyleSheet.create({
-  fallbackImage: {
-    alignItems: 'center',
-    backgroundColor: theme.color.reactBlue.dark,
-    justifyContent: 'center'
-  },
-  imageContainer: {
-    borderRadius: 100,
-    borderWidth: 1,
-    marginRight: 12,
-    overflow: 'hidden'
-  },
-  imageSizeExtraLarge: {
-    height: 200,
-    width: 200
-  },
-  imageSizeLarge: {
-    height: 96,
-    width: 96
-  },
-  imageSizeMedium: {
-    height: 60,
-    width: 60
-  },
-  imageSizeSmall: {
-    height: 42,
-    width: 42
-  },
-  profileImage: {
-    height: 70,
-    width: 50,
-    ...StyleSheet.absoluteFillObject
-  },
-  reactLogoSizeExtraLarge: {
-    height: 100,
-    width: 100
-  },
-  reactLogoSizeLarge: {
-    height: 50,
-    width: 50
-  },
-  reactLogoSizeMedium: {
-    height: 30,
-    width: 30
-  }
-})

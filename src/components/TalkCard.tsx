@@ -1,18 +1,15 @@
 import { Link, useRouter } from 'expo-router'
-import { StyleSheet, useWindowDimensions, View } from 'react-native'
-
-import { Session, Speaker } from '@/types'
-import { theme } from '../theme'
-import { formatSessionTime } from '../utils/formatDate'
-import { Bookmark } from './Bookmark'
-import { ThemedText, ThemedView } from './Themed'
+import { Text, useWindowDimensions, View } from 'react-native'
 
 import { ConferenceDay } from '@/consts'
 import { useReactConfStore } from '@/store/reactConfStore'
+import { Session, Speaker } from '@/types'
 import * as Haptics from 'expo-haptics'
 import { useMemo } from 'react'
 import { Gesture, GestureDetector } from 'react-native-gesture-handler'
 import Animated, { FadeIn, FadeOut } from 'react-native-reanimated'
+import { formatSessionTime } from '../utils/formatDate'
+import { Bookmark } from './Bookmark'
 import { SpeakerDetails } from './SpeakerDetails'
 
 type Props = {
@@ -56,54 +53,31 @@ export function TalkCard({ session, day, isBookmarked = false }: Props) {
   return (
     <Animated.View entering={FadeIn} exiting={FadeOut}>
       <GestureDetector gesture={gestureTalkTap}>
-        <ThemedView style={styles.container}>
+        <View className="bg-background mx-4 mb-6 rounded-[10px]">
           {!isBookmarked && (
-            <ThemedText
-              className="mb-2 text-sm font-medium"
-              color={theme.color.textSecondary}
-              style={{ marginLeft: 24 }}
-            >
+            <Text className="text-text-secondary mb-2 ml-6 text-sm font-medium">
               {formatSessionTime(session, shouldUseLocalTz)}
-            </ThemedText>
+            </Text>
           )}
-          <ThemedView
-            color={theme.color.backgroundSecondary}
-            style={styles.content}
-          >
-            <View
-              style={{
-                marginHorizontal: -16,
-                paddingHorizontal: 16,
-                marginVertical: -8,
-                paddingVertical: 8
-              }}
-            >
-              <View style={styles.titleAndBookmark}>
-                <ThemedText
-                  className="text-lg font-semibold"
-                  style={styles.title}
-                >
+          <View className="bg-background-secondary gap-6 rounded-[32px] p-6">
+            <View className="-mx-4 -my-2 px-4 py-2">
+              <View className="flex-row items-center justify-between gap-2">
+                <Text className="text-text mr-10 flex-1 text-lg font-semibold">
                   {session.title}
-                </ThemedText>
+                </Text>
               </View>
               {isBookmarked && (
-                <View style={styles.time}>
-                  <ThemedText
-                    className="text-sm font-medium"
-                    color={theme.color.textSecondary}
-                  >
+                <View className="flex-row gap-2 rounded-[10px]">
+                  <Text className="text-text-secondary text-sm font-medium">
                     {formatSessionTime(session, shouldUseLocalTz)},
-                  </ThemedText>
-                  <ThemedText
-                    className="text-sm font-medium"
-                    color={theme.color.textSecondary}
-                  >
+                  </Text>
+                  <Text className="text-text-secondary text-sm font-medium">
                     {day === ConferenceDay.One ? 'Day 1' : 'Day 2'}
-                  </ThemedText>
+                  </Text>
                 </View>
               )}
             </View>
-            <View style={styles.bookmarkContainer}>
+            <View className="absolute top-6 right-6">
               <Bookmark session={session} size="small" />
             </View>
             {session.speakers.map(speaker => (
@@ -119,61 +93,17 @@ export function TalkCard({ session, day, isBookmarked = false }: Props) {
                   asChild
                 >
                   <Link.Trigger>
-                    <View
-                      style={{
-                        marginHorizontal: -16,
-                        paddingHorizontal: 16,
-                        marginVertical: -8,
-                        paddingVertical: 8,
-                        borderRadius: 32
-                      }}
-                    >
+                    <View className="-mx-4 -my-2 rounded-[32px] px-4 py-2">
                       <SpeakerDetails speaker={speaker} />
                     </View>
                   </Link.Trigger>
-                  <Link.Preview style={{ ...styles.preview, width }} />
+                  <Link.Preview style={{ height: 420, width }} />
                 </Link>
               </GestureDetector>
             ))}
-          </ThemedView>
-        </ThemedView>
+          </View>
+        </View>
       </GestureDetector>
     </Animated.View>
   )
 }
-
-const styles = StyleSheet.create({
-  bookmarkContainer: {
-    position: 'absolute',
-    right: 24,
-    top: 24
-  },
-  container: {
-    borderRadius: 10,
-    marginBottom: 24,
-    marginHorizontal: 16
-  },
-  content: {
-    borderRadius: 32,
-    gap: 24,
-    padding: 24
-  },
-  preview: {
-    height: 420
-  },
-  time: {
-    borderRadius: 10,
-    flexDirection: 'row',
-    gap: 8
-  },
-  title: {
-    flex: 1,
-    marginRight: 40
-  },
-  titleAndBookmark: {
-    alignItems: 'center',
-    flexDirection: 'row',
-    gap: 8,
-    justifyContent: 'space-between'
-  }
-})

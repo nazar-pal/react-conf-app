@@ -9,16 +9,15 @@ import {
 import React from 'react'
 import {
   ColorValue,
-  ImageSourcePropType,
-  Platform,
   // eslint-disable-next-line react-native/split-platform-components
-  DynamicColorIOS
+  DynamicColorIOS,
+  ImageSourcePropType,
+  Platform
 } from 'react-native'
 
-import { theme } from '@/theme'
 import { useBookmarkStore } from '@/store/bookmarkStore'
 import { isLiquidGlassAvailable } from 'expo-glass-effect'
-import { useThemeColor } from '@/components/Themed'
+import { useCSSVariable, useUniwind } from 'uniwind'
 
 // Todo (betomoedano): In the future we can remove this type. Learn more: https://exponent-internal.slack.com/archives/C0447EFTS74/p1758042759724779?thread_ts=1758039375.241799&cid=C0447EFTS74
 type VectorIconFamily = {
@@ -32,11 +31,13 @@ type VectorIconFamily = {
 export default function TabLayout() {
   const bookmarks = useBookmarkStore(state => state.bookmarks)
   const hasBookmarks = bookmarks.length > 0
-  const tintColor = useThemeColor(theme.color.reactBlue)
-  const inactiveTintColor = useThemeColor({
-    light: '#00000090',
-    dark: '#FFFFFF90'
-  })
+  const { theme } = useUniwind()
+  const [tintColor, blackColor, whiteColor] = useCSSVariable([
+    '--color-react-blue',
+    '--color-black',
+    '--color-white'
+  ]) as [string, string, string]
+  const inactiveTintColor = theme === 'dark' ? '#FFFFFF90' : '#00000090'
 
   const labelSelectedStyle =
     Platform.OS === 'ios' ? { color: tintColor } : undefined
@@ -48,22 +49,25 @@ export default function TabLayout() {
         color:
           Platform.OS === 'ios' && isLiquidGlassAvailable()
             ? DynamicColorIOS({
-                light: theme.colorBlack,
-                dark: theme.colorWhite
+                light: blackColor,
+                dark: whiteColor
               })
             : inactiveTintColor
       }}
       iconColor={
         Platform.OS === 'ios' && isLiquidGlassAvailable()
           ? DynamicColorIOS({
-              light: theme.colorBlack,
-              dark: theme.colorWhite
+              light: blackColor,
+              dark: whiteColor
             })
           : inactiveTintColor
       }
       tintColor={
         Platform.OS === 'ios'
-          ? DynamicColorIOS(theme.color.reactBlue)
+          ? DynamicColorIOS({
+              light: tintColor,
+              dark: tintColor
+            })
           : inactiveTintColor
       }
       labelVisibilityMode="labeled"

@@ -1,14 +1,13 @@
-import { theme } from '@/theme'
-import { Session } from '@/types'
 import { useBookmark } from '@/hooks/useBookmark'
-import { HeaderButton } from './HeaderButtons/HeaderButton'
+import { Session } from '@/types'
 import { frame } from '@expo/ui/swift-ui/modifiers'
 import { isLiquidGlassAvailable } from 'expo-glass-effect'
-import { useThemeColor } from './Themed'
 import * as Haptics from 'expo-haptics'
-import { Platform, StyleProp, useColorScheme, ViewStyle } from 'react-native'
 import { useMemo } from 'react'
+import { Platform, StyleProp, ViewStyle } from 'react-native'
+import { useCSSVariable, useUniwind } from 'uniwind'
 import { BaseBookmark } from './BaseBookmark'
+import { HeaderButton } from './HeaderButtons/HeaderButton'
 
 type BookmarkProps = {
   session: Session
@@ -25,12 +24,16 @@ export function Bookmark(props: BookmarkProps) {
 
 function GlassBookmark({ session, size = 'large', style }: BookmarkProps) {
   const { toggleBookmark, isBookmarked } = useBookmark()
-  const tintColor = useThemeColor(theme.color.reactBlue)
-  const notSelectedIconColor = useThemeColor({
-    dark: theme.colorWhite,
-    light: theme.colorGrey
-  })
-  const colorScheme = useColorScheme()
+  const { theme } = useUniwind()
+
+  const [tintColor, whiteColor, greyColor, backgroundLight] = useCSSVariable([
+    '--color-react-blue',
+    '--color-white',
+    '--color-grey',
+    '--color-background'
+  ]) as [string, string, string, string]
+
+  const notSelectedIconColor = theme === 'dark' ? whiteColor : greyColor
 
   const handlePress = async () => {
     if (Platform.OS === 'ios') {
@@ -45,24 +48,21 @@ function GlassBookmark({ session, size = 'large', style }: BookmarkProps) {
   }
 
   const bookmarked = isBookmarked(session.id)
-  const backgroundColor = useThemeColor({
-    light: theme.color.background.light,
-    dark: '#646469'
-  })
+  const backgroundColor = theme === 'dark' ? '#646469' : backgroundLight
 
   const imageColor = useMemo(() => {
     if (isLiquidGlassAvailable()) {
-      return bookmarked ? theme.colorWhite : notSelectedIconColor
+      return bookmarked ? whiteColor : notSelectedIconColor
     }
     return tintColor
-  }, [tintColor, bookmarked, notSelectedIconColor])
+  }, [tintColor, bookmarked, whiteColor, notSelectedIconColor])
 
   return (
     <HeaderButton
       buttonProps={{
         onPress: handlePress,
         variant: 'glassProminent',
-        color: colorScheme === 'dark' ? 'transparent' : backgroundColor
+        color: theme === 'dark' ? 'transparent' : backgroundColor
       }}
       style={style}
       imageProps={{

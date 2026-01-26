@@ -1,12 +1,10 @@
 import React, { useCallback } from 'react'
-import { Platform, Pressable, StyleSheet, View } from 'react-native'
+import { Platform, Pressable, Text, View } from 'react-native'
 
 import { TalkCard } from '@/components/TalkCard'
-import { ThemedText, useThemeColor } from '@/components/Themed'
 import { ConferenceDay } from '@/consts'
 import { useBookmarkStore } from '@/store/bookmarkStore'
 import { useReactConfStore } from '@/store/reactConfStore'
-import { theme } from '@/theme'
 import { Session } from '@/types'
 import { Link } from 'expo-router'
 import Animated, {
@@ -20,8 +18,6 @@ export default function Bookmarks() {
   const bookmarks = useBookmarkStore(state => state.bookmarks)
 
   const { dayOne, dayTwo } = useReactConfStore(state => state.schedule)
-
-  const backgroundColor = useThemeColor(theme.color.background)
 
   const { bottom } = useSafeAreaInsets()
 
@@ -45,9 +41,9 @@ export default function Bookmarks() {
   return (
     <Animated.FlatList
       contentInsetAdjustmentBehavior="automatic"
-      style={{ backgroundColor }}
+      className="bg-background"
+      contentContainerClassName="pt-4"
       contentContainerStyle={[
-        styles.flatListContainer,
         {
           paddingBottom: Platform.select({ android: 100 + bottom, default: 0 })
         }
@@ -61,22 +57,19 @@ export default function Bookmarks() {
       itemLayoutAnimation={LinearTransition}
       ListEmptyComponent={
         <Animated.View entering={FadeIn} exiting={FadeOut}>
-          <View style={styles.bookmarks}>
-            <ThemedText className="text-xl font-bold">
+          <View className="gap-4 px-4">
+            <Text className="text-text text-xl font-bold">
               No sessions bookmarked
-            </ThemedText>
-            <ThemedText className="text-lg" color={theme.color.textSecondary}>
+            </Text>
+            <Text className="text-text-secondary text-lg font-medium">
               Tap on the bookmark icon on a session to add it to your bookmarks,
               and it will be displayed here.
-            </ThemedText>
+            </Text>
             <Link href="/(tabs)/(calendar)" asChild>
               <Pressable>
-                <ThemedText
-                  color={theme.color.reactBlue}
-                  style={{ marginTop: 2 }}
-                >
+                <Text className="text-react-blue mt-0.5 text-base font-medium">
                   View all sessions
-                </ThemedText>
+                </Text>
               </Pressable>
             </Link>
           </View>
@@ -85,13 +78,3 @@ export default function Bookmarks() {
     />
   )
 }
-
-const styles = StyleSheet.create({
-  bookmarks: {
-    gap: 16,
-    paddingHorizontal: 16
-  },
-  flatListContainer: {
-    paddingTop: 16
-  }
-})

@@ -1,16 +1,18 @@
-import { ThemedText, useThemeColor } from '@/components/Themed'
-import { theme } from '@/theme'
 import { isLiquidGlassAvailable } from 'expo-glass-effect'
 import { Stack, useRouter } from 'expo-router'
-import { Platform } from 'react-native'
+import { Platform, Text } from 'react-native'
+import { useCSSVariable, useUniwind } from 'uniwind'
 
 export default function Layout() {
   const router = useRouter()
-  const tabBarBackgroundColor = useThemeColor(theme.color.background)
-  const tabBarTintColor = useThemeColor({
-    light: theme.colorBlack,
-    dark: theme.colorWhite
-  })
+  const [tabBarBackgroundColor, blackColor, whiteColor] = useCSSVariable([
+    '--color-background',
+    '--color-black',
+    '--color-white'
+  ]) as [string, string, string]
+
+  const { theme } = useUniwind()
+  const tabBarTintColor = theme === 'dark' ? whiteColor : blackColor // Will be theme-aware via CSS variable
 
   return (
     <Stack>
@@ -26,7 +28,7 @@ export default function Layout() {
           title: 'Speakers',
           headerTitle: () =>
             Platform.OS === 'android' ? (
-              <ThemedText className="text-xl font-bold">Speakers</ThemedText>
+              <Text className="text-text text-xl font-bold">Speakers</Text>
             ) : undefined,
 
           headerSearchBarOptions: {

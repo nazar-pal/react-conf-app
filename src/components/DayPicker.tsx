@@ -1,8 +1,7 @@
 import { ConferenceDay } from '@/consts'
-import { theme } from '@/theme'
 import { Picker } from '@expo/ui/jetpack-compose'
-import { Platform, StyleSheet, useWindowDimensions, View } from 'react-native'
-import { useThemeColor } from './Themed'
+import { Platform, useWindowDimensions, View } from 'react-native'
+import { useCSSVariable } from 'uniwind'
 
 interface DayPickerProps {
   selectedDay: ConferenceDay
@@ -10,29 +9,31 @@ interface DayPickerProps {
 }
 
 export function DayPicker({ selectedDay, onSelectDay }: DayPickerProps) {
-  const backgroundColor = useThemeColor(theme.color.background)
+  const [
+    backgroundColor,
+    tintColor,
+    textColor,
+    textReverseColor,
+    inactiveColorText,
+    backgroundSecondary
+  ] = useCSSVariable([
+    '--color-background',
+    '--color-react-blue',
+    '--color-text',
+    '--color-text-reverse',
+    '--color-text-secondary',
+    '--color-background-secondary'
+  ]) as [string, string, string, string, string, string]
   const width = useWindowDimensions().width
-  const tintColor = useThemeColor(theme.color.reactBlue)
-  const colorText = useThemeColor({
-    light: Platform.select({
-      ios: theme.color.text.light,
-      android: theme.color.text.dark
-    }),
-    dark: Platform.select({
-      ios: theme.color.text.dark,
-      android: theme.color.text.light
-    })
+
+  // Platform-specific text color logic
+  const colorText = Platform.select({
+    ios: textColor,
+    android: textReverseColor
   })
-  const inactiveColorText = useThemeColor(theme.color.textSecondary)
-  const backgroundSecondary = useThemeColor(theme.color.backgroundSecondary)
 
   return (
-    <View
-      style={{
-        paddingVertical: 4,
-        backgroundColor: backgroundColor
-      }}
-    >
+    <View className="bg-background py-1">
       <Picker
         options={['Day 1', 'Day 2']}
         selectedIndex={selectedDay === ConferenceDay.One ? 0 : 1}
@@ -50,26 +51,15 @@ export function DayPicker({ selectedDay, onSelectDay }: DayPickerProps) {
         }}
         variant="segmented"
         style={{
-          ...styles.picker,
+          alignSelf: 'center',
+          height: 40,
+          paddingVertical: 24,
           width: width - 24 * 2
         }}
       />
 
       {/* Used to prevent onPress events from being triggered in components behind the picker */}
-      <View style={styles.overlay} pointerEvents="none" />
+      <View className="absolute h-[50px] w-full" pointerEvents="none" />
     </View>
   )
 }
-
-const styles = StyleSheet.create({
-  overlay: {
-    height: 50,
-    position: 'absolute',
-    width: '100%'
-  },
-  picker: {
-    alignSelf: 'center',
-    height: 40,
-    paddingVertical: 24
-  }
-})

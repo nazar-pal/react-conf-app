@@ -1,48 +1,33 @@
-import { Image } from 'expo-image'
-import { StyleSheet } from 'react-native'
+import { Image as ExpoImage } from 'expo-image'
+import { Text, View } from 'react-native'
+import { useCSSVariable, useUniwind, withUniwind } from 'uniwind'
 
 import { Button } from './Button'
-import { ThemedText, ThemedView, useThemeColor } from './Themed'
 
 import { useReactConfStore } from '@/store/reactConfStore'
-import { theme } from '@/theme'
+
+const Image = withUniwind(ExpoImage)
 
 export function NotFound({ message }: { message: string }) {
   const refetch = useReactConfStore(state => state.refreshData)
   const isRefetching = useReactConfStore(state => state.isRefreshing)
-  const iconColor = useThemeColor({
-    light: theme.colorGrey,
-    dark: theme.colorWhite
-  })
+  const { theme } = useUniwind()
+  const [colorGrey, colorWhite] = useCSSVariable([
+    '--color-grey',
+    '--color-white'
+  ]) as [string, string]
+  const iconColor = theme === 'dark' ? colorWhite : colorGrey
+
   return (
-    <ThemedView style={styles.container} color={theme.color.background}>
-      <ThemedText className="text-2xl font-bold" style={styles.heading}>
-        {message}
-      </ThemedText>
+    <View className="bg-background flex-1 items-center justify-center p-6">
+      <Text className="text-text mb-6 text-2xl font-bold">{message}</Text>
       <Image
         tintColor={iconColor}
         source={require('@/assets/images/not-found.svg')}
-        style={styles.image}
+        className="mb-12 size-[100px]"
       />
 
       <Button title="Refetch" onPress={refetch} isLoading={isRefetching} />
-    </ThemedView>
+    </View>
   )
 }
-
-const styles = StyleSheet.create({
-  container: {
-    alignItems: 'center',
-    flex: 1,
-    justifyContent: 'center',
-    padding: 24
-  },
-  heading: {
-    marginBottom: 24
-  },
-  image: {
-    height: 100,
-    marginBottom: 24 * 2,
-    width: 100
-  }
-})

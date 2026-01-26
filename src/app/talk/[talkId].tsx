@@ -2,7 +2,7 @@ import { Canvas, Fill, Shader, Skia, vec } from '@shopify/react-native-skia'
 import * as Haptics from 'expo-haptics'
 import { Link, Stack, useLocalSearchParams, useRouter } from 'expo-router'
 import React from 'react'
-import { Platform, StyleSheet, View, useWindowDimensions } from 'react-native'
+import { Platform, Text, View, useWindowDimensions } from 'react-native'
 import { Pressable, ScrollView } from 'react-native-gesture-handler'
 import Animated, {
   Easing,
@@ -19,10 +19,9 @@ import { Bookmark } from '@/components/Bookmark'
 import { HeaderButton } from '@/components/HeaderButtons/HeaderButton'
 import { NotFound } from '@/components/NotFound'
 import { SpeakerImage } from '@/components/SpeakerImage'
-import { ThemedText, ThemedView, useThemeColor } from '@/components/Themed'
 import { useReactConfStore } from '@/store/reactConfStore'
-import { theme } from '@/theme'
 import { Session, Speaker } from '@/types'
+import { cn } from '@/utils/cn'
 import {
   DAY_ONE_DATE,
   DAY_TWO_DATE,
@@ -30,8 +29,11 @@ import {
 } from '@/utils/formatDate'
 import { isLiquidGlassAvailable } from 'expo-glass-effect'
 import { scheduleOnRN } from 'react-native-worklets'
+import { useCSSVariable, withUniwind } from 'uniwind'
 
-const AnimatedScrollView = Animated.createAnimatedComponent(ScrollView)
+const AnimatedScrollView = withUniwind(
+  Animated.createAnimatedComponent(ScrollView)
+)
 
 const source = Skia.RuntimeEffect.Make(`
 uniform float sheetAnim;
@@ -78,7 +80,7 @@ export default function TalkDetail() {
   const shouldUseLocalTz = useReactConfStore(state => state.shouldUseLocalTz)
   const { width, height } = useWindowDimensions()
   const drawerHeight = height * 0.8
-  const highlightColor = useThemeColor(theme.color.reactBlue)
+  const highlightColor = useCSSVariable('--color-react-blue') as string
 
   const router = useRouter()
 
@@ -157,17 +159,15 @@ export default function TalkDetail() {
         }}
       />
 
-      <ThemedView
-        style={styles.container}
-        color={
-          isLiquidGlassAvailable()
-            ? theme.color.transparent
-            : theme.color.background
-        }
+      <View
+        className={cn(
+          'flex-1',
+          isLiquidGlassAvailable() ? 'bg-transparent' : 'bg-background'
+        )}
       >
         {isLiquidGlassAvailable() ? (
           <View style={{ height: drawerHeight }}>
-            <Animated.View style={[opacityStyle, styles.absolute]}>
+            <Animated.View style={opacityStyle} className="absolute">
               <Canvas
                 style={{
                   width: width,
@@ -181,7 +181,7 @@ export default function TalkDetail() {
               </Canvas>
             </Animated.View>
             <View style={{ height: drawerHeight }}>
-              <Animated.View style={[opacityStyle, styles.absolute]}>
+              <Animated.View style={opacityStyle} className="absolute">
                 <Canvas style={{ width: width, height: drawerHeight }}>
                   <Fill>
                     <Shader source={source} uniforms={uniforms} />
@@ -193,39 +193,35 @@ export default function TalkDetail() {
         ) : null}
         <AnimatedScrollView
           onScroll={scrollHandler}
-          style={styles.container}
+          className="flex-1"
+          contentContainerClassName="rounded-b-[20px]"
           contentInsetAdjustmentBehavior="automatic"
           showsVerticalScrollIndicator={false}
-          contentContainerStyle={[
-            styles.contentContainer,
-            {
-              minHeight: drawerHeight,
-              paddingBottom: insets.bottom + 24,
-              paddingTop: Platform.select({
-                ios: 24,
-                default: undefined
-              })
-            }
-          ]}
+          contentContainerStyle={{
+            minHeight: drawerHeight,
+            paddingBottom: insets.bottom + 24,
+            paddingTop: Platform.select({
+              ios: 24,
+              default: undefined
+            })
+          }}
         >
-          <View style={styles.header} collapsable={false}>
-            <ThemedText
-              className="text-3xl font-bold"
-              style={[
-                styles.talkTitle,
-                { textDecorationColor: highlightColor }
-              ]}
+          <View
+            className={cn('px-6', Platform.OS === 'android' && 'mt-[30px]')}
+            collapsable={false}
+          >
+            <Text
+              className="text-text mb-3 text-center text-3xl font-bold"
+              style={{ textDecorationColor: highlightColor }}
             >
               {talk?.title}
-            </ThemedText>
+            </Text>
           </View>
-          <ThemedView
-            color={
-              isLiquidGlassAvailable()
-                ? theme.color.transparent
-                : theme.color.background
-            }
-            style={styles.content}
+          <View
+            className={cn(
+              'gap-2 px-6 pt-4',
+              isLiquidGlassAvailable() ? 'bg-transparent' : 'bg-background'
+            )}
           >
             {talk.speakers.map(speaker => (
               <Link
@@ -256,27 +252,24 @@ export default function TalkDetail() {
             />
             <Section title="Venue" value={talk.room} />
             <Section title="Description" value={talk.description} />
-          </ThemedView>
+          </View>
         </AnimatedScrollView>
-      </ThemedView>
+      </View>
     </>
   )
 }
 
 function SpeakerDetails({ speaker }: { speaker: Speaker }) {
   return (
-    <View style={styles.speaker}>
+    <View className="mb-3 flex-row gap-2">
       <SpeakerImage profilePicture={speaker.profilePicture} />
-      <View style={styles.speakerDetails}>
-        <ThemedText className="text-lg font-semibold">
+      <View className="flex-1 justify-center">
+        <Text className="text-text text-lg font-semibold">
           {speaker.fullName}
-        </ThemedText>
-        <ThemedText
-          className="text-sm font-medium"
-          color={theme.color.textSecondary}
-        >
+        </Text>
+        <Text className="text-text-secondary text-sm font-medium">
           {speaker.tagLine}
-        </ThemedText>
+        </Text>
       </View>
     </View>
   )
@@ -288,50 +281,9 @@ function Section({ title, value }: { title: string; value: string | null }) {
   }
 
   return (
-    <View style={styles.sectionContainer}>
-      <ThemedText className="text-lg font-semibold">{title}</ThemedText>
-      <ThemedText className="font-medium" color={theme.color.textSecondary}>
-        {value}
-      </ThemedText>
+    <View className="mb-6 gap-1">
+      <Text className="text-text text-lg font-semibold">{title}</Text>
+      <Text className="text-text-secondary text-base font-medium">{value}</Text>
     </View>
   )
 }
-
-const styles = StyleSheet.create({
-  absolute: {
-    position: 'absolute'
-  },
-  container: {
-    flex: 1
-  },
-  content: {
-    gap: 8,
-    paddingHorizontal: 24,
-    paddingTop: 16
-  },
-  contentContainer: {
-    borderBottomLeftRadius: 20,
-    borderBottomRightRadius: 20
-  },
-  header: {
-    marginTop: Platform.select({ ios: 0, android: 30 }),
-    paddingHorizontal: 24
-  },
-  sectionContainer: {
-    gap: 4,
-    marginBottom: 24
-  },
-  speaker: {
-    flexDirection: 'row',
-    gap: 8,
-    marginBottom: 12
-  },
-  speakerDetails: {
-    flex: 1,
-    justifyContent: 'center'
-  },
-  talkTitle: {
-    marginBottom: 12,
-    textAlign: 'center'
-  }
-})

@@ -1,41 +1,26 @@
-import { StyleSheet, View } from 'react-native'
+import { Text, View } from 'react-native'
 
 import { Speaker } from '@/types'
-import { theme } from '../theme'
 import { SpeakerImage } from './SpeakerImage'
-import { ThemedText } from './Themed'
 
 export function SpeakerDetails({ speaker }: { speaker: Speaker }) {
   return (
-    <View style={styles.speaker}>
+    <View className="flex-row items-center">
       <SpeakerImage
         profilePicture={speaker.profilePicture}
         animated
         size="small"
       />
-      <View style={styles.speakerDetails}>
-        <ThemedText>{speaker.fullName}</ThemedText>
+      <View className="flex-1 justify-center gap-0.5">
+        <Text className="text-text text-base font-medium">
+          {speaker.fullName}
+        </Text>
         {speaker.tagLine ? (
-          <ThemedText
-            className="text-sm font-medium"
-            color={theme.color.textSecondary}
-          >
+          <Text className="text-text-secondary text-sm font-medium">
             {speaker.tagLine}
-          </ThemedText>
+          </Text>
         ) : null}
       </View>
     </View>
   )
 }
-
-const styles = StyleSheet.create({
-  speaker: {
-    alignItems: 'center',
-    flexDirection: 'row'
-  },
-  speakerDetails: {
-    flex: 1,
-    gap: 2,
-    justifyContent: 'center'
-  }
-})

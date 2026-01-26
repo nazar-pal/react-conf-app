@@ -1,44 +1,29 @@
 import MaterialIcons from '@expo/vector-icons/MaterialIcons'
 import * as Linking from 'expo-linking'
-import { StyleSheet } from 'react-native'
+import { Text, View } from 'react-native'
+import { useCSSVariable, useUniwind } from 'uniwind'
 import { Button } from './Button'
-import { ThemedText, ThemedView, useThemeColor } from './Themed'
-
-import { theme } from '@/theme'
 
 export function DiscordInfo() {
   const handlePress = () => {
     Linking.openURL('https://discord.gg/reactconf')
   }
 
-  const iconColor = useThemeColor({
-    light: theme.color.textSecondary.light,
-    dark: theme.colorWhite
-  })
+  const { theme } = useUniwind()
+  const [iconColorLight, iconColorDark] = useCSSVariable([
+    '--color-text-secondary',
+    '--color-white'
+  ]) as [string, string]
+  const iconColor = theme === 'light' ? iconColorLight : iconColorDark
 
   return (
-    <ThemedView style={styles.container} color={theme.color.backgroundElement}>
+    <View className="bg-background-element mx-4 mb-4 items-center gap-4 rounded-[32px] p-6">
       <MaterialIcons name="discord" size={42} color={iconColor} />
-      <ThemedText style={styles.text} color={theme.color.textSecondary}>
+      <Text className="text-text-secondary mb-2 text-center text-base font-medium">
         Chat with other folks at the conference via the dedicated Discord
         server. Fun activities? Ridesharing?
-      </ThemedText>
+      </Text>
       <Button onPress={handlePress} title="Join us on Discord" />
-    </ThemedView>
+    </View>
   )
 }
-
-const styles = StyleSheet.create({
-  container: {
-    alignItems: 'center',
-    borderRadius: 32,
-    gap: 16,
-    marginBottom: 16,
-    marginHorizontal: 16,
-    padding: 24
-  },
-  text: {
-    marginBottom: 8,
-    textAlign: 'center'
-  }
-})

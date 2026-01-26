@@ -1,6 +1,6 @@
 import { Session } from '@/types'
-import { BaseBookmark } from './BaseBookmark'
 import { StyleProp, ViewStyle } from 'react-native'
+import { BaseBookmark } from './BaseBookmark'
 
 export function Bookmark({
   session
@@ -9,5 +9,5 @@ export function Bookmark({
   size?: 'small' | 'large'
   style?: StyleProp<ViewStyle>
 }) {
-  return <BaseBookmark session={session} size="large" />
+  return <BaseBookmark session={session} />
 }

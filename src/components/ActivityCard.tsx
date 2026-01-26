@@ -1,9 +1,6 @@
-import { StyleSheet, View } from 'react-native'
-
-import { ThemedText, ThemedView } from './Themed'
+import { Text, View } from 'react-native'
 
 import { useReactConfStore } from '@/store/reactConfStore'
-import { theme } from '@/theme'
 import { Session } from '@/types'
 import { formatSessionTime } from '@/utils/formatDate'
 
@@ -15,41 +12,18 @@ export function ActivityCard({ session }: Props) {
   const shouldUseLocalTz = useReactConfStore(state => state.shouldUseLocalTz)
 
   return (
-    <View style={styles.container}>
-      <ThemedText
-        className="text-sm font-medium"
-        color={theme.color.textSecondary}
-        style={{ marginLeft: 24 }}
-      >
+    <View className="mx-6 mb-4 gap-2 rounded-[10px]">
+      <Text className="text-text-secondary ml-6 text-sm font-medium">
         {formatSessionTime(session, shouldUseLocalTz)}
-      </ThemedText>
-      <ThemedView style={styles.content} color={theme.color.backgroundTertiary}>
-        <View style={styles.row}>
-          <ThemedText className="text-lg font-semibold">
+      </Text>
+      <View className="bg-background-tertiary justify-center rounded-xl p-6">
+        <View className="flex-row items-center justify-between">
+          <Text className="text-text text-lg font-semibold">
             {session.title}
-          </ThemedText>
-          <ThemedText className="text-sm font-light">{session.room}</ThemedText>
+          </Text>
+          <Text className="text-text text-sm font-light">{session.room}</Text>
         </View>
-      </ThemedView>
+      </View>
     </View>
   )
 }
-
-const styles = StyleSheet.create({
-  container: {
-    borderRadius: 10,
-    gap: 8,
-    marginBottom: 16,
-    marginHorizontal: 24
-  },
-  content: {
-    borderRadius: 12,
-    justifyContent: 'center',
-    padding: 24
-  },
-  row: {
-    alignItems: 'center',
-    flexDirection: 'row',
-    justifyContent: 'space-between'
-  }
-})

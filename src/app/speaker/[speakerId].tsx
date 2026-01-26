@@ -1,4 +1,3 @@
-import openWebBrowserAsync from '@/utils/openWebBrowserAsync'
 import Feather from '@expo/vector-icons/build/Feather'
 import Ionicons from '@expo/vector-icons/build/Ionicons'
 import { Image } from 'expo-image'
@@ -8,7 +7,7 @@ import {
   useLocalSearchParams,
   useRouter
 } from 'expo-router'
-import { Platform, StyleSheet, View } from 'react-native'
+import { Platform, StyleSheet, Text, View } from 'react-native'
 import { ScrollView } from 'react-native-gesture-handler'
 
 import { HeaderButton } from '@/components/HeaderButtons/HeaderButton'
@@ -16,10 +15,13 @@ import { IconButton } from '@/components/IconButton'
 import { MiniTalkCard } from '@/components/MiniTalkCard'
 import { NotFound } from '@/components/NotFound'
 import { SpeakerImage } from '@/components/SpeakerImage'
-import { ThemedText, ThemedView, useThemeColor } from '@/components/Themed'
+import { useOpenWebBrowser } from '@/hooks/useOpenWebBrowser'
 import { useReactConfStore } from '@/store/reactConfStore'
-import { theme } from '@/theme'
 import { Speaker } from '@/types'
+import { cn } from '@/utils/cn'
+import { useCSSVariable, useUniwind, withUniwind } from 'uniwind'
+
+const StyledScrollView = withUniwind(ScrollView)
 
 export default function SpeakerDetail() {
   const params = useLocalSearchParams()
@@ -27,12 +29,6 @@ export default function SpeakerDetail() {
   const speaker = speakers.find(speaker => speaker.id === params.speakerId)
   const isPreview = useIsPreview()
   const router = useRouter()
-
-  const secondaryColor = useThemeColor(theme.color.textSecondary)
-  const borderColor = useThemeColor(theme.color.border)
-  const backgroundColorSecondary = useThemeColor(
-    theme.color.backgroundSecondary
-  )
 
   return (
     <>
@@ -53,76 +49,76 @@ export default function SpeakerDetail() {
           }}
         />
       ) : null}
-      <ThemedView
-        style={styles.container}
-        color={{
-          light: theme.color.background.light,
-          dark: isPreview
-            ? backgroundColorSecondary
-            : theme.color.background.dark
-        }}
+      <View
+        className={cn(
+          'flex-1',
+          isPreview && 'bg-background-secondary',
+          !isPreview && 'bg-background'
+        )}
       >
         {speaker ? (
-          <ScrollView
-            style={styles.container}
-            contentContainerStyle={styles.contentContainer}
+          <StyledScrollView
+            className="flex-1"
+            contentContainerClassName="rounded-b-[20px] p-4 pt-6"
             contentInsetAdjustmentBehavior="automatic"
             showsVerticalScrollIndicator={false}
           >
-            <View style={styles.centered}>
+            <View className="items-center">
               <SpeakerImage
-                style={styles.speakerImage}
+                style={{ marginBottom: 24 }}
                 profilePicture={speaker.profilePicture}
                 size="large"
               />
-              <ThemedText className="text-lg font-medium">
+              <Text className="text-text text-lg font-medium">
                 {speaker.fullName}
-              </ThemedText>
+              </Text>
               {speaker.tagLine ? (
-                <ThemedText
-                  className="font-medium"
-                  color={{ light: secondaryColor, dark: secondaryColor }}
-                  style={styles.tagLine}
-                >
+                <Text className="text-text-secondary text-center text-base font-medium">
                   {speaker.tagLine}
-                </ThemedText>
+                </Text>
               ) : null}
 
               <View
-                style={[styles.separator, { borderBottomColor: borderColor }]}
+                className="border-border my-6 w-full border-b"
+                style={{
+                  borderBottomWidth: StyleSheet.hairlineWidth
+                }}
               />
             </View>
             {speaker.links.length ? <Socials speaker={speaker} /> : null}
             {speaker.bio ? (
-              <ThemedText
-                className="text-sm font-medium"
+              <Text
+                className="text-text text-sm font-medium"
                 style={{
                   marginBottom: 24,
                   lineHeight: 18 * 1.5
                 }}
               >
                 {speaker.bio}
-              </ThemedText>
+              </Text>
             ) : null}
             {speaker.sessions.map(sessionId => (
               <MiniTalkCard sessionId={sessionId} key={sessionId} />
             ))}
-          </ScrollView>
+          </StyledScrollView>
         ) : (
           <NotFound message="Speaker not found" />
         )}
-      </ThemedView>
+      </View>
     </>
   )
 }
 
 function Socials({ speaker }: { speaker: Speaker }) {
-  const iconColor = useThemeColor({
-    light: theme.colorBlack,
-    dark: theme.colorWhite
-  })
+  const [blackColor, whiteColor] = useCSSVariable([
+    '--color-black',
+    '--color-white'
+  ]) as [string, string]
+  const { theme } = useUniwind()
+  const iconColor = theme === 'dark' ? whiteColor : blackColor
+  const openWebBrowserAsync = useOpenWebBrowser()
   return (
-    <View style={styles.socials}>
+    <View className="mb-6 flex-row justify-center">
       {speaker.links.map(link => {
         const icon = (() => {
           switch (link.linkType) {
@@ -130,7 +126,7 @@ function Socials({ speaker }: { speaker: Speaker }) {
               return (
                 <Image
                   source={require('@/assets/images/x.svg')}
-                  style={styles.icon}
+                  style={{ height: 20, width: 20 }}
                   tintColor={iconColor}
                 />
               )
@@ -139,7 +135,7 @@ function Socials({ speaker }: { speaker: Speaker }) {
               return (
                 <Image
                   source={require('@/assets/images/linkedin.svg')}
-                  style={styles.icon}
+                  style={{ height: 20, width: 20 }}
                   tintColor={iconColor}
                 />
               )
@@ -150,7 +146,7 @@ function Socials({ speaker }: { speaker: Speaker }) {
                   name="reader"
                   size={18}
                   color={iconColor}
-                  style={styles.icon}
+                  style={{ height: 20, width: 20 }}
                 />
               )
             }
@@ -160,7 +156,7 @@ function Socials({ speaker }: { speaker: Speaker }) {
                   name="link"
                   size={18}
                   color={iconColor}
-                  style={styles.icon}
+                  style={{ height: 20, width: 20 }}
                 />
               )
             }
@@ -183,38 +179,3 @@ function Socials({ speaker }: { speaker: Speaker }) {
     </View>
   )
 }
-
-const styles = StyleSheet.create({
-  centered: {
-    alignItems: 'center'
-  },
-  container: {
-    flex: 1
-  },
-  contentContainer: {
-    borderBottomLeftRadius: 20,
-    borderBottomRightRadius: 20,
-    padding: 16,
-    paddingTop: 24
-  },
-  icon: {
-    height: 20,
-    width: 20
-  },
-  separator: {
-    borderBottomWidth: StyleSheet.hairlineWidth,
-    marginVertical: 24,
-    width: '100%'
-  },
-  socials: {
-    flexDirection: 'row',
-    justifyContent: 'center',
-    marginBottom: 24
-  },
-  speakerImage: {
-    marginBottom: 24
-  },
-  tagLine: {
-    textAlign: 'center'
-  }
-})

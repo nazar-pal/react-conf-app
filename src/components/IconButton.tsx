@@ -1,10 +1,8 @@
-import { StyleSheet } from 'react-native'
-
+import { View } from 'react-native'
 import { Pressable } from 'react-native-gesture-handler'
-import { ThemedView, useThemeColor } from './Themed'
 
-import { theme } from '@/theme'
 import * as Haptics from 'expo-haptics'
+import { cn } from '../utils/cn'
 
 export function IconButton({
   onPress,
@@ -15,13 +13,6 @@ export function IconButton({
   children: React.ReactElement
   isActive?: boolean
 }) {
-  const backgroundColor = useThemeColor({
-    light: theme.colorWhite,
-    dark: `rgba(255, 255, 255, 0.15)`
-  })
-  const backgroundColorActive = useThemeColor(theme.color.reactBlue)
-  const shadow = useThemeColor({ light: theme.dropShadow, dark: undefined })
-
   const handlePress = () => {
     Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Medium)
     onPress()
@@ -29,25 +20,17 @@ export function IconButton({
 
   return (
     <Pressable onPress={handlePress}>
-      <ThemedView
-        style={[
-          styles.button,
-          shadow,
-          {
-            backgroundColor: isActive ? backgroundColorActive : backgroundColor
-          }
-        ]}
+      <View
+        className={cn(
+          'mx-2 rounded-md p-3',
+          isActive
+            ? 'bg-react-blue'
+            : 'bg-white dark:bg-[rgba(255,255,255,0.15)]',
+          'shadow-[0_2px_4px_0_rgba(0,0,0,0.1)] dark:shadow-none'
+        )}
       >
         {children}
-      </ThemedView>
+      </View>
     </Pressable>
   )
 }
-
-const styles = StyleSheet.create({
-  button: {
-    borderRadius: 6,
-    marginHorizontal: 8,
-    padding: 12
-  }
-})

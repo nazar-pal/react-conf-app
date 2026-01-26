@@ -1,11 +1,10 @@
-import { ThemedText, useThemeColor } from '@/components/Themed'
-import { theme } from '@/theme'
 import { isLiquidGlassAvailable } from 'expo-glass-effect'
 import { Stack } from 'expo-router'
-import { Platform } from 'react-native'
+import { Platform, Text } from 'react-native'
+import { useCSSVariable } from 'uniwind'
 
 export default function Layout() {
-  const tabBarBackgroundColor = useThemeColor(theme.color.background)
+  const tabBarBackgroundColor = useCSSVariable('--color-background') as string
 
   return (
     <Stack
@@ -20,7 +19,7 @@ export default function Layout() {
           title: 'Info',
           headerTitle: () =>
             Platform.OS === 'android' ? (
-              <ThemedText className="text-xl font-bold">Info</ThemedText>
+              <Text className="text-text text-xl font-bold">Info</Text>
             ) : undefined,
 
           headerStyle: {

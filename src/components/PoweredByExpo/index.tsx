@@ -1,10 +1,9 @@
-import { theme } from '@/theme'
 import * as Application from 'expo-application'
 import * as Haptics from 'expo-haptics'
 import React from 'react'
-import { Image, StyleSheet, View } from 'react-native'
+import { Image, StyleSheet, Text, View } from 'react-native'
 import { Gesture, GestureDetector } from 'react-native-gesture-handler'
-import {
+import Animated, {
   Easing,
   Extrapolation,
   interpolate,
@@ -13,7 +12,6 @@ import {
   withTiming
 } from 'react-native-reanimated'
 import { scheduleOnRN } from 'react-native-worklets'
-import { ThemedText, ThemedView } from '../Themed'
 import { HolographicGradient } from './HolographicGradient'
 
 const CONTAINER_SIZE = 160
@@ -116,13 +114,12 @@ function GestureContainer({
 
   return (
     <GestureDetector gesture={gesture}>
-      <ThemedView
+      <Animated.View
+        className="bg-transparent"
         style={[{ height, width }, rStyle]}
-        color={theme.color.transparent}
-        animated
       >
         {children}
-      </ThemedView>
+      </Animated.View>
     </GestureDetector>
   )
 }
@@ -146,102 +143,62 @@ export function PoweredByExpo() {
   })
 
   return (
-    <ThemedView style={styles.container} color={theme.color.transparent}>
+    <View className="z-1 flex-1 items-center justify-center bg-transparent">
       <GestureContainer
         width={CONTAINER_SIZE}
         height={CONTAINER_SIZE}
         maxAngle={15}
         onFlip={handleFlip}
       >
-        <ThemedView style={styles.layeredView} color={theme.color.transparent}>
-          <View style={styles.cardSide}>
-            <View style={styles.shaderBackground}>
+        <View className="relative h-[160px] w-[160px] items-center justify-center bg-transparent">
+          <View
+            className="absolute items-center justify-center"
+            style={{ height: CONTAINER_SIZE, width: CONTAINER_SIZE }}
+          >
+            <View
+              className="absolute overflow-hidden border-2 border-black"
+              style={{
+                borderRadius: BORDER_RADIUS,
+                height: SHADER_SIZE,
+                left: SHADER_OFFSET,
+                top: SHADER_OFFSET,
+                width: SHADER_SIZE
+              }}
+            >
               <HolographicGradient />
             </View>
             <Image
               source={require('@/assets/images/sub-expo.png')}
-              style={styles.logoOverlay}
+              style={{
+                resizeMode: 'contain',
+                height: LOGO_SIZE,
+                left: LOGO_OFFSET,
+                position: 'absolute',
+                top: LOGO_OFFSET,
+                width: LOGO_SIZE
+              }}
             />
           </View>
-          <ThemedView
-            color={theme.color.transparent}
-            style={[styles.flippedOverlay, overlayAnimatedStyle]}
-            animated
+          <Animated.View
+            className="items-center justify-center"
+            style={[overlayAnimatedStyle, StyleSheet.absoluteFillObject]}
           >
-            <View style={styles.flippedContent}>
-              <ThemedText
-                className="text-sm font-semibold"
-                color={{
-                  light: theme.colorWhite,
-                  dark: theme.colorWhite
-                }}
-                style={styles.versionText}
-              >
+            <View
+              className="items-center justify-center bg-black"
+              style={{
+                borderRadius: FLIPPED_CONTENT_SIZE / 2,
+                height: FLIPPED_CONTENT_SIZE,
+                width: FLIPPED_CONTENT_SIZE
+              }}
+            >
+              <Text className="text-center text-sm font-semibold text-white">
                 v{Application.nativeApplicationVersion} (
                 {Application.nativeBuildVersion}23)
-              </ThemedText>
+              </Text>
             </View>
-          </ThemedView>
-        </ThemedView>
+          </Animated.View>
+        </View>
       </GestureContainer>
-    </ThemedView>
+    </View>
   )
 }
-
-const styles = StyleSheet.create({
-  cardSide: {
-    alignItems: 'center',
-    height: CONTAINER_SIZE,
-    justifyContent: 'center',
-    position: 'absolute',
-    width: CONTAINER_SIZE
-  },
-  container: {
-    alignItems: 'center',
-    flex: 1,
-    justifyContent: 'center',
-    zIndex: 1
-  },
-  flippedContent: {
-    alignItems: 'center',
-    backgroundColor: theme.colorBlack,
-    borderRadius: FLIPPED_CONTENT_SIZE / 2,
-    height: FLIPPED_CONTENT_SIZE,
-    justifyContent: 'center',
-    width: FLIPPED_CONTENT_SIZE
-  },
-  flippedOverlay: {
-    ...StyleSheet.absoluteFillObject,
-    alignItems: 'center',
-    justifyContent: 'center'
-  },
-  layeredView: {
-    alignItems: 'center',
-    height: CONTAINER_SIZE,
-    justifyContent: 'center',
-    position: 'relative',
-    width: CONTAINER_SIZE
-  },
-  logoOverlay: {
-    height: LOGO_SIZE,
-    left: LOGO_OFFSET,
-    position: 'absolute',
-    resizeMode: 'contain',
-    top: LOGO_OFFSET,
-    width: LOGO_SIZE
-  },
-  shaderBackground: {
-    borderColor: theme.colorBlack,
-    borderRadius: BORDER_RADIUS,
-    borderWidth: 2,
-    height: SHADER_SIZE,
-    left: SHADER_OFFSET,
-    overflow: 'hidden',
-    position: 'absolute',
-    top: SHADER_OFFSET,
-    width: SHADER_SIZE
-  },
-  versionText: {
-    textAlign: 'center'
-  }
-})

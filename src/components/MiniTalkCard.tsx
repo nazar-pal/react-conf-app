@@ -1,19 +1,14 @@
 import { Link } from 'expo-router'
-import { StyleSheet, View } from 'react-native'
+import { Text, View } from 'react-native'
 import { Pressable } from 'react-native-gesture-handler'
 
-import { ThemedText, ThemedView, useThemeColor } from './Themed'
-
 import { useReactConfStore } from '@/store/reactConfStore'
-import { theme } from '@/theme'
 import { formatSessionTime } from '@/utils/formatDate'
 import { Bookmark } from './Bookmark'
 
 export function MiniTalkCard({ sessionId }: { sessionId: string | number }) {
   const shouldUseLocalTz = useReactConfStore(state => state.shouldUseLocalTz)
   const { dayOne, dayTwo } = useReactConfStore(state => state.schedule)
-  const backgroundColor = useThemeColor(theme.color.backgroundSecondary)
-  const textSecondaryColor = useThemeColor(theme.color.textSecondary)
 
   const { talk, isDayOne } = (() => {
     const dayOneTalk = dayOne.find(session => session.id === String(sessionId))
@@ -41,35 +36,19 @@ export function MiniTalkCard({ sessionId }: { sessionId: string | number }) {
       asChild
     >
       <Pressable>
-        <ThemedView style={[styles.container, { backgroundColor }]}>
-          <View style={styles.containerInner}>
-            <ThemedText className="font-semibold">{talk.title}</ThemedText>
-            <ThemedText
-              className="mb-2 text-sm font-medium"
-              color={{ light: textSecondaryColor, dark: textSecondaryColor }}
-            >
+        <View className="bg-background mb-6 flex-row items-center justify-between rounded-[10px] p-6">
+          <View className="shrink gap-1">
+            <Text className="text-text text-base font-semibold">
+              {talk.title}
+            </Text>
+            <Text className="text-text-secondary mb-2 text-sm font-medium">
               {formatSessionTime(talk, shouldUseLocalTz)}
               {` `}({isDayOne ? 'Day 1' : 'Day 2'})
-            </ThemedText>
+            </Text>
           </View>
           <Bookmark session={talk} size="small" />
-        </ThemedView>
+        </View>
       </Pressable>
     </Link>
   )
 }
-
-const styles = StyleSheet.create({
-  container: {
-    alignItems: 'center',
-    borderRadius: 10,
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    marginBottom: 24,
-    padding: 24
-  },
-  containerInner: {
-    flexShrink: 1,
-    gap: 4
-  }
-})

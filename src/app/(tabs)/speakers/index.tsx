@@ -3,17 +3,16 @@ import {
   Keyboard,
   Platform,
   Pressable,
-  StyleSheet,
-  useWindowDimensions
+  Text,
+  useWindowDimensions,
+  View
 } from 'react-native'
 
 import { NotFound } from '@/components/NotFound'
 
 import { SpeakerDetails } from '@/components/SpeakerDetails'
-import { ThemedText, ThemedView, useThemeColor } from '@/components/Themed'
 import { useBookmark } from '@/hooks/useBookmark'
 import { useReactConfStore } from '@/store/reactConfStore'
-import { theme } from '@/theme'
 import { Speaker } from '@/types'
 import { Link, useLocalSearchParams } from 'expo-router'
 import Animated, {
@@ -28,7 +27,6 @@ export default function Speakers() {
   const { width, height } = useWindowDimensions()
   const { bottom, top } = useSafeAreaInsets()
   const { toggleBookmarkById, isBookmarked, getSessionById } = useBookmark()
-  const backgroundColor = useThemeColor(theme.color.background)
 
   const params = useLocalSearchParams<{ q?: string }>()
 
@@ -60,15 +58,15 @@ export default function Speakers() {
           >
             <Link.Trigger>
               <Pressable
+                className="py-6"
                 onLongPress={() => {
                   // adding this to prevent navigating on long press instead of opening the preview
                 }}
-                style={styles.speakerContainer}
               >
                 <SpeakerDetails speaker={item} key={item.id} />
               </Pressable>
             </Link.Trigger>
-            <Link.Preview style={{ ...styles.preview, width: width }} />
+            <Link.Preview style={{ height: 420, width: width }} />
             <Link.Menu title={`Talks by ${item.fullName}`}>
               {item.sessions
                 .map(sessionId => {
@@ -109,17 +107,15 @@ export default function Speakers() {
       contentInsetAdjustmentBehavior="automatic"
       onScrollBeginDrag={dismissKeyboard}
       keyboardShouldPersistTaps="handled"
-      style={{ backgroundColor }}
+      className="bg-background"
+      contentContainerClassName="px-4"
       contentContainerStyle={[
-        styles.contentContainer,
         {
           paddingBottom: Platform.select({ android: 100 + bottom, default: 0 })
         },
         { minHeight: height - (bottom + top + 130) }
       ]}
-      ItemSeparatorComponent={() => (
-        <ThemedView style={styles.separator} color={theme.color.border} />
-      )}
+      ItemSeparatorComponent={() => <View className="bg-border h-px" />}
       extraData={isBookmarked || searchText}
       renderItem={renderItem}
       data={filteredSpeakers}
@@ -127,32 +123,16 @@ export default function Speakers() {
       itemLayoutAnimation={LinearTransition}
       ListEmptyComponent={
         <Animated.View entering={FadeIn} exiting={FadeOut}>
-          <ThemedView style={styles.noResultsContainer}>
-            <ThemedText>
+          <View className="bg-background p-6">
+            <Text className="text-text text-base font-medium">
               No results found for{' '}
-              <ThemedText className="font-bold">{searchText}</ThemedText>
-            </ThemedText>
-          </ThemedView>
+              <Text className="text-text text-base font-bold">
+                {searchText}
+              </Text>
+            </Text>
+          </View>
         </Animated.View>
       }
     />
   )
 }
-
-export const styles = StyleSheet.create({
-  contentContainer: {
-    paddingHorizontal: 16
-  },
-  noResultsContainer: {
-    padding: 24
-  },
-  preview: {
-    height: 420
-  },
-  separator: {
-    height: 1
-  },
-  speakerContainer: {
-    paddingVertical: 16
-  }
-})

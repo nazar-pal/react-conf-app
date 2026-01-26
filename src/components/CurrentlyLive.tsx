@@ -1,12 +1,11 @@
 import { ConferenceDay } from '@/consts'
 import { useReactConfStore } from '@/store/reactConfStore'
-import { theme } from '@/theme'
 import { Session } from '@/types'
 import { getCurrentConferenceDay } from '@/utils/formatDate'
 import { useCallback, useEffect, useState } from 'react'
-import { Platform, Pressable, StyleSheet, View } from 'react-native'
+import { Platform, Pressable, Text, View } from 'react-native'
 import Animated, { FadeIn, FadeOutUp } from 'react-native-reanimated'
-import { ThemedText } from './Themed'
+import { cn } from '@/utils/cn'
 
 const AnimatedPressable = Animated.createAnimatedComponent(Pressable)
 
@@ -67,7 +66,7 @@ export function CurrentlyLive({
   return (
     <AnimatedPressable
       key={currentlyLive?.session.id}
-      style={styles.container}
+      className={cn('items-center', Platform.OS !== 'android' && 'w-[180px]')}
       onPressIn={() => {
         if (currentlyLive) {
           scrollToSession(currentlyLive)
@@ -78,23 +77,18 @@ export function CurrentlyLive({
     >
       {currentlyLive ? (
         <>
-          <View style={styles.dotContainer}>
-            <View style={styles.dot} />
-            <ThemedText
-              className="text-[10px] font-semibold"
-              color={theme.color.textSecondary}
-              style={styles.text}
-            >
+          <View className="flex-row items-center gap-1">
+            <View className="bg-red size-1 rounded" />
+            <Text className="text-text-secondary text-[10px] font-semibold uppercase">
               Currently Live
-            </ThemedText>
+            </Text>
           </View>
-          <ThemedText
-            className="text-xs font-semibold"
+          <Text
+            className="text-text text-center text-xs font-semibold"
             numberOfLines={2}
-            style={styles.centeredText}
           >
             {currentlyLive.session.title}
-          </ThemedText>
+          </Text>
         </>
       ) : (
         // Without this, the header will not animate in on iOS 26
@@ -103,27 +97,3 @@ export function CurrentlyLive({
     </AnimatedPressable>
   )
 }
-
-const styles = StyleSheet.create({
-  centeredText: {
-    textAlign: 'center'
-  },
-  container: {
-    alignItems: 'center',
-    width: Platform.select({ android: undefined, default: 180 })
-  },
-  dot: {
-    backgroundColor: theme.colorRed,
-    borderRadius: 4,
-    height: 4,
-    width: 4
-  },
-  dotContainer: {
-    alignItems: 'center',
-    flexDirection: 'row',
-    gap: 4
-  },
-  text: {
-    textTransform: 'uppercase'
-  }
-})

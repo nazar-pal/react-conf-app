@@ -4,29 +4,28 @@ import React, { useCallback, useMemo, useRef, useState } from 'react'
 import { Platform, RefreshControl } from 'react-native'
 import { FlatList } from 'react-native-gesture-handler'
 import Animated, {
+  Extrapolation,
+  interpolate,
   useAnimatedScrollHandler,
   useAnimatedStyle,
-  useSharedValue,
-  interpolate,
-  Extrapolation
+  useSharedValue
 } from 'react-native-reanimated'
 
 import { ActivityCard } from '@/components/ActivityCard'
-import { NotFound } from '@/components/NotFound'
-import { TalkCard } from '@/components/TalkCard'
-import { ConferenceDay } from '@/consts'
-import { useReactConfStore } from '@/store/reactConfStore'
-import { DayPicker } from '@/components/DayPicker'
-import { useThemeColor } from '@/components/Themed'
-import { theme } from '@/theme'
-import { Session } from '@/types'
-import { isLiquidGlassAvailable } from 'expo-glass-effect'
-import { getInitialDay } from '@/utils/formatDate'
-import { useSafeAreaInsets } from 'react-native-safe-area-context'
 import {
   CurrentlyLive,
   type CurrentlyLiveSession
 } from '@/components/CurrentlyLive'
+import { DayPicker } from '@/components/DayPicker'
+import { NotFound } from '@/components/NotFound'
+import { TalkCard } from '@/components/TalkCard'
+import { ConferenceDay } from '@/consts'
+import { useReactConfStore } from '@/store/reactConfStore'
+import { Session } from '@/types'
+import { getInitialDay } from '@/utils/formatDate'
+import { isLiquidGlassAvailable } from 'expo-glass-effect'
+import { useSafeAreaInsets } from 'react-native-safe-area-context'
+import { useCSSVariable } from 'uniwind'
 
 const AnimatedFlatList = Animated.FlatList
 
@@ -36,7 +35,7 @@ export default function Schedule() {
   const [selectedDay, setSelectedDay] = useState(getInitialDay())
   const scrollRef = useRef<FlatList>(null)
   useScrollToTop(scrollRef as any)
-  const backgroundColor = useThemeColor(theme.color.background)
+  const backgroundColor = useCSSVariable('--color-background') as string
   const isLiquidGlass = isLiquidGlassAvailable()
   const [isRefreshing, setIsRefreshing] = useState(false)
   const insets = useSafeAreaInsets()

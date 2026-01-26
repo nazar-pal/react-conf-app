@@ -1,4 +1,3 @@
-import { theme } from '@/theme'
 import MaterialCommunityIcons from '@expo/vector-icons/MaterialCommunityIcons'
 import { Pressable } from 'react-native-gesture-handler'
 import Animated, {
@@ -6,12 +5,14 @@ import Animated, {
   useSharedValue,
   withTiming
 } from 'react-native-reanimated'
+import { useCSSVariable } from 'uniwind'
 import { HeaderButtonProps } from './HeaderButton.ios'
 
 const AnimatedPressable = Animated.createAnimatedComponent(Pressable)
 
 export function HeaderButton({ imageProps, buttonProps }: HeaderButtonProps) {
   const scale = useSharedValue(1)
+  const greyColor = useCSSVariable('--color-grey') as string
 
   const animatedStyle = useAnimatedStyle(() => ({
     transform: [{ scale: scale.value }]
@@ -33,7 +34,7 @@ export function HeaderButton({ imageProps, buttonProps }: HeaderButtonProps) {
         // Todo: fix this type
         name={(imageProps?.systemName as any) || 'cross'}
         size={24}
-        color={imageProps?.color || theme.colorGrey}
+        color={imageProps?.color || greyColor}
       />
     </AnimatedPressable>
   )

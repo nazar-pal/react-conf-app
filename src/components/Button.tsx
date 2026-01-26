@@ -1,9 +1,10 @@
-import { ActivityIndicator, StyleSheet } from 'react-native'
+import { ActivityIndicator, Text } from 'react-native'
 import { Pressable } from 'react-native-gesture-handler'
+import { useCSSVariable, useUniwind, withUniwind } from 'uniwind'
 
-import { ThemedText, useThemeColor } from './Themed'
+import { cn } from '../utils/cn'
 
-import { theme } from '@/theme'
+const StyledPressable = withUniwind(Pressable)
 
 export function Button({
   title,
@@ -14,43 +15,28 @@ export function Button({
   onPress: () => void
   isLoading?: boolean
 }) {
-  const backgroundColor = useThemeColor({
-    light: theme.colorBlack,
-    dark: theme.colorWhite
-  })
-  const textColor = useThemeColor({
-    light: theme.colorWhite,
-    dark: theme.colorBlack
-  })
+  const { theme } = useUniwind()
+  const [whiteColor, blackColor] = useCSSVariable([
+    '--color-white',
+    '--color-black'
+  ]) as [string, string]
+  const indicatorColor = theme === 'dark' ? blackColor : whiteColor
 
   return (
-    <Pressable onPress={onPress} style={[styles.button, { backgroundColor }]}>
-      {isLoading ? (
-        <ActivityIndicator color={theme.colorWhite} />
-      ) : (
-        <ThemedText
-          className="font-semibold"
-          style={[styles.text, { color: textColor }]}
-        >
-          {title}
-        </ThemedText>
+    <StyledPressable
+      onPress={onPress}
+      className={cn(
+        'min-h-[40px] w-full min-w-[150px] items-center justify-center rounded-[34px] px-6 py-2',
+        'bg-black dark:bg-white'
       )}
-    </Pressable>
+    >
+      {isLoading ? (
+        <ActivityIndicator color={indicatorColor} />
+      ) : (
+        <Text className="text-base font-semibold text-white dark:text-black">
+          {title}
+        </Text>
+      )}
+    </StyledPressable>
   )
 }
-
-const styles = StyleSheet.create({
-  button: {
-    alignItems: 'center',
-    borderRadius: 34,
-    justifyContent: 'center',
-    minHeight: 40,
-    minWidth: 150,
-    paddingHorizontal: 24,
-    paddingVertical: 8,
-    width: '100%'
-  },
-  text: {
-    color: theme.colorWhite
-  }
-})

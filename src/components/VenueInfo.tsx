@@ -2,16 +2,14 @@ import MaterialCommunityIcons from '@expo/vector-icons/MaterialCommunityIcons'
 import { Image, ImageStyle } from 'expo-image'
 import { LinearGradient } from 'expo-linear-gradient'
 import * as Linking from 'expo-linking'
-import { StyleSheet, View } from 'react-native'
+import { StyleSheet, Text, View } from 'react-native'
 import { Pressable } from 'react-native-gesture-handler'
-import { ThemedText, ThemedView, useThemeColor } from './Themed'
+import { useCSSVariable, withUniwind } from 'uniwind'
 
-import { theme } from '@/theme'
+const StyledPressable = withUniwind(Pressable)
 
 const venueAddress = '101 Montelago Blvd, Henderson, NV 89011'
 const venueName = 'The Westin Lake Las Vegas Resort & Spa'
-
-const BOTTOM_OFFSET = 50
 
 export function VenueInfo() {
   const imageStyle: ImageStyle = { width: '100%', aspectRatio: 1 }
@@ -22,14 +20,15 @@ export function VenueInfo() {
     )
   }
 
-  const iconColor = useThemeColor(theme.color.textSecondary)
-
-  const backgroundColor = useThemeColor(theme.color.backgroundElement)
+  const [iconColor, backgroundColor] = useCSSVariable([
+    '--color-text-secondary',
+    '--color-background-element'
+  ]) as [string, string]
 
   return (
-    <Pressable style={styles.container} onPress={onOpenVenue}>
+    <StyledPressable className="mx-4 mb-[50px] pt-6 pb-4" onPress={onOpenVenue}>
       <View>
-        <View style={styles.imageContainer}>
+        <View className="overflow-hidden rounded-t-[32px]">
           <Image
             source={require('@/assets/images/hotel.png')}
             style={imageStyle}
@@ -42,67 +41,28 @@ export function VenueInfo() {
           colors={['transparent', backgroundColor]}
           style={StyleSheet.absoluteFillObject}
         />
-        <ThemedView
-          style={styles.venueDetails}
-          color={theme.color.backgroundElement}
-        >
-          <ThemedText className="text-sm" color={theme.color.textSecondary}>
-            Venue
-          </ThemedText>
-          <View style={styles.venueName}>
-            <ThemedText className="text-lg font-semibold">
+        <View className="bg-background-element absolute right-0 -bottom-[50px] left-0 items-center rounded-b-[32px] pb-6">
+          <Text className="text-text-secondary text-sm font-medium">Venue</Text>
+          <View className="mb-4 items-center">
+            <Text className="text-text text-lg font-semibold">
               The Westin Lake
-            </ThemedText>
-            <ThemedText className="text-lg font-semibold">
+            </Text>
+            <Text className="text-text text-lg font-semibold">
               Las Vegas Resort & Spa
-            </ThemedText>
+            </Text>
           </View>
-          <View style={styles.venueAddress}>
+          <View className="flex-row items-center justify-center gap-0.25">
             <MaterialCommunityIcons
               name="map-marker-radius"
               size={16}
               color={iconColor}
             />
-            <ThemedText className="text-xs" color={theme.color.textSecondary}>
+            <Text className="text-text-secondary text-xs font-medium">
               {venueAddress}
-            </ThemedText>
+            </Text>
           </View>
-        </ThemedView>
+        </View>
       </View>
-    </Pressable>
+    </StyledPressable>
   )
 }
-
-const styles = StyleSheet.create({
-  container: {
-    marginBottom: BOTTOM_OFFSET,
-    marginHorizontal: 16,
-    paddingBottom: 16,
-    paddingTop: 24
-  },
-  imageContainer: {
-    borderTopLeftRadius: 32,
-    borderTopRightRadius: 32,
-    overflow: 'hidden'
-  },
-  venueAddress: {
-    alignItems: 'center',
-    flexDirection: 'row',
-    gap: 1,
-    justifyContent: 'center'
-  },
-  venueDetails: {
-    alignItems: 'center',
-    borderBottomLeftRadius: 32,
-    borderBottomRightRadius: 32,
-    bottom: -BOTTOM_OFFSET,
-    left: 0,
-    paddingBottom: 24,
-    position: 'absolute',
-    right: 0
-  },
-  venueName: {
-    alignItems: 'center',
-    marginBottom: 16
-  }
-})

@@ -14,14 +14,15 @@ import * as SplashScreen from 'expo-splash-screen'
 import { StatusBar } from 'expo-status-bar'
 import { setBackgroundColorAsync } from 'expo-system-ui'
 import { useEffect } from 'react'
-import { Platform, StyleSheet, useColorScheme } from 'react-native'
+import { Platform, Text, useColorScheme } from 'react-native'
 import { GestureHandlerRootView } from 'react-native-gesture-handler'
+import { useCSSVariable, withUniwind } from 'uniwind'
 
 import '../global.css'
-import { theme } from '../theme'
 
-import { ThemedText, useThemeColor } from '@/components/Themed'
 import { useReactConfStore } from '@/store/reactConfStore'
+
+const StyledGestureHandlerRootView = withUniwind(GestureHandlerRootView)
 
 SplashScreen.setOptions({
   duration: 200,
@@ -45,7 +46,7 @@ export default function Layout() {
 
   const { refreshData, lastRefreshed } = useReactConfStore()
 
-  const tabBarBackgroundColor = useThemeColor(theme.color.background)
+  const tabBarBackgroundColor = useCSSVariable('--color-background') as string
 
   useEffect(() => {
     if (Platform.OS === 'android') {
@@ -57,12 +58,8 @@ export default function Layout() {
 
   // Keep the root view background color in sync with the current theme
   useEffect(() => {
-    setBackgroundColorAsync(
-      colorScheme === 'dark'
-        ? theme.color.background.dark
-        : theme.color.background.light
-    )
-  }, [colorScheme])
+    setBackgroundColorAsync(tabBarBackgroundColor)
+  }, [colorScheme, tabBarBackgroundColor])
 
   const lastNotificationResponse = Notifications.useLastNotificationResponse()
   useEffect(() => {
@@ -97,7 +94,7 @@ export default function Layout() {
   }, [lastRefreshed, refreshData])
 
   return (
-    <GestureHandlerRootView style={styles.container}>
+    <StyledGestureHandlerRootView className="flex-1">
       <ActionSheetProvider>
         <ThemeProvider
           value={colorScheme === 'dark' ? DarkTheme : DefaultTheme}
@@ -163,9 +160,9 @@ export default function Layout() {
                     : 'light',
                 headerTitle: Platform.select({
                   android: props => (
-                    <ThemedText className="text-2xl font-bold">
+                    <Text className="text-text text-2xl font-bold">
                       {props.children}
-                    </ThemedText>
+                    </Text>
                   ),
                   default: undefined
                 })
@@ -174,12 +171,6 @@ export default function Layout() {
           </Stack>
         </ThemeProvider>
       </ActionSheetProvider>
-    </GestureHandlerRootView>
+    </StyledGestureHandlerRootView>
   )
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1
-  }
-})
