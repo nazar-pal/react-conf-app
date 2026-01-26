@@ -1,4 +1,11 @@
+import { NotFound } from '@/components/NotFound'
+import { TalkCard } from '@/components/TalkCard'
+import { ConferenceDay } from '@/consts'
+import { useReactConfStore } from '@/store/reactConfStore'
+import { Session } from '@/types'
+import { getInitialDay } from '@/utils/formatDate'
 import { useScrollToTop } from '@react-navigation/native'
+import { isLiquidGlassAvailable } from 'expo-glass-effect'
 import { Stack, useFocusEffect } from 'expo-router'
 import React, { useCallback, useMemo, useRef, useState } from 'react'
 import { Platform, RefreshControl } from 'react-native'
@@ -10,22 +17,14 @@ import Animated, {
   useAnimatedStyle,
   useSharedValue
 } from 'react-native-reanimated'
-
-import { ActivityCard } from '@/components/ActivityCard'
-import {
-  CurrentlyLive,
-  type CurrentlyLiveSession
-} from '@/components/CurrentlyLive'
-import { DayPicker } from '@/components/DayPicker'
-import { NotFound } from '@/components/NotFound'
-import { TalkCard } from '@/components/TalkCard'
-import { ConferenceDay } from '@/consts'
-import { useReactConfStore } from '@/store/reactConfStore'
-import { Session } from '@/types'
-import { getInitialDay } from '@/utils/formatDate'
-import { isLiquidGlassAvailable } from 'expo-glass-effect'
 import { useSafeAreaInsets } from 'react-native-safe-area-context'
 import { useCSSVariable } from 'uniwind'
+import {
+  ActivityCard,
+  CurrentlyLive,
+  DayPicker,
+  type CurrentlyLiveSession
+} from './components'
 
 const AnimatedFlatList = Animated.FlatList
 
