@@ -7,7 +7,7 @@ import { useMemo } from 'react'
 import { Platform, StyleProp, ViewStyle } from 'react-native'
 import { useCSSVariable, useUniwind } from 'uniwind'
 import { BaseBookmark } from './BaseBookmark'
-import { HeaderButton } from './HeaderButtons/HeaderButton'
+import { HeaderButton } from './header-button'
 
 type BookmarkProps = {
   session: Session

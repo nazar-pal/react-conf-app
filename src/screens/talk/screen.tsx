@@ -1,5 +1,5 @@
 import { Bookmark } from '@/components/Bookmark'
-import { HeaderButton } from '@/components/HeaderButtons/HeaderButton'
+import { HeaderButton } from '@/components/header-button'
 import { NotFound } from '@/components/NotFound'
 import { useReactConfStore } from '@/store/reactConfStore'
 import { cn } from '@/utils/cn'

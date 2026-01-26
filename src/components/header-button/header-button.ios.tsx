@@ -1,14 +1,8 @@
-import { Button, ButtonProps, Host, Image, ImageProps } from '@expo/ui/swift-ui'
+import { Button, Host, Image } from '@expo/ui/swift-ui'
 import { frame } from '@expo/ui/swift-ui/modifiers'
-import { StyleProp, ViewStyle } from 'react-native'
+import type { HeaderButtonProps } from './types'
 
 const SIZE = 34
-
-export interface HeaderButtonProps {
-  imageProps?: ImageProps
-  buttonProps?: ButtonProps
-  style?: StyleProp<ViewStyle>
-}
 
 export function HeaderButton({
   imageProps,

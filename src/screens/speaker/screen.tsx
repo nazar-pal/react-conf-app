@@ -7,7 +7,7 @@ import {
 import { Platform, StyleSheet, Text, View } from 'react-native'
 import { ScrollView } from 'react-native-gesture-handler'
 
-import { HeaderButton } from '@/components/HeaderButtons/HeaderButton'
+import { HeaderButton } from '@/components/header-button'
 import { MiniTalkCard } from '@/components/MiniTalkCard'
 import { NotFound } from '@/components/NotFound'
 import { SpeakerImage } from '@/components/SpeakerImage'

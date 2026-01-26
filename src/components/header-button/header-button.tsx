@@ -6,7 +6,7 @@ import Animated, {
   withTiming
 } from 'react-native-reanimated'
 import { useCSSVariable } from 'uniwind'
-import { HeaderButtonProps } from './HeaderButton.ios'
+import type { HeaderButtonProps } from './types'
 
 const AnimatedPressable = Animated.createAnimatedComponent(Pressable)
 
