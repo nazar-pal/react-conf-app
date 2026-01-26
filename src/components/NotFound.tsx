@@ -1,10 +1,8 @@
+import { useReactConfStore } from '@/store/reactConfStore'
 import { Image as ExpoImage } from 'expo-image'
 import { Text, View } from 'react-native'
 import { useCSSVariable, useUniwind, withUniwind } from 'uniwind'
-
-import { Button } from './Button'
-
-import { useReactConfStore } from '@/store/reactConfStore'
+import { Button } from './button'
 
 const Image = withUniwind(ExpoImage)
 

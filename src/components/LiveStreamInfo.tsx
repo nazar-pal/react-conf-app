@@ -1,6 +1,6 @@
-import { Text, View } from 'react-native'
 import { useOpenWebBrowser } from '@/hooks/useOpenWebBrowser'
-import { Button } from './Button'
+import { Text, View } from 'react-native'
+import { Button } from './button'
 
 export function LiveStreamInfo() {
   const openWebBrowserAsync = useOpenWebBrowser()

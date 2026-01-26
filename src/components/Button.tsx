@@ -1,7 +1,6 @@
 import { ActivityIndicator, Text } from 'react-native'
 import { Pressable } from 'react-native-gesture-handler'
 import { useCSSVariable, useUniwind, withUniwind } from 'uniwind'
-
 import { cn } from '../utils/cn'
 
 const StyledPressable = withUniwind(Pressable)
