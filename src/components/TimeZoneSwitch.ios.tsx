@@ -11,14 +11,14 @@ import {
 import { buttonStyle, frame } from '@expo/ui/swift-ui/modifiers'
 import { isLiquidGlassAvailable } from 'expo-glass-effect'
 import * as Haptics from 'expo-haptics'
-import { useColorScheme } from 'react-native'
+import { useUniwind } from 'uniwind'
 
 const options = ['PDT (Venue)', `${getCurrentTimezone()} (Local)`]
 
 export function TimeZoneSwitch() {
   const shouldUseLocalTz = useReactConfStore(state => state.shouldUseLocalTz)
   const toggleLocalTz = useReactConfStore(state => state.toggleLocalTz)
-  const isDarkMode = useColorScheme() === 'dark'
+  const { theme } = useUniwind()
 
   const selectedIndex = shouldUseLocalTz ? 1 : 0
 
@@ -53,7 +53,7 @@ export function TimeZoneSwitch() {
               color={
                 isLiquidGlassAvailable()
                   ? 'primary'
-                  : isDarkMode
+                  : theme === 'dark'
                     ? 'white'
                     : 'black'
               }

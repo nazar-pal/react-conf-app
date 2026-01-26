@@ -13,9 +13,9 @@ import * as SplashScreen from 'expo-splash-screen'
 import { StatusBar } from 'expo-status-bar'
 import { setBackgroundColorAsync } from 'expo-system-ui'
 import { useEffect } from 'react'
-import { Platform, Text, useColorScheme } from 'react-native'
+import { Platform, Text } from 'react-native'
 import { GestureHandlerRootView } from 'react-native-gesture-handler'
-import { useCSSVariable, withUniwind } from 'uniwind'
+import { useCSSVariable, useUniwind, withUniwind } from 'uniwind'
 
 import '../global.css'
 
@@ -41,7 +41,7 @@ Notifications.setNotificationHandler({
 export default function Layout() {
   const router = useRouter()
   const pathName = usePathname()
-  const colorScheme = useColorScheme() || 'light'
+  const { theme } = useUniwind()
 
   const { refreshData, lastRefreshed } = useReactConfStore()
 
@@ -49,16 +49,14 @@ export default function Layout() {
 
   useEffect(() => {
     if (Platform.OS === 'android') {
-      NavigationBar.setButtonStyleAsync(
-        colorScheme === 'light' ? 'dark' : 'light'
-      )
+      NavigationBar.setButtonStyleAsync(theme === 'light' ? 'dark' : 'light')
     }
-  }, [colorScheme])
+  }, [theme])
 
   // Keep the root view background color in sync with the current theme
   useEffect(() => {
     setBackgroundColorAsync(tabBarBackgroundColor)
-  }, [colorScheme, tabBarBackgroundColor])
+  }, [theme, tabBarBackgroundColor])
 
   const lastNotificationResponse = Notifications.useLastNotificationResponse()
   useEffect(() => {
@@ -94,8 +92,8 @@ export default function Layout() {
 
   return (
     <StyledGestureHandlerRootView className="flex-1">
-      <ThemeProvider value={colorScheme === 'dark' ? DarkTheme : DefaultTheme}>
-        <StatusBar style={colorScheme === 'dark' ? 'light' : 'dark'} />
+      <ThemeProvider value={theme === 'dark' ? DarkTheme : DefaultTheme}>
+        <StatusBar style={theme === 'dark' ? 'light' : 'dark'} />
 
         <Stack>
           <Stack.Screen
@@ -130,7 +128,7 @@ export default function Layout() {
               },
               headerBlurEffect: isLiquidGlassAvailable()
                 ? undefined
-                : colorScheme === 'dark'
+                : theme === 'dark'
                   ? 'dark'
                   : 'light'
             }}
@@ -147,7 +145,7 @@ export default function Layout() {
               headerTitleAlign: 'center',
               headerBlurEffect: isLiquidGlassAvailable()
                 ? undefined
-                : colorScheme === 'dark'
+                : theme === 'dark'
                   ? 'dark'
                   : 'light',
               headerTitle: Platform.select({
