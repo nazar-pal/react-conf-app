@@ -1,8 +1,8 @@
+import { Button } from '@/components/button'
 import MaterialIcons from '@expo/vector-icons/MaterialIcons'
 import * as Linking from 'expo-linking'
 import { Text, View } from 'react-native'
 import { useCSSVariable, useUniwind } from 'uniwind'
-import { Button } from './button'
 
 export function DiscordInfo() {
   const handlePress = () => {

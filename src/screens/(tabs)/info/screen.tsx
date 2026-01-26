@@ -1,14 +1,16 @@
-import { DiscordInfo } from '@/components/DiscordInfo'
-import { LiveStreamInfo } from '@/components/LiveStreamInfo'
-import { Sponsors } from '@/components/Sponsors'
-import { VenueInfo } from '@/components/VenueInfo'
 import { useScrollToTop } from '@react-navigation/native'
 import React from 'react'
 import { Platform } from 'react-native'
 import { ScrollView } from 'react-native-gesture-handler'
 import { useSafeAreaInsets } from 'react-native-safe-area-context'
 import { withUniwind } from 'uniwind'
-import { PoweredByExpo } from './components'
+import {
+  DiscordInfo,
+  LiveStreamInfo,
+  PoweredByExpo,
+  Sponsors,
+  VenueInfo
+} from './components'
 
 const StyledScrollView = withUniwind(ScrollView)
 
