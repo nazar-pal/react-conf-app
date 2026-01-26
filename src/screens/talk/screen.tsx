@@ -1,4 +1,4 @@
-import { Bookmark } from '@/components/Bookmark'
+import { Bookmark } from '@/components/bookmark'
 import { HeaderButton } from '@/components/header-button'
 import { NotFound } from '@/components/NotFound'
 import { useReactConfStore } from '@/store/reactConfStore'

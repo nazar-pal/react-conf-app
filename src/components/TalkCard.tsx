@@ -9,7 +9,7 @@ import { useMemo } from 'react'
 import { Gesture, GestureDetector } from 'react-native-gesture-handler'
 import Animated, { FadeIn, FadeOut } from 'react-native-reanimated'
 import { formatSessionTime } from '../utils/formatDate'
-import { Bookmark } from './Bookmark'
+import { Bookmark } from './bookmark'
 import { SpeakerDetails } from './SpeakerDetails'
 
 type Props = {

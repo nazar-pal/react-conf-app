@@ -4,7 +4,7 @@ import { Pressable } from 'react-native-gesture-handler'
 
 import { useReactConfStore } from '@/store/reactConfStore'
 import { formatSessionTime } from '@/utils/formatDate'
-import { Bookmark } from './Bookmark'
+import { Bookmark } from './bookmark'
 
 export function MiniTalkCard({ sessionId }: { sessionId: string | number }) {
   const shouldUseLocalTz = useReactConfStore(state => state.shouldUseLocalTz)

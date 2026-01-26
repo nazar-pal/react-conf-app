@@ -6,8 +6,8 @@ import * as Haptics from 'expo-haptics'
 import { useMemo } from 'react'
 import { Platform, StyleProp, ViewStyle } from 'react-native'
 import { useCSSVariable, useUniwind } from 'uniwind'
-import { BaseBookmark } from './BaseBookmark'
-import { HeaderButton } from './header-button'
+import { HeaderButton } from '../header-button'
+import { BaseBookmark } from './base-bookmark'
 
 type BookmarkProps = {
   session: Session
