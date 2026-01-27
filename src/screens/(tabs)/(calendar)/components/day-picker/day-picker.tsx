@@ -11,7 +11,7 @@ interface DayPickerProps {
 export function DayPicker({ selectedDay, onSelectDay }: DayPickerProps) {
   const [
     backgroundColor,
-    tintColor,
+    accentColor,
     textColor,
     inactiveColorText,
     backgroundSecondary
@@ -40,7 +40,7 @@ export function DayPicker({ selectedDay, onSelectDay }: DayPickerProps) {
         }}
         color={backgroundColor}
         elementColors={{
-          activeContainerColor: tintColor,
+          activeContainerColor: accentColor,
           activeContentColor,
           activeBorderColor: 'transparent',
           inactiveContainerColor: backgroundSecondary,

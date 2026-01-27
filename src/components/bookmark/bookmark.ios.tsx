@@ -25,7 +25,7 @@ function GlassBookmark({ session, size = 'large', style }: BookmarkProps) {
   const { toggleBookmark, isBookmarked } = useBookmark()
   const { theme } = useUniwind()
 
-  const [tintColor, whiteColor, greyColor, backgroundColor] = useCSSVariable([
+  const [accentColor, whiteColor, greyColor, backgroundColor] = useCSSVariable([
     '--color-accent',
     '--color-white',
     '--color-gray-400',
@@ -48,7 +48,7 @@ function GlassBookmark({ session, size = 'large', style }: BookmarkProps) {
 
   const bookmarked = isBookmarked(session.id)
 
-  let imageColor = tintColor
+  let imageColor = accentColor
   if (isLiquidGlassAvailable())
     imageColor = bookmarked ? whiteColor : notSelectedIconColor
 
@@ -62,7 +62,7 @@ function GlassBookmark({ session, size = 'large', style }: BookmarkProps) {
       style={style}
       imageProps={{
         systemName: bookmarked ? 'bookmark.fill' : 'bookmark',
-        color: bookmarked ? tintColor : imageColor,
+        color: bookmarked ? accentColor : imageColor,
         ...(size === 'small' && {
           size: isLiquidGlassAvailable() ? 16 : 24,
           modifiers: [frame({ height: 20, width: 10 })]
