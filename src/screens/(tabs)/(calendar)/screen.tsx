@@ -7,7 +7,7 @@ import { getInitialDay } from '@/utils/formatDate'
 import { useScrollToTop } from '@react-navigation/native'
 import { isLiquidGlassAvailable } from 'expo-glass-effect'
 import { Stack, useFocusEffect } from 'expo-router'
-import React, { useCallback, useMemo, useRef, useState } from 'react'
+import React, { useCallback, useRef, useState } from 'react'
 import { Platform, RefreshControl } from 'react-native'
 import { FlatList } from 'react-native-gesture-handler'
 import Animated, {
@@ -95,13 +95,10 @@ export default function Schedule() {
     [insets.top, isScrolledDown]
   )
 
-  const renderStickyHeader = useMemo(
-    () => (
-      <Animated.View style={stickyHeaderStyle}>
-        <DayPicker selectedDay={selectedDay} onSelectDay={handleSelectDay} />
-      </Animated.View>
-    ),
-    [handleSelectDay, selectedDay, stickyHeaderStyle]
+  const renderStickyHeader = (
+    <Animated.View style={stickyHeaderStyle}>
+      <DayPicker selectedDay={selectedDay} onSelectDay={handleSelectDay} />
+    </Animated.View>
   )
 
   if (!dayOne.length || !dayTwo.length) {

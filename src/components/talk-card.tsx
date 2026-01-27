@@ -3,7 +3,6 @@ import { useReactConfStore } from '@/store'
 import { Session, Speaker } from '@/types'
 import * as Haptics from 'expo-haptics'
 import { Link, useRouter } from 'expo-router'
-import { useMemo } from 'react'
 import { Text, useWindowDimensions, View } from 'react-native'
 import { Gesture, GestureDetector } from 'react-native-gesture-handler'
 import Animated, { FadeIn, FadeOut } from 'react-native-reanimated'
@@ -22,20 +21,16 @@ export function TalkCard({ session, day, isBookmarked = false }: Props) {
   const { width } = useWindowDimensions()
   const router = useRouter()
 
-  const gestureTalkTap = useMemo(
-    () =>
-      Gesture.Tap()
-        .maxDistance(10)
-        .runOnJS(true)
-        .onEnd(() => {
-          Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Medium)
-          router.push({
-            pathname: '/talk/[talk]',
-            params: { talk: session.id }
-          })
-        }),
-    [router, session.id]
-  )
+  const gestureTalkTap = Gesture.Tap()
+    .maxDistance(10)
+    .runOnJS(true)
+    .onEnd(() => {
+      Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Medium)
+      router.push({
+        pathname: '/talk/[talk]',
+        params: { talk: session.id }
+      })
+    })
 
   const createSpeakerTapGesture = (speaker: Speaker) =>
     Gesture.Tap()

@@ -3,7 +3,6 @@ import { Session } from '@/types'
 import { frame } from '@expo/ui/swift-ui/modifiers'
 import { isLiquidGlassAvailable } from 'expo-glass-effect'
 import * as Haptics from 'expo-haptics'
-import { useMemo } from 'react'
 import { Platform, StyleProp, ViewStyle } from 'react-native'
 import { useCSSVariable, useUniwind } from 'uniwind'
 import { HeaderButton } from '../header-button'
@@ -49,12 +48,9 @@ function GlassBookmark({ session, size = 'large', style }: BookmarkProps) {
 
   const bookmarked = isBookmarked(session.id)
 
-  const imageColor = useMemo(() => {
-    if (isLiquidGlassAvailable()) {
-      return bookmarked ? whiteColor : notSelectedIconColor
-    }
-    return tintColor
-  }, [tintColor, bookmarked, whiteColor, notSelectedIconColor])
+  let imageColor = tintColor
+  if (isLiquidGlassAvailable())
+    imageColor = bookmarked ? whiteColor : notSelectedIconColor
 
   return (
     <HeaderButton
