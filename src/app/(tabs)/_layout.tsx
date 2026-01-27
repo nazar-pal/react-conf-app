@@ -31,15 +31,21 @@ type VectorIconFamily = {
 export default function TabLayout() {
   const bookmarks = useBookmarkStore(state => state.bookmarks)
   const hasBookmarks = bookmarks.length > 0
-  const [accentColor, blackColor, whiteColor, accentSoftColor] = useCSSVariable(
-    ['--color-accent', '--color-black', '--color-white', '--color-accent-soft']
-  ) as [string, string, string, string]
+  const [accentColor, blackColor, whiteColor, accentSoftColor, bgColor] =
+    useCSSVariable([
+      '--color-accent',
+      '--color-black',
+      '--color-white',
+      '--color-accent-soft',
+      '--color-background'
+    ]) as [string, string, string, string, string]
 
   const labelSelectedStyle =
     Platform.OS === 'ios' ? { color: accentColor } : undefined
 
   return (
     <NativeTabs
+      backgroundColor={Platform.OS === 'android' ? bgColor : undefined}
       badgeBackgroundColor={accentColor}
       labelStyle={{
         color:
