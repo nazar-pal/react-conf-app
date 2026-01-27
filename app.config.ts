@@ -119,14 +119,6 @@ const config: ExpoConfig = {
         image: './assets/splash-icon.png',
         imageWidth: 190
       }
-    ],
-    [
-      '@zoontek/react-native-navigation-bar',
-      {
-        android: {
-          enforceNavigationBarContrast: false
-        }
-      }
     ]
   ],
   updates: {
