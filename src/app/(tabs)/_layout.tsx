@@ -17,7 +17,7 @@ import {
 
 import { useBookmarkStore } from '@/store'
 import { isLiquidGlassAvailable } from 'expo-glass-effect'
-import { useCSSVariable, useUniwind } from 'uniwind'
+import { useCSSVariable } from 'uniwind'
 
 // Todo (betomoedano): In the future we can remove this type. Learn more: https://exponent-internal.slack.com/archives/C0447EFTS74/p1758042759724779?thread_ts=1758039375.241799&cid=C0447EFTS74
 type VectorIconFamily = {
@@ -31,20 +31,16 @@ type VectorIconFamily = {
 export default function TabLayout() {
   const bookmarks = useBookmarkStore(state => state.bookmarks)
   const hasBookmarks = bookmarks.length > 0
-  const { theme } = useUniwind()
-  const [tintColor, blackColor, whiteColor] = useCSSVariable([
-    '--color-accent',
-    '--color-black',
-    '--color-white'
-  ]) as [string, string, string]
-  const inactiveTintColor = theme === 'dark' ? '#FFFFFF90' : '#00000090'
+  const [accentColor, blackColor, whiteColor, accentSoftColor] = useCSSVariable(
+    ['--color-accent', '--color-black', '--color-white', '--color-accent-soft']
+  ) as [string, string, string, string]
 
   const labelSelectedStyle =
-    Platform.OS === 'ios' ? { color: tintColor } : undefined
+    Platform.OS === 'ios' ? { color: accentColor } : undefined
 
   return (
     <NativeTabs
-      badgeBackgroundColor={tintColor}
+      badgeBackgroundColor={accentColor}
       labelStyle={{
         color:
           Platform.OS === 'ios' && isLiquidGlassAvailable()
@@ -52,7 +48,7 @@ export default function TabLayout() {
                 light: blackColor,
                 dark: whiteColor
               })
-            : inactiveTintColor
+            : accentSoftColor
       }}
       iconColor={
         Platform.OS === 'ios' && isLiquidGlassAvailable()
@@ -60,18 +56,11 @@ export default function TabLayout() {
               light: blackColor,
               dark: whiteColor
             })
-          : inactiveTintColor
+          : accentSoftColor
       }
-      tintColor={
-        Platform.OS === 'ios'
-          ? DynamicColorIOS({
-              light: tintColor,
-              dark: tintColor
-            })
-          : inactiveTintColor
-      }
+      tintColor={Platform.OS === 'ios' ? accentColor : accentSoftColor}
       labelVisibilityMode="labeled"
-      indicatorColor={tintColor + '25'}
+      indicatorColor={accentColor + '25'}
       disableTransparentOnScrollEdge={true} // Used to prevent transparent background on iOS 18 and older
     >
       <NativeTabs.Trigger name="(calendar)">
@@ -85,7 +74,7 @@ export default function TabLayout() {
                   name="calendar-blank"
                 />
               }
-              selectedColor={tintColor}
+              selectedColor={accentColor}
             />
           )
         })}
@@ -93,7 +82,7 @@ export default function TabLayout() {
       </NativeTabs.Trigger>
       <NativeTabs.Trigger name="bookmarks">
         {Platform.select({
-          ios: <Icon sf="bookmark" selectedColor={tintColor} />,
+          ios: <Icon sf="bookmark" selectedColor={accentColor} />,
           android: (
             <Icon
               src={
@@ -102,7 +91,7 @@ export default function TabLayout() {
                   name="bookmark"
                 />
               }
-              selectedColor={tintColor}
+              selectedColor={accentColor}
             />
           )
         })}
@@ -125,7 +114,7 @@ export default function TabLayout() {
                   name="account-multiple"
                 />
               }
-              selectedColor={tintColor}
+              selectedColor={accentColor}
             />
           )
         })}
@@ -133,7 +122,7 @@ export default function TabLayout() {
       </NativeTabs.Trigger>
       <NativeTabs.Trigger name="info">
         {Platform.select({
-          ios: <Icon sf="map" selectedColor={tintColor} />,
+          ios: <Icon sf="map" selectedColor={accentColor} />,
           android: (
             <Icon
               src={
@@ -142,7 +131,7 @@ export default function TabLayout() {
                   name="map-outline"
                 />
               }
-              selectedColor={tintColor}
+              selectedColor={accentColor}
             />
           )
         })}

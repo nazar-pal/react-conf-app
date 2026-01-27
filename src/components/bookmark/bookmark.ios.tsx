@@ -26,7 +26,7 @@ function GlassBookmark({ session, size = 'large', style }: BookmarkProps) {
   const { toggleBookmark, isBookmarked } = useBookmark()
   const { theme } = useUniwind()
 
-  const [tintColor, whiteColor, greyColor, backgroundLight] = useCSSVariable([
+  const [tintColor, whiteColor, greyColor, backgroundColor] = useCSSVariable([
     '--color-accent',
     '--color-white',
     '--color-gray-400',
@@ -48,7 +48,6 @@ function GlassBookmark({ session, size = 'large', style }: BookmarkProps) {
   }
 
   const bookmarked = isBookmarked(session.id)
-  const backgroundColor = theme === 'dark' ? '#646469' : backgroundLight
 
   const imageColor = useMemo(() => {
     if (isLiquidGlassAvailable()) {
