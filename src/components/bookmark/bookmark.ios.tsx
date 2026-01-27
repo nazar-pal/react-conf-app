@@ -48,9 +48,8 @@ function GlassBookmark({ session, size = 'large', style }: BookmarkProps) {
 
   const bookmarked = isBookmarked(session.id)
 
-  let imageColor = accentColor
-  if (isLiquidGlassAvailable())
-    imageColor = bookmarked ? whiteColor : notSelectedIconColor
+  // imageColor is only used when not bookmarked (see color prop below)
+  const imageColor = notSelectedIconColor
 
   return (
     <HeaderButton
@@ -62,7 +61,7 @@ function GlassBookmark({ session, size = 'large', style }: BookmarkProps) {
       style={style}
       imageProps={{
         systemName: bookmarked ? 'bookmark.fill' : 'bookmark',
-        color: bookmarked ? accentColor : imageColor,
+        color: bookmarked ? accentColor : notSelectedIconColor,
         ...(size === 'small' && {
           size: isLiquidGlassAvailable() ? 16 : 24,
           modifiers: [frame({ height: 20, width: 10 })]
