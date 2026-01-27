@@ -22,8 +22,8 @@ export function IconButton({
       <View
         className={cn(
           'mx-2 rounded-md p-3',
-          isActive ? 'bg-accent' : 'bg-white dark:bg-[rgba(255,255,255,0.15)]',
-          'shadow-[0_2px_4px_0_rgba(0,0,0,0.1)] dark:shadow-none'
+          isActive ? 'bg-accent' : 'bg-white dark:bg-white/15',
+          'shadow-sm dark:shadow-none'
         )}
       >
         {children}
