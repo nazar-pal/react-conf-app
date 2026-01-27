@@ -27,7 +27,7 @@ function GlassBookmark({ session, size = 'large', style }: BookmarkProps) {
   const { theme } = useUniwind()
 
   const [tintColor, whiteColor, greyColor, backgroundLight] = useCSSVariable([
-    '--color-react-blue',
+    '--color-accent',
     '--color-white',
     '--color-gray-400',
     '--color-background'

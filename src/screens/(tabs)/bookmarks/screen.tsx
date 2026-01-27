@@ -66,7 +66,7 @@ export default function Bookmarks() {
             </Text>
             <Link href="/(tabs)/(calendar)" asChild>
               <Pressable>
-                <Text className="text-react-blue mt-0.5 text-base font-medium">
+                <Text className="text-accent mt-0.5 text-base font-medium">
                   View all sessions
                 </Text>
               </Pressable>

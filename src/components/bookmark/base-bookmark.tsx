@@ -15,7 +15,7 @@ export function BaseBookmark({ session }: { session: Session }) {
   const { toggleBookmark, isBookmarked } = useBookmark()
   const scale = useSharedValue(1)
   const [reactBlueLight, greyColor] = useCSSVariable([
-    '--color-react-blue',
+    '--color-accent',
     '--color-gray-400'
   ]) as [string, string]
 

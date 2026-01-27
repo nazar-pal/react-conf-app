@@ -42,7 +42,7 @@ export default function TalkDetail() {
   const shouldUseLocalTz = useReactConfStore(state => state.shouldUseLocalTz)
   const { width, height } = useWindowDimensions()
   const drawerHeight = height * 0.8
-  const highlightColor = useCSSVariable('--color-react-blue') as string
+  const highlightColor = useCSSVariable('--color-accent') as string
 
   const router = useRouter()
 

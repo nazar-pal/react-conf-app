@@ -36,7 +36,7 @@ export function SpeakerImage({
 
   const placeholder = (
     <View
-      className={cn('bg-react-blue items-center justify-center', sizeClassName)}
+      className={cn('bg-accent items-center justify-center', sizeClassName)}
       style={StyleSheet.absoluteFillObject}
     >
       <Image

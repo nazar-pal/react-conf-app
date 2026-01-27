@@ -33,7 +33,7 @@ export default function TabLayout() {
   const hasBookmarks = bookmarks.length > 0
   const { theme } = useUniwind()
   const [tintColor, blackColor, whiteColor] = useCSSVariable([
-    '--color-react-blue',
+    '--color-accent',
     '--color-black',
     '--color-white'
   ]) as [string, string, string]
