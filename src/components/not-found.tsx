@@ -11,7 +11,7 @@ export function NotFound({ message }: { message: string }) {
   const isRefetching = useReactConfStore(state => state.isRefreshing)
   const { theme } = useUniwind()
   const [colorGrey, colorWhite] = useCSSVariable([
-    '--color-grey',
+    '--color-gray-400',
     '--color-white'
   ]) as [string, string]
   const iconColor = theme === 'dark' ? colorWhite : colorGrey

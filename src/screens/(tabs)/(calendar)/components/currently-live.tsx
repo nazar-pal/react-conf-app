@@ -78,7 +78,7 @@ export function CurrentlyLive({
       {currentlyLive ? (
         <>
           <View className="flex-row items-center gap-1">
-            <View className="bg-red size-1 rounded" />
+            <View className="bg-danger size-1 rounded" />
             <Text className="text-text-secondary text-[10px] font-semibold uppercase">
               Currently Live
             </Text>

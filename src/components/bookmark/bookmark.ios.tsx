@@ -29,7 +29,7 @@ function GlassBookmark({ session, size = 'large', style }: BookmarkProps) {
   const [tintColor, whiteColor, greyColor, backgroundLight] = useCSSVariable([
     '--color-react-blue',
     '--color-white',
-    '--color-grey',
+    '--color-gray-400',
     '--color-background'
   ]) as [string, string, string, string]
 

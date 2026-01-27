@@ -12,7 +12,7 @@ const AnimatedPressable = Animated.createAnimatedComponent(Pressable)
 
 export function HeaderButton({ imageProps, buttonProps }: HeaderButtonProps) {
   const scale = useSharedValue(1)
-  const greyColor = useCSSVariable('--color-grey') as string
+  const greyColor = useCSSVariable('--color-gray-400') as string
 
   const animatedStyle = useAnimatedStyle(() => ({
     transform: [{ scale: scale.value }]

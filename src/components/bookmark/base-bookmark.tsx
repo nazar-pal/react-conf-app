@@ -16,7 +16,7 @@ export function BaseBookmark({ session }: { session: Session }) {
   const scale = useSharedValue(1)
   const [reactBlueLight, greyColor] = useCSSVariable([
     '--color-react-blue',
-    '--color-grey'
+    '--color-gray-400'
   ]) as [string, string]
 
   const animatedStyle = useAnimatedStyle(() => ({
