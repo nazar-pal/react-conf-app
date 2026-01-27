@@ -44,10 +44,10 @@ export function VenueInfo() {
         <View className="bg-background-element absolute right-0 -bottom-[50px] left-0 items-center rounded-b-[32px] pb-6">
           <Text className="text-text-secondary text-sm font-medium">Venue</Text>
           <View className="mb-4 items-center">
-            <Text className="text-text text-lg font-semibold">
+            <Text className="text-foreground text-lg font-semibold">
               The Westin Lake
             </Text>
-            <Text className="text-text text-lg font-semibold">
+            <Text className="text-foreground text-lg font-semibold">
               Las Vegas Resort & Spa
             </Text>
           </View>

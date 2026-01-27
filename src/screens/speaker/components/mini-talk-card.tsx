@@ -37,7 +37,7 @@ export function MiniTalkCard({ sessionId }: { sessionId: string | number }) {
       <Pressable>
         <View className="bg-background mb-6 flex-row items-center justify-between rounded-[10px] p-6">
           <View className="shrink gap-1">
-            <Text className="text-text text-base font-semibold">
+            <Text className="text-foreground text-base font-semibold">
               {talk.title}
             </Text>
             <Text className="text-text-secondary mb-2 text-sm font-medium">

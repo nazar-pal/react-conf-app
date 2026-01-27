@@ -12,7 +12,7 @@ export function SpeakerDetails({ speaker }: { speaker: Speaker }) {
         size="small"
       />
       <View className="flex-1 justify-center gap-0.5">
-        <Text className="text-text text-base font-medium">
+        <Text className="text-foreground text-base font-medium">
           {speaker.fullName}
         </Text>
         {speaker.tagLine ? (

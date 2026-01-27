@@ -17,7 +17,7 @@ export function TimeZoneSwitch() {
       className="bg-background-secondary h-8 justify-center self-end rounded-[40px] px-4"
       onPress={handleToggleLocalTz}
     >
-      <Text className="text-text text-xs font-semibold">
+      <Text className="text-foreground text-xs font-semibold">
         {shouldUseLocalTz ? getCurrentTimezone() : 'PDT'}
       </Text>
     </Pressable>

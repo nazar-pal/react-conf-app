@@ -19,7 +19,9 @@ export default function Layout() {
           title: 'Bookmarks',
           headerTitle: () =>
             Platform.OS === 'android' ? (
-              <Text className="text-text text-xl font-bold">Bookmarks</Text>
+              <Text className="text-foreground text-xl font-bold">
+                Bookmarks
+              </Text>
             ) : undefined,
 
           headerStyle: {

@@ -20,7 +20,7 @@
   :root {
     @variant light {
       --color-danger: oklch(0.6532 0.2328 25.74);
-      --color-text: oklch(0.149 0 0);
+      --color-foreground: oklch(0.149 0 0);
       --color-text-reverse: oklch(1 0 0);
       --color-text-secondary: oklch(0.478 0 0);
       --color-background: oklch(1 0 0);
@@ -35,7 +35,7 @@
 
     @variant dark {
       --color-danger: oklch(0.594 0.1967 24.63);
-      --color-text: oklch(1 0 0);
+      --color-foreground: oklch(1 0 0);
       --color-text-reverse: oklch(0.149 0 0);
       --color-text-secondary: oklch(0.843 0 0);
       --color-background: oklch(0 0 0);

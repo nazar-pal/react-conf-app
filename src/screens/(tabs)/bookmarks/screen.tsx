@@ -57,7 +57,7 @@ export default function Bookmarks() {
       ListEmptyComponent={
         <Animated.View entering={FadeIn} exiting={FadeOut}>
           <View className="gap-4 px-4">
-            <Text className="text-text text-xl font-bold">
+            <Text className="text-foreground text-xl font-bold">
               No sessions bookmarked
             </Text>
             <Text className="text-text-secondary text-lg font-medium">

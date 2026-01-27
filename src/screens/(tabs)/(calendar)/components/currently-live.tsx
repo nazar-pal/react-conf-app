@@ -84,7 +84,7 @@ export function CurrentlyLive({
             </Text>
           </View>
           <Text
-            className="text-text text-center text-xs font-semibold"
+            className="text-foreground text-center text-xs font-semibold"
             numberOfLines={2}
           >
             {currentlyLive.session.title}

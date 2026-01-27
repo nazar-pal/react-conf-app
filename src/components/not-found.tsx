@@ -18,7 +18,7 @@ export function NotFound({ message }: { message: string }) {
 
   return (
     <View className="bg-background flex-1 items-center justify-center p-6">
-      <Text className="text-text mb-6 text-2xl font-bold">{message}</Text>
+      <Text className="text-foreground mb-6 text-2xl font-bold">{message}</Text>
       <Image
         tintColor={iconColor}
         source={require('@/assets/images/not-found.svg')}

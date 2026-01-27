@@ -19,7 +19,7 @@ export function DayPicker({ selectedDay, onSelectDay }: DayPickerProps) {
   ] = useCSSVariable([
     '--color-background',
     '--color-react-blue',
-    '--color-text',
+    '--color-foreground',
     '--color-text-reverse',
     '--color-text-secondary',
     '--color-background-secondary'

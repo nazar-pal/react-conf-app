@@ -61,7 +61,7 @@ export function TalkCard({ session, day, isBookmarked = false }: Props) {
           <View className="bg-background-secondary gap-6 rounded-[32px] p-6">
             <View className="-mx-4 -my-2 px-4 py-2">
               <View className="flex-row items-center justify-between gap-2">
-                <Text className="text-text mr-10 flex-1 text-lg font-semibold">
+                <Text className="text-foreground mr-10 flex-1 text-lg font-semibold">
                   {session.title}
                 </Text>
               </View>

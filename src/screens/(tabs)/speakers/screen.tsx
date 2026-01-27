@@ -124,9 +124,9 @@ export default function Speakers() {
       ListEmptyComponent={
         <Animated.View entering={FadeIn} exiting={FadeOut}>
           <View className="bg-background p-6">
-            <Text className="text-text text-base font-medium">
+            <Text className="text-foreground text-base font-medium">
               No results found for{' '}
-              <Text className="text-text text-base font-bold">
+              <Text className="text-foreground text-base font-bold">
                 {searchText}
               </Text>
             </Text>

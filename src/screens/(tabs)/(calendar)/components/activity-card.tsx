@@ -17,10 +17,12 @@ export function ActivityCard({ session }: Props) {
       </Text>
       <View className="bg-background-tertiary justify-center rounded-xl p-6">
         <View className="flex-row items-center justify-between">
-          <Text className="text-text text-lg font-semibold">
+          <Text className="text-foreground text-lg font-semibold">
             {session.title}
           </Text>
-          <Text className="text-text text-sm font-light">{session.room}</Text>
+          <Text className="text-foreground text-sm font-light">
+            {session.room}
+          </Text>
         </View>
       </View>
     </View>

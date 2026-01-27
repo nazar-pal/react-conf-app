@@ -73,7 +73,7 @@ type Sponsor = (typeof sponsors)[keyof typeof sponsors]
 export function Sponsors() {
   return (
     <View className="bg-background pt-6">
-      <Text className="text-text px-4 pb-4 text-lg font-semibold">
+      <Text className="text-foreground px-4 pb-4 text-lg font-semibold">
         Sponsors
       </Text>
       <View className="bg-background-element px-4 pb-4">

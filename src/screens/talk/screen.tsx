@@ -173,7 +173,7 @@ export default function TalkDetail() {
             collapsable={false}
           >
             <Text
-              className="text-text mb-3 text-center text-3xl font-bold"
+              className="text-foreground mb-3 text-center text-3xl font-bold"
               style={{ textDecorationColor: highlightColor }}
             >
               {talk?.title}

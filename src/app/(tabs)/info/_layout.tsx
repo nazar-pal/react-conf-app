@@ -19,7 +19,7 @@ export default function Layout() {
           title: 'Info',
           headerTitle: () =>
             Platform.OS === 'android' ? (
-              <Text className="text-text text-xl font-bold">Info</Text>
+              <Text className="text-foreground text-xl font-bold">Info</Text>
             ) : undefined,
 
           headerStyle: {
