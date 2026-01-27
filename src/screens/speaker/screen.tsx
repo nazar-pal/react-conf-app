@@ -45,7 +45,7 @@ export default function SpeakerDetail() {
       <View
         className={cn(
           'flex-1',
-          isPreview && 'bg-background-secondary',
+          isPreview && 'bg-surface',
           !isPreview && 'bg-background'
         )}
       >
@@ -66,7 +66,7 @@ export default function SpeakerDetail() {
                 {speaker.fullName}
               </Text>
               {speaker.tagLine ? (
-                <Text className="text-text-secondary text-center text-base font-medium">
+                <Text className="text-muted text-center text-base font-medium">
                   {speaker.tagLine}
                 </Text>
               ) : null}

@@ -12,7 +12,7 @@ export function SpeakerDetails({ speaker }: { speaker: Speaker }) {
         <Text className="text-foreground text-lg font-semibold">
           {speaker.fullName}
         </Text>
-        <Text className="text-text-secondary text-sm font-medium">
+        <Text className="text-muted text-sm font-medium">
           {speaker.tagLine}
         </Text>
       </View>

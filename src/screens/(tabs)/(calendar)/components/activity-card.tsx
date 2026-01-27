@@ -12,7 +12,7 @@ export function ActivityCard({ session }: Props) {
 
   return (
     <View className="mx-6 mb-4 gap-2 rounded-[10px]">
-      <Text className="text-text-secondary ml-6 text-sm font-medium">
+      <Text className="text-muted ml-6 text-sm font-medium">
         {formatSessionTime(session, shouldUseLocalTz)}
       </Text>
       <View className="bg-overlay justify-center rounded-xl p-6">

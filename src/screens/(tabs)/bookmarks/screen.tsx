@@ -60,7 +60,7 @@ export default function Bookmarks() {
             <Text className="text-foreground text-xl font-bold">
               No sessions bookmarked
             </Text>
-            <Text className="text-text-secondary text-lg font-medium">
+            <Text className="text-muted text-lg font-medium">
               Tap on the bookmark icon on a session to add it to your bookmarks,
               and it will be displayed here.
             </Text>

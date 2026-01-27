@@ -13,23 +13,21 @@ export function DayPicker({ selectedDay, onSelectDay }: DayPickerProps) {
     backgroundColor,
     tintColor,
     textColor,
-    textReverseColor,
     inactiveColorText,
     backgroundSecondary
   ] = useCSSVariable([
     '--color-background',
     '--color-accent',
     '--color-foreground',
-    '--color-text-reverse',
-    '--color-text-secondary',
-    '--color-background-secondary'
-  ]) as [string, string, string, string, string, string]
+    '--color-muted',
+    '--color-surface'
+  ]) as [string, string, string, string, string]
   const width = useWindowDimensions().width
 
   // Platform-specific text color logic
-  const colorText = Platform.select({
+  const activeContentColor = Platform.select({
     ios: textColor,
-    android: textReverseColor
+    android: backgroundColor
   })
 
   return (
@@ -43,7 +41,7 @@ export function DayPicker({ selectedDay, onSelectDay }: DayPickerProps) {
         color={backgroundColor}
         elementColors={{
           activeContainerColor: tintColor,
-          activeContentColor: colorText,
+          activeContentColor,
           activeBorderColor: 'transparent',
           inactiveContainerColor: backgroundSecondary,
           inactiveContentColor: inactiveColorText,

@@ -16,7 +16,7 @@ export function SpeakerDetails({ speaker }: { speaker: Speaker }) {
           {speaker.fullName}
         </Text>
         {speaker.tagLine ? (
-          <Text className="text-text-secondary text-sm font-medium">
+          <Text className="text-muted text-sm font-medium">
             {speaker.tagLine}
           </Text>
         ) : null}

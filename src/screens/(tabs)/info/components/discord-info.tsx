@@ -11,7 +11,7 @@ export function DiscordInfo() {
 
   const { theme } = useUniwind()
   const [iconColorLight, iconColorDark] = useCSSVariable([
-    '--color-text-secondary',
+    '--color-muted',
     '--color-white'
   ]) as [string, string]
   const iconColor = theme === 'light' ? iconColorLight : iconColorDark
@@ -19,7 +19,7 @@ export function DiscordInfo() {
   return (
     <View className="bg-overlay mx-4 mb-4 items-center gap-4 rounded-[32px] p-6">
       <MaterialIcons name="discord" size={42} color={iconColor} />
-      <Text className="text-text-secondary mb-2 text-center text-base font-medium">
+      <Text className="text-muted mb-2 text-center text-base font-medium">
         Chat with other folks at the conference via the dedicated Discord
         server. Fun activities? Ridesharing?
       </Text>

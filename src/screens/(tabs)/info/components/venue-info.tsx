@@ -21,7 +21,7 @@ export function VenueInfo() {
   }
 
   const [iconColor, backgroundColor] = useCSSVariable([
-    '--color-text-secondary',
+    '--color-muted',
     '--color-overlay'
   ]) as [string, string]
 
@@ -42,7 +42,7 @@ export function VenueInfo() {
           style={StyleSheet.absoluteFillObject}
         />
         <View className="bg-overlay absolute right-0 -bottom-[50px] left-0 items-center rounded-b-[32px] pb-6">
-          <Text className="text-text-secondary text-sm font-medium">Venue</Text>
+          <Text className="text-muted text-sm font-medium">Venue</Text>
           <View className="mb-4 items-center">
             <Text className="text-foreground text-lg font-semibold">
               The Westin Lake
@@ -57,7 +57,7 @@ export function VenueInfo() {
               size={16}
               color={iconColor}
             />
-            <Text className="text-text-secondary text-xs font-medium">
+            <Text className="text-muted text-xs font-medium">
               {venueAddress}
             </Text>
           </View>

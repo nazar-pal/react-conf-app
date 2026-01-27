@@ -77,13 +77,9 @@ export function Sponsors() {
         Sponsors
       </Text>
       <View className="bg-overlay px-4 pb-4">
-        <Text className="text-text-secondary py-4 text-base font-medium">
-          Platinum
-        </Text>
+        <Text className="text-muted py-4 text-base font-medium">Platinum</Text>
         <SponsorCard sponsor={sponsors.amazon} />
-        <Text className="text-text-secondary py-4 text-base font-medium">
-          Gold
-        </Text>
+        <Text className="text-muted py-4 text-base font-medium">Gold</Text>
         <View className="gap-4">
           <SponsorCard sponsor={sponsors.agGrid} />
           <SponsorCard sponsor={sponsors.mui} />
@@ -93,20 +89,18 @@ export function Sponsors() {
           <SponsorCard sponsor={sponsors.expo} />
           <SponsorCard sponsor={sponsors.redwood} />
         </View>
-        <Text className="text-text-secondary py-4 text-base font-medium">
+        <Text className="text-muted py-4 text-base font-medium">
           Livestream
         </Text>
         <SponsorCard sponsor={sponsors.livestream} />
-        <Text className="text-text-secondary py-4 text-base font-medium">
-          Silver
-        </Text>
+        <Text className="text-muted py-4 text-base font-medium">Silver</Text>
         <View className="gap-4">
           <SponsorCard sponsor={sponsors.oldMission} />
           <SponsorCard sponsor={sponsors.arcjet} />
           <SponsorCard sponsor={sponsors.renderAtl} />
           <SponsorCard sponsor={sponsors.infiniteRed} />
         </View>
-        <Text className="text-text-secondary py-4 text-base font-medium">
+        <Text className="text-muted py-4 text-base font-medium">
           Organizers
         </Text>
         <View className="gap-4">

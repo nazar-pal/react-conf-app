@@ -40,7 +40,7 @@ export function MiniTalkCard({ sessionId }: { sessionId: string | number }) {
             <Text className="text-foreground text-base font-semibold">
               {talk.title}
             </Text>
-            <Text className="text-text-secondary mb-2 text-sm font-medium">
+            <Text className="text-muted mb-2 text-sm font-medium">
               {formatSessionTime(talk, shouldUseLocalTz)}
               {` `}({isDayOne ? 'Day 1' : 'Day 2'})
             </Text>
