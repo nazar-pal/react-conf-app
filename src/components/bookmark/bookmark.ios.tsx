@@ -48,9 +48,6 @@ function GlassBookmark({ session, size = 'large', style }: BookmarkProps) {
 
   const bookmarked = isBookmarked(session.id)
 
-  // imageColor is only used when not bookmarked (see color prop below)
-  const imageColor = notSelectedIconColor
-
   return (
     <HeaderButton
       buttonProps={{
