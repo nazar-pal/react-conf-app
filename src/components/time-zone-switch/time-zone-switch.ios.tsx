@@ -1,11 +1,11 @@
 import { useReactConfStore } from '@/store'
 import { getCurrentTimezone } from '@/utils/formatDate'
 import {
+  Button,
   ContextMenu,
   Host,
   HStack,
   Image,
-  Picker,
   Text
 } from '@expo/ui/swift-ui'
 import { buttonStyle, frame } from '@expo/ui/swift-ui/modifiers'
@@ -37,13 +37,18 @@ export function TimeZoneSwitch() {
         ]}
       >
         <ContextMenu.Items>
-          <Picker
-            selectedIndex={selectedIndex}
-            options={options}
-            onOptionSelected={({ nativeEvent: { index } }) =>
-              handleToggleLocalTz(index)
-            }
-          />
+          <Button
+            systemImage={selectedIndex === 0 ? 'checkmark' : undefined}
+            onPress={() => handleToggleLocalTz(0)}
+          >
+            {options[0]}
+          </Button>
+          <Button
+            systemImage={selectedIndex === 1 ? 'checkmark' : undefined}
+            onPress={() => handleToggleLocalTz(1)}
+          >
+            {options[1]}
+          </Button>
         </ContextMenu.Items>
         <ContextMenu.Trigger>
           <HStack modifiers={[frame({ width: 50 })]} spacing={8}>
