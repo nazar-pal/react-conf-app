@@ -19,14 +19,18 @@
 @layer theme {
   :root {
     @variant light {
-      --color-danger: oklch(0.6532 0.2328 25.74);
+      --color-background: oklch(1 0 0);
       --color-foreground: oklch(0.149 0 0);
+
+      --color-danger: oklch(0.6532 0.2328 25.74);
+
       --color-text-reverse: oklch(1 0 0);
       --color-text-secondary: oklch(0.478 0 0);
-      --color-background: oklch(1 0 0);
+
       --color-background-secondary: oklch(0.96 0 0);
       --color-background-tertiary: oklch(0.972 0 0);
       --color-background-element: oklch(0.96 0 0);
+
       --color-border: oklch(0.883 0.011 100.5);
       --color-accent: oklch(0.527 0.12 224.1);
       --color-transparent: oklch(1 0 0 / 0);
@@ -34,14 +38,18 @@
     }
 
     @variant dark {
-      --color-danger: oklch(0.594 0.1967 24.63);
+      --color-background: oklch(0 0 0);
       --color-foreground: oklch(1 0 0);
+
+      --color-danger: oklch(0.594 0.1967 24.63);
+
       --color-text-reverse: oklch(0.149 0 0);
       --color-text-secondary: oklch(0.843 0 0);
-      --color-background: oklch(0 0 0);
+
       --color-background-secondary: oklch(0.229 0 0);
       --color-background-tertiary: oklch(0.155 0 0);
       --color-background-element: oklch(0.155 0 0);
+
       --color-border: oklch(0.302 0.012 256.8);
       --color-accent: oklch(0.769 0.108 207.3);
       --color-transparent: oklch(0 0 0 / 0);
