@@ -115,7 +115,7 @@ export default function Speakers() {
         },
         { minHeight: height - (bottom + top + 130) }
       ]}
-      ItemSeparatorComponent={() => <View className="bg-border h-px" />}
+      ItemSeparatorComponent={() => <View className="bg-divider h-px" />}
       extraData={isBookmarked || searchText}
       renderItem={renderItem}
       data={filteredSpeakers}

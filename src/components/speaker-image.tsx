@@ -49,7 +49,7 @@ export function SpeakerImage({
   return (
     <View
       className={cn(
-        'border-border mr-3 overflow-hidden rounded-full border bg-[rgba(255,255,255,0.15)] dark:bg-[rgba(0,0,0,0.15)]',
+        'border-divider mr-3 overflow-hidden rounded-full border bg-[rgba(255,255,255,0.15)] dark:bg-[rgba(0,0,0,0.15)]',
         sizeClassName
       )}
       style={style}

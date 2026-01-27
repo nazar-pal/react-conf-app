@@ -72,7 +72,7 @@ export default function SpeakerDetail() {
               ) : null}
 
               <View
-                className="border-border my-6 w-full border-b"
+                className="border-divider my-6 w-full border-b"
                 style={{
                   borderBottomWidth: StyleSheet.hairlineWidth
                 }}
