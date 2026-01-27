@@ -20,16 +20,16 @@
   :root {
     @variant light {
       --color-background: oklch(1 0 0);
-      --color-foreground: oklch(0.149 0 0);
+      --color-foreground: oklch(0.15 0 0);
 
       --color-overlay: oklch(0.98 0 0);
       --color-surface: oklch(0.96 0 0);
 
-      --color-muted: oklch(0.478 0 0);
-      --color-danger: oklch(0.6532 0.2328 25.74);
+      --color-muted: oklch(0.48 0 0);
+      --color-danger: oklch(0.65 0.23 26);
 
-      --color-border: oklch(0.883 0.011 100.5);
-      --color-accent: oklch(0.527 0.12 224.1);
+      --color-border: oklch(0.88 0.01 100);
+      --color-accent: oklch(0.53 0.12 224);
       --color-transparent: oklch(1 0 0 / 0);
       --color-active-content: oklch(0 0 0 / 0.1);
     }
@@ -38,14 +38,14 @@
       --color-background: oklch(0 0 0);
       --color-foreground: oklch(1 0 0);
 
-      --color-overlay: oklch(0.175 0 0);
-      --color-surface: oklch(0.229 0 0);
+      --color-overlay: oklch(0.18 0 0);
+      --color-surface: oklch(0.23 0 0);
 
-      --color-muted: oklch(0.843 0 0);
-      --color-danger: oklch(0.594 0.1967 24.63);
+      --color-muted: oklch(0.84 0 0);
+      --color-danger: oklch(0.59 0.2 25);
 
-      --color-border: oklch(0.302 0.012 256.8);
-      --color-accent: oklch(0.769 0.108 207.3);
+      --color-border: oklch(0.3 0.01 257);
+      --color-accent: oklch(0.77 0.11 207);
       --color-transparent: oklch(0 0 0 / 0);
       --color-active-content: oklch(1 0 0 / 0.3);
     }
