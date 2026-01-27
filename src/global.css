@@ -27,9 +27,9 @@
       --color-surface: oklch(0.96 0 0);
 
       --color-danger: oklch(0.65 0.23 26);
+      --color-accent: oklch(0.53 0.12 224);
 
       --color-divider: oklch(0.88 0.01 100);
-      --color-accent: oklch(0.53 0.12 224);
     }
 
     @variant dark {
@@ -41,8 +41,9 @@
       --color-surface: oklch(0.18 0 0);
 
       --color-danger: oklch(0.59 0.2 25);
-      --color-divider: oklch(0.3 0.01 257);
       --color-accent: oklch(0.77 0.11 207);
+
+      --color-divider: oklch(0.3 0.01 257);
     }
   }
 }
