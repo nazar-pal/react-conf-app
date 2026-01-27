@@ -17,7 +17,7 @@ export function DiscordInfo() {
   const iconColor = theme === 'light' ? iconColorLight : iconColorDark
 
   return (
-    <View className="bg-background-element mx-4 mb-4 items-center gap-4 rounded-[32px] p-6">
+    <View className="bg-overlay mx-4 mb-4 items-center gap-4 rounded-[32px] p-6">
       <MaterialIcons name="discord" size={42} color={iconColor} />
       <Text className="text-text-secondary mb-2 text-center text-base font-medium">
         Chat with other folks at the conference via the dedicated Discord

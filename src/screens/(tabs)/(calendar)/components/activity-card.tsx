@@ -15,7 +15,7 @@ export function ActivityCard({ session }: Props) {
       <Text className="text-text-secondary ml-6 text-sm font-medium">
         {formatSessionTime(session, shouldUseLocalTz)}
       </Text>
-      <View className="bg-background-element justify-center rounded-xl p-6">
+      <View className="bg-overlay justify-center rounded-xl p-6">
         <View className="flex-row items-center justify-between">
           <Text className="text-foreground text-lg font-semibold">
             {session.title}

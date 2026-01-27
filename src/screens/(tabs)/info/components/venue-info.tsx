@@ -22,7 +22,7 @@ export function VenueInfo() {
 
   const [iconColor, backgroundColor] = useCSSVariable([
     '--color-text-secondary',
-    '--color-background-element'
+    '--color-overlay'
   ]) as [string, string]
 
   return (
@@ -41,7 +41,7 @@ export function VenueInfo() {
           colors={['transparent', backgroundColor]}
           style={StyleSheet.absoluteFillObject}
         />
-        <View className="bg-background-element absolute right-0 -bottom-[50px] left-0 items-center rounded-b-[32px] pb-6">
+        <View className="bg-overlay absolute right-0 -bottom-[50px] left-0 items-center rounded-b-[32px] pb-6">
           <Text className="text-text-secondary text-sm font-medium">Venue</Text>
           <View className="mb-4 items-center">
             <Text className="text-foreground text-lg font-semibold">

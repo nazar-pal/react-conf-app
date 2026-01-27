@@ -76,7 +76,7 @@ export function Sponsors() {
       <Text className="text-foreground px-4 pb-4 text-lg font-semibold">
         Sponsors
       </Text>
-      <View className="bg-background-element px-4 pb-4">
+      <View className="bg-overlay px-4 pb-4">
         <Text className="text-text-secondary py-4 text-base font-medium">
           Platinum
         </Text>

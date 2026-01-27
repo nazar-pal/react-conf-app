@@ -28,7 +28,7 @@
       --color-text-secondary: oklch(0.478 0 0);
 
       --color-background-secondary: oklch(0.96 0 0);
-      --color-background-element: oklch(0.96 0 0);
+      --color-overlay: oklch(0.96 0 0);
 
       --color-border: oklch(0.883 0.011 100.5);
       --color-accent: oklch(0.527 0.12 224.1);
@@ -46,7 +46,7 @@
       --color-text-secondary: oklch(0.843 0 0);
 
       --color-background-secondary: oklch(0.229 0 0);
-      --color-background-element: oklch(0.155 0 0);
+      --color-overlay: oklch(0.155 0 0);
 
       --color-border: oklch(0.302 0.012 256.8);
       --color-accent: oklch(0.769 0.108 207.3);

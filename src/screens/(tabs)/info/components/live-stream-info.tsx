@@ -9,7 +9,7 @@ export function LiveStreamInfo() {
   }
 
   return (
-    <View className="bg-background-element mx-4 mb-4 items-center rounded-[32px] p-6">
+    <View className="bg-overlay mx-4 mb-4 items-center rounded-[32px] p-6">
       <View className="border-text-secondary mb-4 flex-row items-center justify-center gap-2 rounded-[32px] border-2 px-2 py-1 dark:border-white">
         <View className="bg-text-secondary size-2 rounded-[32px] dark:bg-white" />
         <Text className="text-text-secondary text-sm font-semibold dark:text-white">
