@@ -1,8 +1,6 @@
 import { useScrollToTop } from '@react-navigation/native'
 import React from 'react'
-import { Platform } from 'react-native'
 import { ScrollView } from 'react-native-gesture-handler'
-import { useSafeAreaInsets } from 'react-native-safe-area-context'
 import { withUniwind } from 'uniwind'
 import {
   DiscordInfo,
@@ -16,18 +14,15 @@ const StyledScrollView = withUniwind(ScrollView)
 
 export default function Info() {
   const ref = React.useRef(null)
-  const { bottom } = useSafeAreaInsets()
 
   useScrollToTop(ref)
 
   return (
     <StyledScrollView
       className="bg-background"
-      ref={ref}
+      contentContainerClassName="pb-0 android:pb-safe-offset-24"
       contentInsetAdjustmentBehavior="automatic"
-      contentContainerStyle={{
-        paddingBottom: Platform.select({ android: 100 + bottom, default: 0 })
-      }}
+      ref={ref}
     >
       <VenueInfo />
       <LiveStreamInfo />

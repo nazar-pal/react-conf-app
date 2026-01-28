@@ -13,10 +13,9 @@ import { setBackgroundColorAsync } from 'expo-system-ui'
 import { useEffect } from 'react'
 import { Platform } from 'react-native'
 import { GestureHandlerRootView } from 'react-native-gesture-handler'
-import { useCSSVariable, useUniwind, withUniwind } from 'uniwind'
+import { SafeAreaListener } from 'react-native-safe-area-context'
+import { Uniwind, useCSSVariable, useUniwind } from 'uniwind'
 import '../global.css'
-
-const StyledGestureHandlerRootView = withUniwind(GestureHandlerRootView)
 
 SplashScreen.setOptions({ duration: 200, fade: true })
 
@@ -48,11 +47,17 @@ export default function Layout() {
   useAutoRefreshData()
 
   return (
-    <StyledGestureHandlerRootView className="flex-1">
-      <ThemeProvider value={theme === 'dark' ? DarkTheme : DefaultTheme}>
-        <StatusBar style={theme === 'dark' ? 'light' : 'dark'} />
-        <RootStack />
-      </ThemeProvider>
-    </StyledGestureHandlerRootView>
+    <GestureHandlerRootView style={{ flex: 1 }}>
+      <SafeAreaListener
+        onChange={({ insets }) => {
+          Uniwind.updateInsets(insets)
+        }}
+      >
+        <ThemeProvider value={theme === 'dark' ? DarkTheme : DefaultTheme}>
+          <StatusBar style={theme === 'dark' ? 'light' : 'dark'} />
+          <RootStack />
+        </ThemeProvider>
+      </SafeAreaListener>
+    </GestureHandlerRootView>
   )
 }

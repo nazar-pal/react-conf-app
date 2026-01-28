@@ -1,7 +1,6 @@
 import React, { useCallback } from 'react'
 import {
   Keyboard,
-  Platform,
   Pressable,
   Text,
   useWindowDimensions,
@@ -108,13 +107,8 @@ export default function Speakers() {
       onScrollBeginDrag={dismissKeyboard}
       keyboardShouldPersistTaps="handled"
       className="bg-background"
-      contentContainerClassName="px-4"
-      contentContainerStyle={[
-        {
-          paddingBottom: Platform.select({ android: 100 + bottom, default: 0 })
-        },
-        { minHeight: height - (bottom + top + 130) }
-      ]}
+      contentContainerClassName="px-4 pb-0 android:pb-safe-offset-24"
+      contentContainerStyle={[{ minHeight: height - (bottom + top + 130) }]}
       ItemSeparatorComponent={() => <View className="bg-divider h-px" />}
       extraData={isBookmarked || searchText}
       renderItem={renderItem}

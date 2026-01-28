@@ -1,5 +1,5 @@
 import React, { useCallback } from 'react'
-import { Platform, Pressable, Text, View } from 'react-native'
+import { Pressable, Text, View } from 'react-native'
 
 import { TalkCard } from '@/components/talk-card'
 import { ConferenceDay } from '@/consts'
@@ -11,14 +11,11 @@ import Animated, {
   FadeOut,
   LinearTransition
 } from 'react-native-reanimated'
-import { useSafeAreaInsets } from 'react-native-safe-area-context'
 
 export default function Bookmarks() {
   const bookmarks = useBookmarkStore(state => state.bookmarks)
 
   const { dayOne, dayTwo } = useReactConfStore(state => state.schedule)
-
-  const { bottom } = useSafeAreaInsets()
 
   const dayOneFiltered = dayOne.filter(
     session => !!bookmarks.find(b => b.sessionId === session.id)
@@ -41,12 +38,7 @@ export default function Bookmarks() {
     <Animated.FlatList
       contentInsetAdjustmentBehavior="automatic"
       className="bg-background"
-      contentContainerClassName="pt-4"
-      contentContainerStyle={[
-        {
-          paddingBottom: Platform.select({ android: 100 + bottom, default: 0 })
-        }
-      ]}
+      contentContainerClassName="pt-4 pb-0 android:pb-safe-offset-24"
       data={[
         ...dayOneFiltered.map(talk => ({ talk, day: ConferenceDay.One })),
         ...dayTwoFiltered.map(talk => ({ talk, day: ConferenceDay.Two }))

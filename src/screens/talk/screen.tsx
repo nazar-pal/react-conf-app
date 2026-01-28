@@ -24,7 +24,6 @@ import Animated, {
   useSharedValue,
   withTiming
 } from 'react-native-reanimated'
-import { useSafeAreaInsets } from 'react-native-safe-area-context'
 import { scheduleOnRN } from 'react-native-worklets'
 import { useCSSVariable, withUniwind } from 'uniwind'
 import { Section, SpeakerDetails } from './components'
@@ -53,8 +52,6 @@ export default function TalkDetail() {
   const overscrollAmount = useSharedValue(0)
 
   const { talk, isDayOne } = findTalk(talkId, { dayOne, dayTwo })
-
-  const insets = useSafeAreaInsets()
 
   const sheetAnim = useSharedValue(0)
   const hasTriggeredHaptic = useSharedValue(false)
@@ -156,12 +153,11 @@ export default function TalkDetail() {
         <AnimatedScrollView
           onScroll={scrollHandler}
           className="flex-1"
-          contentContainerClassName="rounded-b-[20px]"
+          contentContainerClassName="rounded-b-[20px] pb-safe-offset-6"
           contentInsetAdjustmentBehavior="automatic"
           showsVerticalScrollIndicator={false}
           contentContainerStyle={{
             minHeight: drawerHeight,
-            paddingBottom: insets.bottom + 24,
             paddingTop: Platform.select({
               ios: 24,
               default: undefined
