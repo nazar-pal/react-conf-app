@@ -1,6 +1,6 @@
 import { useBookmark } from '@/hooks'
 import { Session } from '@/types'
-import { frame } from '@expo/ui/swift-ui/modifiers'
+import { buttonStyle, frame, tint } from '@expo/ui/swift-ui/modifiers'
 import { isLiquidGlassAvailable } from 'expo-glass-effect'
 import * as Haptics from 'expo-haptics'
 import { Platform, StyleProp, ViewStyle } from 'react-native'
@@ -52,8 +52,10 @@ function GlassBookmark({ session, size = 'large', style }: BookmarkProps) {
     <HeaderButton
       buttonProps={{
         onPress: handlePress,
-        variant: 'glassProminent',
-        color: theme === 'dark' ? 'transparent' : backgroundColor
+        modifiers: [
+          buttonStyle('glassProminent'),
+          tint(theme === 'dark' ? 'transparent' : backgroundColor)
+        ]
       }}
       style={style}
       imageProps={{

@@ -46,7 +46,6 @@ const config: ExpoConfig = {
   userInterfaceStyle: 'automatic',
   scheme: 'reactconfapp',
   assetBundlePatterns: ['**/*'],
-  newArchEnabled: true,
   ios: {
     icon: './assets/app-icons/react-conf.icon',
     supportsTablet: false,
@@ -67,7 +66,6 @@ const config: ExpoConfig = {
     },
     userInterfaceStyle: 'automatic',
     package: getAppId(),
-    edgeToEdgeEnabled: true,
     softwareKeyboardLayoutMode: 'pan'
   },
   web: {

@@ -1,5 +1,5 @@
 import { Button, Host, Image } from '@expo/ui/swift-ui'
-import { frame } from '@expo/ui/swift-ui/modifiers'
+import { buttonStyle, frame } from '@expo/ui/swift-ui/modifiers'
 import type { HeaderButtonProps } from './types'
 
 const SIZE = 34
@@ -11,7 +11,10 @@ export function HeaderButton({
 }: HeaderButtonProps) {
   return (
     <Host matchContents style={[{ height: SIZE, width: SIZE }, style]}>
-      <Button {...buttonProps} variant={buttonProps?.variant || 'glass'}>
+      <Button
+        {...buttonProps}
+        modifiers={[buttonStyle('glass'), ...(buttonProps?.modifiers || [])]}
+      >
         <Image
           {...imageProps}
           systemName={imageProps?.systemName || 'xmark'}

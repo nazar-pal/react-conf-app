@@ -16,7 +16,7 @@ export function useNotificationNavigation() {
     ) {
       try {
         const url = lastNotificationResponse.notification.request.content.data
-          .url as string
+          ?.url as string
         if (url && pathName !== url) {
           router.push(url)
         }

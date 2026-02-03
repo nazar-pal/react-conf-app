@@ -1,5 +1,5 @@
 import { ConferenceDay } from '@/consts'
-import { Picker } from '@expo/ui/jetpack-compose'
+import { Host, Picker } from '@expo/ui/jetpack-compose'
 import { Platform, useWindowDimensions, View } from 'react-native'
 import { useCSSVariable } from 'uniwind'
 
@@ -32,29 +32,32 @@ export function DayPicker({ selectedDay, onSelectDay }: DayPickerProps) {
 
   return (
     <View className="bg-background py-1">
-      <Picker
-        options={['Day 1', 'Day 2']}
-        selectedIndex={selectedDay === ConferenceDay.One ? 0 : 1}
-        onOptionSelected={({ nativeEvent: { index } }) => {
-          onSelectDay(index === 0 ? ConferenceDay.One : ConferenceDay.Two)
-        }}
-        color={backgroundColor}
-        elementColors={{
-          activeContainerColor: accentColor,
-          activeContentColor,
-          activeBorderColor: 'transparent',
-          inactiveContainerColor: backgroundSecondary,
-          inactiveContentColor: inactiveColorText,
-          inactiveBorderColor: 'transparent'
-        }}
-        variant="segmented"
+      <Host
         style={{
           alignSelf: 'center',
           height: 40,
           paddingVertical: 24,
           width: width - 24 * 2
         }}
-      />
+      >
+        <Picker
+          options={['Day 1', 'Day 2']}
+          selectedIndex={selectedDay === ConferenceDay.One ? 0 : 1}
+          onOptionSelected={({ nativeEvent: { index } }) => {
+            onSelectDay(index === 0 ? ConferenceDay.One : ConferenceDay.Two)
+          }}
+          color={backgroundColor}
+          elementColors={{
+            activeContainerColor: accentColor,
+            activeContentColor,
+            activeBorderColor: 'transparent',
+            inactiveContainerColor: backgroundSecondary,
+            inactiveContentColor: inactiveColorText,
+            inactiveBorderColor: 'transparent'
+          }}
+          variant="segmented"
+        />
+      </Host>
 
       {/* Used to prevent onPress events from being triggered in components behind the picker */}
       <View className="absolute h-[50px] w-full" pointerEvents="none" />

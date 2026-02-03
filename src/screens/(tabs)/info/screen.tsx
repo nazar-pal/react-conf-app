@@ -20,7 +20,7 @@ export default function Info() {
   return (
     <StyledScrollView
       className="bg-background"
-      contentContainerClassName="pb-0 android:pb-safe-offset-24"
+      contentContainerClassName="pb-0"
       contentInsetAdjustmentBehavior="automatic"
       ref={ref}
     >

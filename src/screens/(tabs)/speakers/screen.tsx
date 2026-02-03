@@ -107,7 +107,7 @@ export default function Speakers() {
       onScrollBeginDrag={dismissKeyboard}
       keyboardShouldPersistTaps="handled"
       className="bg-background"
-      contentContainerClassName="px-4 pb-0 android:pb-safe-offset-24"
+      contentContainerClassName="px-4 pb-0"
       contentContainerStyle={[{ minHeight: height - (bottom + top + 130) }]}
       ItemSeparatorComponent={() => <View className="bg-divider h-px" />}
       extraData={isBookmarked || searchText}

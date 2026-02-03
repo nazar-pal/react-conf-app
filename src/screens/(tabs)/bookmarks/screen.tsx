@@ -38,7 +38,7 @@ export default function Bookmarks() {
     <Animated.FlatList
       contentInsetAdjustmentBehavior="automatic"
       className="bg-background"
-      contentContainerClassName="pt-4 pb-0 android:pb-safe-offset-24"
+      contentContainerClassName="pt-4 pb-0"
       data={[
         ...dayOneFiltered.map(talk => ({ talk, day: ConferenceDay.One })),
         ...dayTwoFiltered.map(talk => ({ talk, day: ConferenceDay.Two }))

@@ -1,5 +1,6 @@
 import { ConferenceDay } from '@/consts'
-import { Host, Picker } from '@expo/ui/swift-ui'
+import { Host, Picker, Text } from '@expo/ui/swift-ui'
+import { pickerStyle, tag } from '@expo/ui/swift-ui/modifiers'
 import { GlassView } from 'expo-glass-effect'
 import { View } from 'react-native'
 
@@ -7,6 +8,8 @@ interface DayPickerProps {
   selectedDay: ConferenceDay
   onSelectDay: (day: ConferenceDay) => void
 }
+
+const options = ['Day 1', 'Day 2']
 
 export function DayPicker({ selectedDay, onSelectDay }: DayPickerProps) {
   return (
@@ -27,13 +30,20 @@ export function DayPicker({ selectedDay, onSelectDay }: DayPickerProps) {
           }}
         >
           <Picker
-            options={['Day 1', 'Day 2']}
-            selectedIndex={selectedDay === ConferenceDay.One ? 0 : 1}
-            onOptionSelected={({ nativeEvent: { index } }) => {
-              onSelectDay(index === 0 ? ConferenceDay.One : ConferenceDay.Two)
+            modifiers={[pickerStyle('segmented')]}
+            selection={selectedDay === ConferenceDay.One ? 0 : 1}
+            onSelectionChange={selection => {
+              onSelectDay(
+                selection === 0 ? ConferenceDay.One : ConferenceDay.Two
+              )
             }}
-            variant="segmented"
-          />
+          >
+            {options.map((option, index) => (
+              <Text key={option} modifiers={[tag(index)]}>
+                {option}
+              </Text>
+            ))}
+          </Picker>
         </Host>
       </GlassView>
     </View>
