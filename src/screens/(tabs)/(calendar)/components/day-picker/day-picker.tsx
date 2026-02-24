@@ -1,6 +1,5 @@
 import { ConferenceDay } from '@/consts'
-import { Host, Picker } from '@expo/ui/jetpack-compose'
-import { Platform, useWindowDimensions, View } from 'react-native'
+import { Platform, useWindowDimensions, View, Pressable, Text } from 'react-native'
 import { useCSSVariable } from 'uniwind'
 
 interface DayPickerProps {
@@ -30,6 +29,64 @@ export function DayPicker({ selectedDay, onSelectDay }: DayPickerProps) {
     android: backgroundColor
   })
 
+  // Web fallback - use simple segmented control
+  if (Platform.OS === 'web') {
+    return (
+      <View className="bg-background py-1">
+        <View 
+          style={{
+            alignSelf: 'center',
+            height: 40,
+            paddingVertical: 24,
+            width: width - 24 * 2,
+            flexDirection: 'row',
+            gap: 8
+          }}
+        >
+          <Pressable
+            onPress={() => onSelectDay(ConferenceDay.One)}
+            style={{
+              flex: 1,
+              backgroundColor: selectedDay === ConferenceDay.One ? accentColor : backgroundSecondary,
+              borderRadius: 8,
+              justifyContent: 'center',
+              alignItems: 'center',
+              height: 40
+            }}
+          >
+            <Text style={{ 
+              color: selectedDay === ConferenceDay.One ? backgroundColor : inactiveColorText,
+              fontWeight: '600'
+            }}>
+              Day 1
+            </Text>
+          </Pressable>
+          <Pressable
+            onPress={() => onSelectDay(ConferenceDay.Two)}
+            style={{
+              flex: 1,
+              backgroundColor: selectedDay === ConferenceDay.Two ? accentColor : backgroundSecondary,
+              borderRadius: 8,
+              justifyContent: 'center',
+              alignItems: 'center',
+              height: 40
+            }}
+          >
+            <Text style={{ 
+              color: selectedDay === ConferenceDay.Two ? backgroundColor : inactiveColorText,
+              fontWeight: '600'
+            }}>
+              Day 2
+            </Text>
+          </Pressable>
+        </View>
+      </View>
+    )
+  }
+
+  // Native implementation
+  const { Host, Picker } = require('@expo/ui/jetpack-compose')
+  
   return (
     <View className="bg-background py-1">
       <Host
