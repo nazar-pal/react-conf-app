@@ -8,7 +8,6 @@ import {
   DAY_TWO_DATE,
   formatSessionTime
 } from '@/utils/formatDate'
-import { Platform, Text, View, useWindowDimensions } from 'react-native'
 import { isLiquidGlassAvailable } from 'expo-glass-effect'
 import * as Haptics from 'expo-haptics'
 import { Link, Stack, useLocalSearchParams, useRouter } from 'expo-router'
