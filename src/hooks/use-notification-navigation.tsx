@@ -1,12 +1,16 @@
 import * as Notifications from 'expo-notifications'
 import { usePathname, useRouter } from 'expo-router'
 import { useEffect } from 'react'
+import { Platform } from 'react-native'
 
 export function useNotificationNavigation() {
   const router = useRouter()
   const pathName = usePathname()
 
-  const lastNotificationResponse = Notifications.useLastNotificationResponse()
+  // Notifications are not supported on web
+  const lastNotificationResponse = Platform.OS === 'web' 
+    ? null 
+    : Notifications.useLastNotificationResponse()
 
   useEffect(() => {
     if (
