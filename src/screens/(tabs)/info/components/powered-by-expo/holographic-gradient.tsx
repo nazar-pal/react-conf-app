@@ -1,5 +1,5 @@
-import { Canvas, Fill, Shader, Skia, vec } from '@shopify/react-native-skia'
 import { useEffect } from 'react'
+import { Platform, View } from 'react-native'
 import {
   Easing,
   useDerivedValue,
@@ -27,6 +27,24 @@ export function HolographicGradient() {
     )
   }, [time, sheetAnim])
 
+  // Web fallback - simple gradient
+  if (Platform.OS === 'web') {
+    return (
+      <View 
+        style={{ 
+          width: CONTAINER_SIZE, 
+          height: CONTAINER_SIZE,
+          background: 'linear-gradient(135deg, #f50057 0%, #ff6d00 25%, #2196f3 50%, #9c27b0 75%, #00e676 100%)',
+          borderRadius: CONTAINER_SIZE / 2,
+          opacity: 0.8
+        }} 
+      />
+    )
+  }
+
+  // Native implementation with Skia
+  const { Canvas, Fill, Shader, Skia, vec } = require('@shopify/react-native-skia')
+  
   const uniforms = useDerivedValue(
     () => ({
       time: time.value,
@@ -45,7 +63,7 @@ export function HolographicGradient() {
   )
 }
 
-const HOLO_SOURCE = Skia.RuntimeEffect.Make(`
+const HOLO_SOURCE = Platform.OS !== 'web' ? require('@shopify/react-native-skia').Skia.RuntimeEffect.Make(`
   uniform float time;      // seconds
   uniform float sheetAnim; // 0..1
   uniform vec2  size;      // canvas size
@@ -143,4 +161,4 @@ const HOLO_SOURCE = Skia.RuntimeEffect.Make(`
   
     return vec4(baseColor, alpha);
   }
-  `)!
+  `)! : null
