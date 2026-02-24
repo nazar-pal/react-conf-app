@@ -8,7 +8,7 @@ import {
   DAY_TWO_DATE,
   formatSessionTime
 } from '@/utils/formatDate'
-import { Canvas, Fill, Shader, vec } from '@shopify/react-native-skia'
+import { Platform, Text, View, useWindowDimensions } from 'react-native'
 import { isLiquidGlassAvailable } from 'expo-glass-effect'
 import * as Haptics from 'expo-haptics'
 import { Link, Stack, useLocalSearchParams, useRouter } from 'expo-router'
@@ -85,10 +85,14 @@ export default function TalkDetail() {
   )
 
   const uniforms = useDerivedValue(
-    () => ({
-      sheetAnim: sheetAnim.value,
-      size: vec(width, drawerHeight)
-    }),
+    () => {
+      if (Platform.OS === 'web') return {}
+      const { vec } = require('@shopify/react-native-skia')
+      return {
+        sheetAnim: sheetAnim.value,
+        size: vec(width, drawerHeight)
+      }
+    },
     [sheetAnim]
   )
 
@@ -124,28 +128,38 @@ export default function TalkDetail() {
           isLiquidGlassAvailable() ? 'bg-transparent' : 'bg-background'
         )}
       >
-        {isLiquidGlassAvailable() ? (
+        {isLiquidGlassAvailable() && Platform.OS !== 'web' ? (
           <View style={{ height: drawerHeight }}>
             <Animated.View style={opacityStyle} className="absolute">
-              <Canvas
-                style={{
-                  width: width,
-                  height: drawerHeight,
-                  transform: [{ scale: 2 }]
-                }}
-              >
-                <Fill>
-                  <Shader source={source} uniforms={uniforms} />
-                </Fill>
-              </Canvas>
+              {(() => {
+                const { Canvas, Fill, Shader } = require('@shopify/react-native-skia')
+                return (
+                  <Canvas
+                    style={{
+                      width: width,
+                      height: drawerHeight,
+                      transform: [{ scale: 2 }]
+                    }}
+                  >
+                    <Fill>
+                      <Shader source={source} uniforms={uniforms} />
+                    </Fill>
+                  </Canvas>
+                )
+              })()}
             </Animated.View>
             <View style={{ height: drawerHeight }}>
               <Animated.View style={opacityStyle} className="absolute">
-                <Canvas style={{ width: width, height: drawerHeight }}>
-                  <Fill>
-                    <Shader source={source} uniforms={uniforms} />
-                  </Fill>
-                </Canvas>
+                {(() => {
+                  const { Canvas, Fill, Shader } = require('@shopify/react-native-skia')
+                  return (
+                    <Canvas style={{ width: width, height: drawerHeight }}>
+                      <Fill>
+                        <Shader source={source} uniforms={uniforms} />
+                      </Fill>
+                    </Canvas>
+                  )
+                })()}
               </Animated.View>
             </View>
           </View>

@@ -1,6 +1,7 @@
-import { Skia } from '@shopify/react-native-skia'
+import { Platform } from 'react-native'
 
-export const source = Skia.RuntimeEffect.Make(`
+export const source = Platform.OS !== 'web' 
+  ? require('@shopify/react-native-skia').Skia.RuntimeEffect.Make(`
 uniform float sheetAnim;
 uniform vec2 size;
 
@@ -21,3 +22,4 @@ vec4 main(vec2 pos) {
   vec4 color = mix(colorA, colorB, mixVal);
   return vec4(color);
 }`)!
+  : null
