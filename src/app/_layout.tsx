@@ -19,15 +19,17 @@ import '../global.css'
 
 SplashScreen.setOptions({ duration: 200, fade: true })
 
-Notifications.setNotificationHandler({
-  handleNotification: async () => ({
-    shouldShowAlert: true,
-    shouldPlaySound: false,
-    shouldSetBadge: false,
-    shouldShowBanner: true,
-    shouldShowList: true
+if (Platform.OS !== 'web') {
+  Notifications.setNotificationHandler({
+    handleNotification: async () => ({
+      shouldShowAlert: true,
+      shouldPlaySound: false,
+      shouldSetBadge: false,
+      shouldShowBanner: true,
+      shouldShowList: true
+    })
   })
-})
+}
 
 export default function Layout() {
   const { theme } = useUniwind()

@@ -3,14 +3,10 @@ import { usePathname, useRouter } from 'expo-router'
 import { useEffect } from 'react'
 import { Platform } from 'react-native'
 
-export function useNotificationNavigation() {
+function useNotificationNavigationNative() {
   const router = useRouter()
   const pathName = usePathname()
-
-  // Notifications are not supported on web
-  const lastNotificationResponse = Platform.OS === 'web' 
-    ? null 
-    : Notifications.useLastNotificationResponse()
+  const lastNotificationResponse = Notifications.useLastNotificationResponse()
 
   useEffect(() => {
     if (
@@ -30,3 +26,12 @@ export function useNotificationNavigation() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [lastNotificationResponse])
 }
+
+function useNotificationNavigationWeb() {
+  // Notifications are not supported on web - no-op
+}
+
+export const useNotificationNavigation =
+  Platform.OS === 'web'
+    ? useNotificationNavigationWeb
+    : useNotificationNavigationNative
