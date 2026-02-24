@@ -36,8 +36,7 @@ export function SpeakerImage({
 
   const placeholder = (
     <View
-      className={cn('bg-accent items-center justify-center', sizeClassName)}
-      style={StyleSheet.absoluteFillObject}
+      className={cn('bg-accent items-center justify-center absolute inset-0', sizeClassName)}
     >
       <Image
         source={require('@/assets/images/reactlogo-white.png')}
@@ -56,9 +55,8 @@ export function SpeakerImage({
     >
       {profilePicture ? (
         <Image
-          className={sizeClassName}
+          className={cn(sizeClassName, 'absolute inset-0')}
           source={{ uri: profilePicture }}
-          style={StyleSheet.absoluteFillObject}
           transition={animated && isLoading ? 300 : 0}
           onLoadStart={() => setIsLoading(true)}
           onLoadEnd={() => setIsLoading(false)}
