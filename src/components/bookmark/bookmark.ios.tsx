@@ -1,6 +1,5 @@
 import { useBookmark } from '@/hooks'
 import { Session } from '@/types'
-import { buttonStyle, frame, tint } from '@expo/ui/swift-ui/modifiers'
 import { isLiquidGlassAvailable } from 'expo-glass-effect'
 import * as Haptics from 'expo-haptics'
 import { Platform, StyleProp, ViewStyle } from 'react-native'
@@ -21,16 +20,15 @@ export function Bookmark(props: BookmarkProps) {
   return <BaseBookmark {...props} />
 }
 
-function GlassBookmark({ session, size = 'large', style }: BookmarkProps) {
+function GlassBookmark({ session, style }: BookmarkProps) {
   const { toggleBookmark, isBookmarked } = useBookmark()
   const { theme } = useUniwind()
 
-  const [accentColor, whiteColor, greyColor, backgroundColor] = useCSSVariable([
+  const [accentColor, whiteColor, greyColor] = useCSSVariable([
     '--color-accent',
     '--color-white',
-    '--color-gray-400',
-    '--color-background'
-  ]) as [string, string, string, string]
+    '--color-gray-400'
+  ]) as [string, string, string]
 
   const notSelectedIconColor = theme === 'dark' ? whiteColor : greyColor
 
@@ -52,19 +50,12 @@ function GlassBookmark({ session, size = 'large', style }: BookmarkProps) {
     <HeaderButton
       buttonProps={{
         onPress: handlePress,
-        modifiers: [
-          buttonStyle('glassProminent'),
-          tint(theme === 'dark' ? 'transparent' : backgroundColor)
-        ]
+        modifiers: []
       }}
       style={style}
       imageProps={{
         systemName: bookmarked ? 'bookmark.fill' : 'bookmark',
-        color: bookmarked ? accentColor : notSelectedIconColor,
-        ...(size === 'small' && {
-          size: isLiquidGlassAvailable() ? 16 : 24,
-          modifiers: [frame({ height: 20, width: 10 })]
-        })
+        color: bookmarked ? accentColor : notSelectedIconColor
       }}
     />
   )

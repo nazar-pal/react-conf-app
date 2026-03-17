@@ -1,5 +1,4 @@
 import { Bookmark } from '@/components/bookmark'
-import { HeaderButton } from '@/components/header-button'
 import { NotFound } from '@/components/not-found'
 import { useReactConfStore } from '@/store'
 import { cn } from '@/utils/cn'
@@ -8,6 +7,7 @@ import {
   DAY_TWO_DATE,
   formatSessionTime
 } from '@/utils/formatDate'
+import { HeaderButton } from '@/components/header-button'
 import { Canvas, Fill, Shader, vec } from '@shopify/react-native-skia'
 import { isLiquidGlassAvailable } from 'expo-glass-effect'
 import * as Haptics from 'expo-haptics'
@@ -106,12 +106,7 @@ export default function TalkDetail() {
         options={{
           headerLeft: () =>
             Platform.select({
-              ios: (
-                <HeaderButton
-                  buttonProps={{ onPress: router.back }}
-                  style={{ padding: 0 }}
-                />
-              ),
+              ios: <HeaderButton buttonProps={{ onPress: router.back }} />,
               default: undefined
             }),
           headerRight: () => <Bookmark session={talk} style={{ padding: 0 }} />
