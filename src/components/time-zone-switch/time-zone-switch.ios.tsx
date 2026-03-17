@@ -30,7 +30,7 @@ export function TimeZoneSwitch() {
         modifiers={[
           ...(isLiquidGlassAvailable() ? [] : [buttonStyle('bordered')]),
           controlSize('mini'),
-          foregroundStyle('primary')
+          foregroundStyle({ type: 'hierarchical', style: 'primary' })
         ]}
         label={shouldUseLocalTz ? getCurrentTimezone().slice(0, 3) : 'PDT'}
         systemImage="chevron.down"

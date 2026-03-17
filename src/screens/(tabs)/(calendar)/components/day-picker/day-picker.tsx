@@ -1,6 +1,11 @@
 import { ConferenceDay } from '@/consts'
-import { Host, Picker } from '@expo/ui/jetpack-compose'
-import { Platform, useWindowDimensions, View } from 'react-native'
+import {
+  Host,
+  SegmentedButton,
+  SingleChoiceSegmentedButtonRow,
+  Text
+} from '@expo/ui/jetpack-compose'
+import { useWindowDimensions, View } from 'react-native'
 import { useCSSVariable } from 'uniwind'
 
 interface DayPickerProps {
@@ -9,54 +14,50 @@ interface DayPickerProps {
 }
 
 export function DayPicker({ selectedDay, onSelectDay }: DayPickerProps) {
-  const [
-    backgroundColor,
-    accentColor,
-    textColor,
-    inactiveColorText,
-    backgroundSecondary
-  ] = useCSSVariable([
-    '--color-background',
-    '--color-accent',
-    '--color-foreground',
-    '--color-muted',
-    '--color-surface'
-  ]) as [string, string, string, string, string]
+  const [backgroundColor, accentColor, inactiveColorText, backgroundSecondary] =
+    useCSSVariable([
+      '--color-background',
+      '--color-accent',
+      '--color-muted',
+      '--color-surface'
+    ]) as [string, string, string, string]
   const width = useWindowDimensions().width
 
-  // Platform-specific text color logic
-  const activeContentColor = Platform.select({
-    ios: textColor,
-    android: backgroundColor
-  })
-
   return (
-    <View className="bg-background py-1">
+    <View className="bg-background py-3">
       <Host
+        matchContents={{ vertical: true }}
         style={{
           alignSelf: 'center',
-          height: 40,
-          paddingVertical: 24,
           width: width - 24 * 2
         }}
       >
-        <Picker
-          options={['Day 1', 'Day 2']}
-          selectedIndex={selectedDay === ConferenceDay.One ? 0 : 1}
-          onOptionSelected={({ nativeEvent: { index } }) => {
-            onSelectDay(index === 0 ? ConferenceDay.One : ConferenceDay.Two)
-          }}
-          color={backgroundColor}
-          elementColors={{
-            activeContainerColor: accentColor,
-            activeContentColor,
-            activeBorderColor: 'transparent',
-            inactiveContainerColor: backgroundSecondary,
-            inactiveContentColor: inactiveColorText,
-            inactiveBorderColor: 'transparent'
-          }}
-          variant="segmented"
-        />
+        <SingleChoiceSegmentedButtonRow>
+          {['Day 1', 'Day 2'].map((label, index) => (
+            <SegmentedButton
+              key={label}
+              selected={
+                selectedDay ===
+                (index === 0 ? ConferenceDay.One : ConferenceDay.Two)
+              }
+              onClick={() =>
+                onSelectDay(index === 0 ? ConferenceDay.One : ConferenceDay.Two)
+              }
+              colors={{
+                activeContainerColor: accentColor,
+                activeContentColor: backgroundColor,
+                activeBorderColor: 'transparent',
+                inactiveContainerColor: backgroundSecondary,
+                inactiveContentColor: inactiveColorText,
+                inactiveBorderColor: 'transparent'
+              }}
+            >
+              <SegmentedButton.Label>
+                <Text>{label}</Text>
+              </SegmentedButton.Label>
+            </SegmentedButton>
+          ))}
+        </SingleChoiceSegmentedButtonRow>
       </Host>
 
       {/* Used to prevent onPress events from being triggered in components behind the picker */}

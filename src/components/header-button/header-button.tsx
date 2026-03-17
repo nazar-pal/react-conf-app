@@ -8,6 +8,12 @@ import Animated, {
 import { useCSSVariable } from 'uniwind'
 import type { HeaderButtonProps } from './types'
 
+const sfToMaterialIcon: Record<string, string> = {
+  xmark: 'close',
+  'bookmark.fill': 'bookmark',
+  bookmark: 'bookmark-outline'
+}
+
 const AnimatedPressable = Animated.createAnimatedComponent(Pressable)
 
 export function HeaderButton({ imageProps, buttonProps }: HeaderButtonProps) {
@@ -31,8 +37,9 @@ export function HeaderButton({ imageProps, buttonProps }: HeaderButtonProps) {
       style={animatedStyle}
     >
       <MaterialCommunityIcons
-        // Todo: fix this type
-        name={(imageProps?.systemName as any) || 'cross'}
+        name={
+          (sfToMaterialIcon[imageProps?.systemName ?? ''] ?? 'close') as any
+        }
         size={24}
         color={imageProps?.color || greyColor}
       />
