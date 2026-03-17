@@ -40,3 +40,5 @@ yarn-error.*
 # ignoring as we're using CNG
 /ios
 /android
+# heroui-agents-md
+.heroui-docs/
