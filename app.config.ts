@@ -79,6 +79,7 @@ const config: ExpoConfig = {
   owner: EAS_APP_OWNER,
   plugins: [
     'expo-web-browser',
+    'expo-image',
     'expo-router',
     [
       'expo-font',
