@@ -18,6 +18,7 @@ import Animated, {
   useSharedValue
 } from 'react-native-reanimated'
 import { useSafeAreaInsets } from 'react-native-safe-area-context'
+import { scheduleOnRN } from 'react-native-worklets'
 import { useCSSVariable } from 'uniwind'
 import {
   ActivityCard,
@@ -39,7 +40,11 @@ export default function Schedule() {
   const [isRefreshing, setIsRefreshing] = useState(false)
   const insets = useSafeAreaInsets()
   const animatedTranslateY = useSharedValue(0)
-  const isScrolledDown = useSharedValue(false)
+  const isScrolledDown = useRef(false)
+
+  const setIsScrolledDown = (value: boolean) => {
+    isScrolledDown.current = value
+  }
 
   const scrollHandler = useAnimatedScrollHandler(event => {
     animatedTranslateY.value = interpolate(
@@ -49,7 +54,7 @@ export default function Schedule() {
       Extrapolation.CLAMP
     )
 
-    isScrolledDown.value = event.contentOffset.y > 10
+    scheduleOnRN(setIsScrolledDown, event.contentOffset.y > 10)
   })
 
   const stickyHeaderStyle = useAnimatedStyle(() => {
@@ -85,14 +90,14 @@ export default function Schedule() {
   const handleSelectDay = useCallback(
     (day: ConferenceDay) => {
       setSelectedDay(day)
-      if (isScrolledDown.value) {
+      if (isScrolledDown.current) {
         scrollRef.current?.scrollToOffset({
           offset: -30 - insets.top,
           animated: true
         })
       }
     },
-    [insets.top, isScrolledDown]
+    [insets.top]
   )
 
   const renderStickyHeader = (
@@ -123,10 +128,10 @@ export default function Schedule() {
         viewOffset: Platform.select({
           android: 50,
           default: isLiquidGlass
-            ? isScrolledDown.value
+            ? isScrolledDown.current
               ? 155
               : 87
-            : isScrolledDown.value
+            : isScrolledDown.current
               ? 125
               : 120
         })
