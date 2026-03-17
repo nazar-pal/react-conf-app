@@ -4,16 +4,11 @@ import Feather from '@expo/vector-icons/build/Feather'
 import Ionicons from '@expo/vector-icons/build/Ionicons'
 import { Image } from 'expo-image'
 import { View } from 'react-native'
-import { useCSSVariable, useUniwind } from 'uniwind'
+import { useCSSVariable } from 'uniwind'
 import { IconButton } from './icon-button'
 
 export function Socials({ speaker }: { speaker: Speaker }) {
-  const [blackColor, whiteColor] = useCSSVariable([
-    '--color-black',
-    '--color-white'
-  ]) as [string, string]
-  const { theme } = useUniwind()
-  const iconColor = theme === 'dark' ? whiteColor : blackColor
+  const iconColor = useCSSVariable('--color-foreground') as string
   const openWebBrowserAsync = useOpenWebBrowser()
 
   return (
