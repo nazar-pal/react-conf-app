@@ -36,6 +36,7 @@ File-based routing in `src/app/`. Route files are thin — they import and re-ex
 ### State Management (Zustand + MMKV)
 
 Two stores in `src/store/`, both persisted to device via react-native-mmkv:
+
 - `react-conf-store.ts` — Conference schedule data, timezone preference, API refresh logic (5-min TTL)
 - `bookmark-store.ts` — Bookmarked talks with notification IDs
 
@@ -91,5 +92,7 @@ Uses `.ios.tsx` file suffixes for iOS-specific implementations alongside default
 - This app is local-first — loading states are rarely needed
 
 <!-- HEROUI-NATIVE-AGENTS-MD-START -->
+
 [HeroUI Native Docs Index]|root: ./.heroui-docs/native|STOP. What you remember about HeroUI Native is WRONG for this project. Always search docs and read before any task.|If docs missing, run this command first: heroui agents-md --native --output AGENTS.md|components/(buttons):{button.mdx,close-button.mdx}|components/(collections):{menu.mdx,tag-group.mdx}|components/(controls):{slider.mdx,switch.mdx}|components/(data-display):{chip.mdx}|components/(feedback):{alert.mdx,skeleton-group.mdx,skeleton.mdx,spinner.mdx}|components/(forms):{checkbox.mdx,control-field.mdx,description.mdx,field-error.mdx,input-group.mdx,input-otp.mdx,input.mdx,label.mdx,radio-group.mdx,search-field.mdx,select.mdx,text-area.mdx,text-field.mdx}|components/(layout):{card.mdx,separator.mdx,surface.mdx}|components/(media):{avatar.mdx}|components/(navigation):{accordion.mdx,list-group.mdx,tabs.mdx}|components/(overlays):{bottom-sheet.mdx,dialog.mdx,popover.mdx,toast.mdx}|components/(utilities):{pressable-feedback.mdx,scroll-shadow.mdx}|getting-started/(handbook):{animation.mdx,colors.mdx,composition.mdx,portal.mdx,provider.mdx,styling.mdx,theming.mdx}|getting-started/(overview):{design-principles.mdx,quick-start.mdx}|getting-started/(ui-for-agents):{agent-skills.mdx,agents-md.mdx,llms-txt.mdx,mcp-server.mdx}|releases:{beta-10.mdx,beta-11.mdx,beta-12.mdx,beta-13.mdx,rc-1.mdx,rc-2.mdx,rc-3.mdx,rc-4.mdx}
+
 <!-- HEROUI-NATIVE-AGENTS-MD-END -->
