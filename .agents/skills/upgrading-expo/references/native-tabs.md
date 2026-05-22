@@ -11,11 +11,11 @@ import {
   Icon,
   Label,
   Badge,
-  VectorIcon
-} from 'expo-router/unstable-native-tabs'
+  VectorIcon,
+} from "expo-router/unstable-native-tabs";
 
 // SDK 55+
-import { NativeTabs } from 'expo-router/unstable-native-tabs'
+import { NativeTabs } from "expo-router/unstable-native-tabs";
 ```
 
 ## Component Changes
@@ -52,7 +52,7 @@ On Android and web, this component will render as a no-op. Position a view absol
 New `md` prop for Material icon glyphs on Android (alongside existing `drawable`):
 
 ```tsx
-<NativeTabs.Trigger.Icon sf="house" md="(index)" />
+<NativeTabs.Trigger.Icon sf="house" md="home" />
 ```
 
 ## Full Migration Example
@@ -64,8 +64,8 @@ import {
   NativeTabs,
   Icon,
   Label,
-  Badge
-} from 'expo-router/unstable-native-tabs'
+  Badge,
+} from "expo-router/unstable-native-tabs";
 
 export default function TabLayout() {
   return (
@@ -83,32 +83,32 @@ export default function TabLayout() {
         <Label>Search</Label>
       </NativeTabs.Trigger>
     </NativeTabs>
-  )
+  );
 }
 ```
 
 ### After (SDK 55+)
 
 ```tsx
-import { NativeTabs } from 'expo-router/unstable-native-tabs'
+import { NativeTabs } from "expo-router/unstable-native-tabs";
 
 export default function TabLayout() {
   return (
     <NativeTabs minimizeBehavior="onScrollDown">
       <NativeTabs.Trigger name="(index)">
         <NativeTabs.Trigger.Label>Home</NativeTabs.Trigger.Label>
-        <NativeTabs.Trigger.Icon sf="house.fill" />
+        <NativeTabs.Trigger.Icon sf="house.fill" md="home" />
         <NativeTabs.Trigger.Badge>3</NativeTabs.Trigger.Badge>
       </NativeTabs.Trigger>
       <NativeTabs.Trigger name="(settings)">
         <NativeTabs.Trigger.Label>Settings</NativeTabs.Trigger.Label>
-        <NativeTabs.Trigger.Icon sf="gear" />
+        <NativeTabs.Trigger.Icon sf="gear" md="settings" />
       </NativeTabs.Trigger>
       <NativeTabs.Trigger name="(search)" role="search">
         <NativeTabs.Trigger.Label>Search</NativeTabs.Trigger.Label>
       </NativeTabs.Trigger>
     </NativeTabs>
-  )
+  );
 }
 ```
 
