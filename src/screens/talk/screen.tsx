@@ -114,6 +114,7 @@ export default function TalkDetail() {
       />
 
       <View
+        collapsable={false}
         className={cn(
           'flex-1',
           isLiquidGlassAvailable() ? 'bg-transparent' : 'bg-background'
