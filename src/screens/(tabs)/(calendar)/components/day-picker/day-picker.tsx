@@ -1,67 +1,52 @@
 import { ConferenceDay } from '@/consts'
-import {
-  Host,
-  SegmentedButton,
-  SingleChoiceSegmentedButtonRow,
-  Text
-} from '@expo/ui/jetpack-compose'
-import { useWindowDimensions, View } from 'react-native'
-import { useCSSVariable } from 'uniwind'
+import { SegmentedControl } from '@expo/ui/community/segmented-control'
+import { GlassView as ExpoGlassView } from 'expo-glass-effect'
+import { Platform, useWindowDimensions, View } from 'react-native'
+import { useCSSVariable, withUniwind } from 'uniwind'
+
+const GlassView = withUniwind(ExpoGlassView)
 
 interface DayPickerProps {
   selectedDay: ConferenceDay
   onSelectDay: (day: ConferenceDay) => void
 }
 
+const values = ['Day 1', 'Day 2']
+
 export function DayPicker({ selectedDay, onSelectDay }: DayPickerProps) {
-  const [backgroundColor, accentColor, inactiveColorText, backgroundSecondary] =
-    useCSSVariable([
-      '--color-background',
-      '--color-accent',
-      '--color-muted',
-      '--color-surface'
-    ]) as [string, string, string, string]
+  const accentColor = useCSSVariable('--color-accent') as string
   const width = useWindowDimensions().width
+  const selectedIndex = selectedDay === ConferenceDay.One ? 0 : 1
+
+  const handleValueChange = (value: string) =>
+    onSelectDay(value === 'Day 1' ? ConferenceDay.One : ConferenceDay.Two)
+
+  if (Platform.OS === 'ios') {
+    return (
+      <View className="pb-6">
+        <GlassView className="mx-4 mt-4 h-8 w-auto rounded-[80px]">
+          <SegmentedControl
+            values={values}
+            selectedIndex={selectedIndex}
+            onValueChange={handleValueChange}
+            style={{ height: 31 }}
+          />
+        </GlassView>
+      </View>
+    )
+  }
 
   return (
     <View className="bg-background py-3">
-      <Host
-        matchContents={{ vertical: true }}
-        style={{
-          alignSelf: 'center',
-          width: width - 24 * 2
-        }}
-      >
-        <SingleChoiceSegmentedButtonRow>
-          {['Day 1', 'Day 2'].map((label, index) => (
-            <SegmentedButton
-              key={label}
-              selected={
-                selectedDay ===
-                (index === 0 ? ConferenceDay.One : ConferenceDay.Two)
-              }
-              onClick={() =>
-                onSelectDay(index === 0 ? ConferenceDay.One : ConferenceDay.Two)
-              }
-              colors={{
-                activeContainerColor: accentColor,
-                activeContentColor: backgroundColor,
-                activeBorderColor: 'transparent',
-                inactiveContainerColor: backgroundSecondary,
-                inactiveContentColor: inactiveColorText,
-                inactiveBorderColor: 'transparent'
-              }}
-            >
-              <SegmentedButton.Label>
-                <Text>{label}</Text>
-              </SegmentedButton.Label>
-            </SegmentedButton>
-          ))}
-        </SingleChoiceSegmentedButtonRow>
-      </Host>
-
-      {/* Used to prevent onPress events from being triggered in components behind the picker */}
-      <View className="absolute h-[50px] w-full" pointerEvents="none" />
+      <SegmentedControl
+        values={values}
+        selectedIndex={selectedIndex}
+        onValueChange={handleValueChange}
+        tintColor={accentColor}
+        style={{ alignSelf: 'center', width: width - 24 * 2 }}
+      />
+      {/* Prevents onPress events from being triggered in components behind the picker */}
+      <View className="absolute h-12.5 w-full" pointerEvents="none" />
     </View>
   )
 }
