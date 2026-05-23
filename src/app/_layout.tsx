@@ -1,12 +1,8 @@
 import { RootStack } from '@/components/root-stack'
 import { useAutoRefreshData, useNotificationNavigation } from '@/hooks'
-import {
-  DarkTheme,
-  DefaultTheme,
-  ThemeProvider
-} from '@react-navigation/native'
-import * as NavigationBar from 'expo-navigation-bar'
+import { NavigationBar } from 'expo-navigation-bar'
 import * as Notifications from 'expo-notifications'
+import { DarkTheme, DefaultTheme, ThemeProvider } from 'expo-router'
 import * as SplashScreen from 'expo-splash-screen'
 import { StatusBar } from 'expo-status-bar'
 import { setBackgroundColorAsync } from 'expo-system-ui'
@@ -34,7 +30,7 @@ export default function Layout() {
 
   useEffect(() => {
     if (Platform.OS === 'android')
-      NavigationBar.setButtonStyleAsync(theme === 'light' ? 'dark' : 'light')
+      NavigationBar.setStyle(theme === 'light' ? 'dark' : 'light')
   }, [theme])
 
   // Keep the root view background color in sync with the current theme

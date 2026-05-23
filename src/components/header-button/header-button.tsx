@@ -1,4 +1,4 @@
-import MaterialCommunityIcons from '@expo/vector-icons/MaterialCommunityIcons'
+import MaterialCommunityIcons from '@react-native-vector-icons/material-design-icons/static'
 import { Pressable } from 'react-native-gesture-handler'
 import Animated, {
   useAnimatedStyle,
@@ -29,9 +29,11 @@ export function HeaderButton({ imageProps, buttonProps }: HeaderButtonProps) {
       hitSlop={20}
       onPress={buttonProps?.onPress}
       onPressIn={() => {
+        // eslint-disable-next-line react-hooks/immutability -- reanimated shared value
         scale.value = withTiming(0.8)
       }}
       onPressOut={() => {
+        // eslint-disable-next-line react-hooks/immutability -- reanimated shared value
         scale.value = withTiming(1)
       }}
       style={animatedStyle}

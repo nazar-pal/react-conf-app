@@ -1,4 +1,6 @@
 import { ExpoConfig } from 'expo/config'
+import expoFont from 'expo-font/plugin'
+import expoSplashScreen from 'expo-splash-screen/plugin'
 // Update this value to something unique in order to be able to build for a
 // physical iOS device.
 const APP_ID_PREFIX = 'com.devnazar.reactconf'
@@ -40,7 +42,7 @@ const getAppId = () => {
 const config: ExpoConfig = {
   name: getName(),
   slug: 'react-conf-app',
-  version: '1.1.4',
+  version: '1.2.0',
   orientation: 'portrait',
   icon: './assets/app-icons/icon-default.png',
   userInterfaceStyle: 'automatic',
@@ -81,32 +83,31 @@ const config: ExpoConfig = {
     'expo-web-browser',
     'expo-image',
     'expo-router',
-    [
-      'expo-font',
-      {
-        fonts: [
-          './assets/fonts/Montserrat-Light.ttf',
-          './assets/fonts/Montserrat-LightItalic.ttf',
+    'expo-status-bar',
+    '@react-native-vector-icons/material-design-icons',
+    '@react-native-vector-icons/feather',
+    '@react-native-vector-icons/ionicons',
+    '@react-native-vector-icons/material-icons',
+    expoFont({
+      fonts: [
+        './assets/fonts/Montserrat-Light.ttf',
+        './assets/fonts/Montserrat-LightItalic.ttf',
 
-          './assets/fonts/Montserrat-Medium.ttf',
-          './assets/fonts/Montserrat-MediumItalic.ttf',
+        './assets/fonts/Montserrat-Medium.ttf',
+        './assets/fonts/Montserrat-MediumItalic.ttf',
 
-          './assets/fonts/Montserrat-Bold.ttf',
-          './assets/fonts/Montserrat-BoldItalic.ttf',
+        './assets/fonts/Montserrat-Bold.ttf',
+        './assets/fonts/Montserrat-BoldItalic.ttf',
 
-          './assets/fonts/Montserrat-SemiBold.ttf',
-          './assets/fonts/Montserrat-SemiBoldItalic.ttf'
-        ]
-      }
-    ],
-    [
-      'expo-splash-screen',
-      {
-        backgroundColor: '#23272F',
-        image: './assets/splash-icon.png',
-        imageWidth: 190
-      }
-    ]
+        './assets/fonts/Montserrat-SemiBold.ttf',
+        './assets/fonts/Montserrat-SemiBoldItalic.ttf'
+      ]
+    }),
+    expoSplashScreen({
+      backgroundColor: '#23272F',
+      image: './assets/splash-icon.png',
+      imageWidth: 190
+    })
   ],
   updates: {
     url: EAS_UPDATE_URL,
@@ -120,9 +121,6 @@ const config: ExpoConfig = {
   },
   runtimeVersion: {
     policy: 'appVersion'
-  },
-  experiments: {
-    reactCompiler: true
   }
 }
 

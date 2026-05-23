@@ -4,7 +4,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Project Overview
 
-React Conf 2025 mobile app built with Expo SDK 55, React Native 0.83, and TypeScript. Cross-platform (iOS, Android, web). Uses file-based routing via Expo Router.
+React Conf 2025 mobile app built with Expo SDK 56, React Native 0.85, and TypeScript. Cross-platform (iOS, Android, web). Uses file-based routing via Expo Router.
 
 ## Commands
 
@@ -90,6 +90,11 @@ Uses `.ios.tsx` file suffixes for iOS-specific implementations alongside default
 - Use default HeroUI Native component styling — built-in variants, props, and sizes over custom class names
 - Keep designs minimalistic following iOS design principles
 - This app is local-first — loading states are rarely needed
+
+## Icons
+
+- `@expo/vector-icons` is deprecated as of SDK 56. Migrate via `npx @react-native-vector-icons/codemod` to the scoped `@react-native-vector-icons/*` packages (one package per icon family). Each new package must also be registered in `app.config.ts` plugins.
+- Don't reach for `expo-symbols` as a cross-platform replacement — it's iOS-only. It's fine to use alongside vector icons when an iOS-specific SF Symbol look is desired.
 
 <!-- HEROUI-NATIVE-AGENTS-MD-START -->
 

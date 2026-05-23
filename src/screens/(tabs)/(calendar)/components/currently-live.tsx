@@ -3,7 +3,7 @@ import { useReactConfStore } from '@/store'
 import { Session } from '@/types'
 import { cn } from '@/utils/cn'
 import { getCurrentConferenceDay } from '@/utils/formatDate'
-import { useCallback, useEffect, useState } from 'react'
+import { useEffect, useReducer } from 'react'
 import { Platform, Pressable, Text, View } from 'react-native'
 import Animated, { FadeIn, FadeOutUp } from 'react-native-reanimated'
 
@@ -49,19 +49,15 @@ export function CurrentlyLive({
 }: {
   scrollToSession: (currentlyLive: CurrentlyLiveSession) => void
 }) {
-  const [currentlyLive, setCurrentlyLive] =
-    useState<CurrentlyLiveSession | null>(null)
   const { dayOne, dayTwo } = useReactConfStore(state => state.schedule)
-  const checkCurrentlyLive = useCallback(() => {
-    const currentlyLive = getCurrentlyLive(dayOne, dayTwo)
-    setCurrentlyLive(currentlyLive)
-  }, [dayOne, dayTwo])
+  const [, tick] = useReducer((x: number) => x + 1, 0)
 
   useEffect(() => {
-    checkCurrentlyLive()
-    const interval = setInterval(checkCurrentlyLive, 5000)
+    const interval = setInterval(tick, 5000)
     return () => clearInterval(interval)
-  }, [dayOne, dayTwo, checkCurrentlyLive])
+  }, [])
+
+  const currentlyLive = getCurrentlyLive(dayOne, dayTwo)
 
   return (
     <AnimatedPressable

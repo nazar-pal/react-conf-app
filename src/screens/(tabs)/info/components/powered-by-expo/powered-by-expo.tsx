@@ -76,7 +76,7 @@ export function PoweredByExpo() {
           </View>
           <Animated.View
             className="items-center justify-center"
-            style={[overlayAnimatedStyle, StyleSheet.absoluteFillObject]}
+            style={[overlayAnimatedStyle, StyleSheet.absoluteFill]}
           >
             <View
               className="items-center justify-center bg-black"

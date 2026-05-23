@@ -1,4 +1,4 @@
-import { useScrollToTop } from '@react-navigation/native'
+import { useScrollToTop } from 'expo-router'
 import React from 'react'
 import { ScrollView } from 'react-native-gesture-handler'
 import { withUniwind } from 'uniwind'

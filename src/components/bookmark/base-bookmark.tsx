@@ -1,6 +1,6 @@
 import { useBookmark } from '@/hooks'
 import { Session } from '@/types'
-import MaterialCommunityIcons from '@expo/vector-icons/build/MaterialCommunityIcons'
+import MaterialCommunityIcons from '@react-native-vector-icons/material-design-icons/static'
 import { SymbolView } from 'expo-symbols'
 import { Gesture, GestureDetector } from 'react-native-gesture-handler'
 import Animated, {
@@ -24,6 +24,7 @@ export function BaseBookmark({ session }: { session: Session }) {
   }))
 
   const handlePress = async () => {
+    // eslint-disable-next-line react-hooks/immutability -- reanimated shared value
     scale.value = withSequence(
       withTiming(0.8, { duration: 100 }),
       withTiming(1, { duration: 100 })

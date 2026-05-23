@@ -1,4 +1,4 @@
-import MaterialCommunityIcons from '@expo/vector-icons/MaterialCommunityIcons'
+import MaterialCommunityIcons from '@react-native-vector-icons/material-design-icons/static'
 import { Image, ImageStyle } from 'expo-image'
 import { LinearGradient } from 'expo-linear-gradient'
 import * as Linking from 'expo-linking'
@@ -39,7 +39,7 @@ export function VenueInfo() {
           start={{ x: 0.5, y: 0 }}
           end={{ x: 0.5, y: 1 }}
           colors={['transparent', backgroundColor]}
-          style={StyleSheet.absoluteFillObject}
+          style={StyleSheet.absoluteFill}
         />
         <View className="bg-overlay absolute right-0 -bottom-[50px] left-0 items-center rounded-b-[32px] pb-6">
           <Text className="text-muted text-sm font-medium">Venue</Text>

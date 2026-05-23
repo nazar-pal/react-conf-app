@@ -1,9 +1,5 @@
 import { NativeTabs } from 'expo-router/unstable-native-tabs'
-import {
-  // eslint-disable-next-line react-native/split-platform-components
-  DynamicColorIOS,
-  Platform
-} from 'react-native'
+import { DynamicColorIOS, Platform } from 'react-native'
 
 import { useBookmarkStore } from '@/store'
 import { isLiquidGlassAvailable } from 'expo-glass-effect'

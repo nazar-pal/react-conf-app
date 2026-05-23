@@ -24,7 +24,6 @@ export function DayPicker({ selectedDay, onSelectDay }: DayPickerProps) {
         }}
       >
         <Host
-          matchContents
           style={{
             height: 31 // fixed height to prevent jumping
           }}
