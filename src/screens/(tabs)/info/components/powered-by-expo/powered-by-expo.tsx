@@ -17,7 +17,6 @@ const FLIPPED_CONTENT_SIZE = 60
 
 const SHADER_OFFSET = (CONTAINER_SIZE - SHADER_SIZE) / 2
 const LOGO_OFFSET = (CONTAINER_SIZE - LOGO_SIZE) / 2
-const BORDER_RADIUS = SHADER_SIZE / 2
 
 export function PoweredByExpo() {
   const [isFlipped, setIsFlipped] = React.useState(false)
@@ -51,9 +50,8 @@ export function PoweredByExpo() {
             style={{ height: CONTAINER_SIZE, width: CONTAINER_SIZE }}
           >
             <View
-              className="absolute overflow-hidden border-2 border-black"
+              className="absolute overflow-hidden rounded-full border-2 border-black"
               style={{
-                borderRadius: BORDER_RADIUS,
                 height: SHADER_SIZE,
                 left: SHADER_OFFSET,
                 top: SHADER_OFFSET,
@@ -64,8 +62,8 @@ export function PoweredByExpo() {
             </View>
             <Image
               source={require('@/assets/images/sub-expo.png')}
+              resizeMode="contain"
               style={{
-                resizeMode: 'contain',
                 height: LOGO_SIZE,
                 left: LOGO_OFFSET,
                 position: 'absolute',
@@ -79,9 +77,8 @@ export function PoweredByExpo() {
             style={[overlayAnimatedStyle, StyleSheet.absoluteFill]}
           >
             <View
-              className="items-center justify-center bg-black"
+              className="items-center justify-center rounded-full bg-black"
               style={{
-                borderRadius: FLIPPED_CONTENT_SIZE / 2,
                 height: FLIPPED_CONTENT_SIZE,
                 width: FLIPPED_CONTENT_SIZE
               }}

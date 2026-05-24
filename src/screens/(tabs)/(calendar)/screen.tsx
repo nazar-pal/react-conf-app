@@ -155,7 +155,7 @@ export default function Schedule() {
             onRefresh={handleRefreshSchedule}
           />
         }
-        style={{ backgroundColor }}
+        className="bg-background"
         contentInsetAdjustmentBehavior="automatic"
         scrollToOverflowEnabled
         onScroll={scrollHandler}
