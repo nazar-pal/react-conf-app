@@ -58,7 +58,7 @@ export default function SpeakerDetail() {
           >
             <View className="items-center">
               <SpeakerImage
-                style={{ marginBottom: 24 }}
+                className="mb-6"
                 profilePicture={speaker.profilePicture}
                 size="large"
               />

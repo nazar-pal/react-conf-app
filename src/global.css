@@ -21,6 +21,7 @@
     @variant light {
       --color-foreground: oklch(0.15 0 0);
       --color-muted: oklch(0.48 0 0);
+      --color-info-emphasis: oklch(0.48 0 0);
 
       --color-background: oklch(1 0 0);
       --color-overlay: oklch(0.98 0 0);
@@ -36,6 +37,7 @@
     @variant dark {
       --color-foreground: oklch(1 0 0);
       --color-muted: oklch(0.84 0 0);
+      --color-info-emphasis: oklch(1 0 0);
 
       --color-background: oklch(0 0 0);
       --color-overlay: oklch(0.16 0 0);

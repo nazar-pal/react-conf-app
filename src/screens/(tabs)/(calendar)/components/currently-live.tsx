@@ -1,10 +1,9 @@
 import { ConferenceDay } from '@/consts'
 import { useReactConfStore } from '@/store'
 import { Session } from '@/types'
-import { cn } from '@/utils/cn'
 import { getCurrentConferenceDay } from '@/utils/formatDate'
 import { useEffect, useReducer } from 'react'
-import { Platform, Pressable, Text, View } from 'react-native'
+import { Pressable, Text, View } from 'react-native'
 import Animated, { FadeIn, FadeOutUp } from 'react-native-reanimated'
 
 const AnimatedPressable = Animated.createAnimatedComponent(Pressable)
@@ -62,7 +61,7 @@ export function CurrentlyLive({
   return (
     <AnimatedPressable
       key={currentlyLive?.session.id}
-      className={cn('items-center', Platform.OS !== 'android' && 'w-[180px]')}
+      className="ios:w-45 web:w-45 items-center"
       onPressIn={() => {
         if (currentlyLive) {
           scrollToSession(currentlyLive)

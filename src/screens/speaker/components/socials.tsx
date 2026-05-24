@@ -1,14 +1,17 @@
 import { useOpenWebBrowser } from '@/hooks'
 import { Speaker } from '@/types'
-import Feather from '@react-native-vector-icons/feather/static'
-import Ionicons from '@react-native-vector-icons/ionicons/static'
-import { Image } from 'expo-image'
+import FeatherBase from '@react-native-vector-icons/feather/static'
+import IoniconsBase from '@react-native-vector-icons/ionicons/static'
+import { Image as ExpoImage } from 'expo-image'
 import { View } from 'react-native'
-import { useCSSVariable } from 'uniwind'
+import { withUniwind } from 'uniwind'
 import { IconButton } from './icon-button'
 
+const Image = withUniwind(ExpoImage)
+const Ionicons = withUniwind(IoniconsBase)
+const Feather = withUniwind(FeatherBase)
+
 export function Socials({ speaker }: { speaker: Speaker }) {
-  const iconColor = useCSSVariable('--color-foreground') as string
   const openWebBrowserAsync = useOpenWebBrowser()
 
   return (
@@ -20,8 +23,8 @@ export function Socials({ speaker }: { speaker: Speaker }) {
               return (
                 <Image
                   source={require('@/assets/images/x.svg')}
-                  style={{ height: 20, width: 20 }}
-                  tintColor={iconColor}
+                  className="size-5"
+                  tintColorClassName="accent-foreground"
                 />
               )
             }
@@ -29,8 +32,8 @@ export function Socials({ speaker }: { speaker: Speaker }) {
               return (
                 <Image
                   source={require('@/assets/images/linkedin.svg')}
-                  style={{ height: 20, width: 20 }}
-                  tintColor={iconColor}
+                  className="size-5"
+                  tintColorClassName="accent-foreground"
                 />
               )
             }
@@ -39,8 +42,8 @@ export function Socials({ speaker }: { speaker: Speaker }) {
                 <Ionicons
                   name="reader"
                   size={18}
-                  color={iconColor}
-                  style={{ height: 20, width: 20 }}
+                  colorClassName="accent-foreground"
+                  className="size-5"
                 />
               )
             }
@@ -49,8 +52,8 @@ export function Socials({ speaker }: { speaker: Speaker }) {
                 <Feather
                   name="link"
                   size={18}
-                  color={iconColor}
-                  style={{ height: 20, width: 20 }}
+                  colorClassName="accent-foreground"
+                  className="size-5"
                 />
               )
             }

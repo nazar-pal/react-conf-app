@@ -1,4 +1,5 @@
 import { Bookmark } from '@/components/bookmark'
+import { HeaderButton } from '@/components/header-button'
 import { NotFound } from '@/components/not-found'
 import { useReactConfStore } from '@/store'
 import { cn } from '@/utils/cn'
@@ -7,12 +8,10 @@ import {
   DAY_TWO_DATE,
   formatSessionTime
 } from '@/utils/formatDate'
-import { HeaderButton } from '@/components/header-button'
 import { Canvas, Fill, Shader, vec } from '@shopify/react-native-skia'
 import { isLiquidGlassAvailable } from 'expo-glass-effect'
 import * as Haptics from 'expo-haptics'
 import { Link, Stack, useLocalSearchParams, useRouter } from 'expo-router'
-import React from 'react'
 import { Platform, Text, View, useWindowDimensions } from 'react-native'
 import { Pressable, ScrollView } from 'react-native-gesture-handler'
 import Animated, {
@@ -25,7 +24,7 @@ import Animated, {
   withTiming
 } from 'react-native-reanimated'
 import { scheduleOnRN } from 'react-native-worklets'
-import { useCSSVariable, withUniwind } from 'uniwind'
+import { withUniwind } from 'uniwind'
 import { Section, SpeakerDetails } from './components'
 import { source } from './lib/source'
 import { findTalk } from './lib/utils'
@@ -41,7 +40,6 @@ export default function TalkDetail() {
   const shouldUseLocalTz = useReactConfStore(state => state.shouldUseLocalTz)
   const { width, height } = useWindowDimensions()
   const drawerHeight = height * 0.8
-  const highlightColor = useCSSVariable('--color-accent') as string
 
   const router = useRouter()
 
@@ -149,25 +147,13 @@ export default function TalkDetail() {
         <AnimatedScrollView
           onScroll={scrollHandler}
           className="flex-1"
-          contentContainerClassName="rounded-b-[20px] pb-safe-offset-6"
+          contentContainerClassName="rounded-b-[20px] pb-safe-offset-6 ios:pt-6"
           contentInsetAdjustmentBehavior="automatic"
           showsVerticalScrollIndicator={false}
-          contentContainerStyle={{
-            minHeight: drawerHeight,
-            paddingTop: Platform.select({
-              ios: 24,
-              default: undefined
-            })
-          }}
+          contentContainerStyle={{ minHeight: drawerHeight }}
         >
-          <View
-            className={cn('px-6', Platform.OS === 'android' && 'mt-[30px]')}
-            collapsable={false}
-          >
-            <Text
-              className="text-foreground mb-3 text-center text-3xl font-bold"
-              style={{ textDecorationColor: highlightColor }}
-            >
+          <View className="android:mt-7.5 px-6" collapsable={false}>
+            <Text className="text-foreground mb-3 text-center text-3xl font-bold">
               {talk?.title}
             </Text>
           </View>

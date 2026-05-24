@@ -1,6 +1,6 @@
 import { Image as ExpoImage } from 'expo-image'
 import { useState } from 'react'
-import { StyleSheet, View, ViewStyle } from 'react-native'
+import { StyleSheet, View } from 'react-native'
 import { withUniwind } from 'uniwind'
 
 import { cn } from '../utils/cn'
@@ -22,12 +22,12 @@ const sizeVariants: Record<
 export function SpeakerImage({
   profilePicture,
   size = 'medium',
-  style,
+  className,
   animated
 }: {
   profilePicture?: string | null
   size?: SpeakerImageSize
-  style?: ViewStyle
+  className?: string
   animated?: boolean
 }) {
   const [isLoading, setIsLoading] = useState(false)
@@ -50,9 +50,9 @@ export function SpeakerImage({
     <View
       className={cn(
         'border-divider mr-3 overflow-hidden rounded-full border bg-white/15 dark:bg-black/15',
-        sizeClassName
+        sizeClassName,
+        className
       )}
-      style={style}
     >
       {profilePicture ? (
         <Image
