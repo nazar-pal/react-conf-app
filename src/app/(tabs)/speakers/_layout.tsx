@@ -1,18 +1,14 @@
 import { isLiquidGlassAvailable } from 'expo-glass-effect'
 import { Stack, useRouter } from 'expo-router'
 import { Platform, Text } from 'react-native'
-import { useCSSVariable, useUniwind } from 'uniwind'
+import { useCSSVariable } from 'uniwind'
 
 export default function Layout() {
   const router = useRouter()
-  const [tabBarBackgroundColor, blackColor, whiteColor] = useCSSVariable([
+  const [tabBarBackgroundColor, tabBarTintColor] = useCSSVariable([
     '--color-background',
-    '--color-black',
-    '--color-white'
-  ]) as [string, string, string]
-
-  const { theme } = useUniwind()
-  const tabBarTintColor = theme === 'dark' ? whiteColor : blackColor // Will be theme-aware via CSS variable
+    '--color-foreground'
+  ]) as [string, string]
 
   return (
     <Stack>

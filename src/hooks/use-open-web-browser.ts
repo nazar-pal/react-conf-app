@@ -6,9 +6,9 @@ import { useCSSVariable, useUniwind } from 'uniwind'
  * Uses CSS variables from global.css for theme-aware colors.
  */
 export function useOpenWebBrowser() {
-  const [blackColor, whiteColor] = useCSSVariable([
-    '--color-black',
-    '--color-white'
+  const [backgroundColor, foregroundColor] = useCSSVariable([
+    '--color-background',
+    '--color-foreground'
   ]) as [string, string]
   const { theme } = useUniwind()
 
@@ -17,11 +17,11 @@ export function useOpenWebBrowser() {
       enableBarCollapsing: true,
       ...(theme === 'dark'
         ? {
-            toolbarColor: blackColor,
-            controlsColor: whiteColor
+            toolbarColor: backgroundColor,
+            controlsColor: foregroundColor
           }
         : {
-            controlsColor: blackColor
+            controlsColor: foregroundColor
           })
     })
   }

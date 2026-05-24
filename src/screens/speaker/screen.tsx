@@ -43,11 +43,7 @@ export default function SpeakerDetail() {
         />
       ) : null}
       <View
-        className={cn(
-          'flex-1',
-          isPreview && 'bg-surface',
-          !isPreview && 'bg-background'
-        )}
+        className={cn('flex-1', isPreview ? 'bg-surface' : 'bg-background')}
       >
         {speaker ? (
           <StyledScrollView

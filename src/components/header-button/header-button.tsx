@@ -18,7 +18,7 @@ const AnimatedPressable = Animated.createAnimatedComponent(Pressable)
 
 export function HeaderButton({ imageProps, buttonProps }: HeaderButtonProps) {
   const scale = useSharedValue(1)
-  const greyColor = useCSSVariable('--color-gray-400') as string
+  const mutedColor = useCSSVariable('--color-muted') as string
 
   const animatedStyle = useAnimatedStyle(() => ({
     transform: [{ scale: scale.value }]
@@ -43,7 +43,7 @@ export function HeaderButton({ imageProps, buttonProps }: HeaderButtonProps) {
           (sfToMaterialIcon[imageProps?.systemName ?? ''] ?? 'close') as any
         }
         size={24}
-        color={imageProps?.color || greyColor}
+        color={imageProps?.color || mutedColor}
       />
     </AnimatedPressable>
   )

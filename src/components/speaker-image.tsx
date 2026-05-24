@@ -1,11 +1,8 @@
-import { Image as ExpoImage } from 'expo-image'
 import { useState } from 'react'
-import { StyleSheet, View } from 'react-native'
-import { withUniwind } from 'uniwind'
+import { View } from 'react-native'
 
+import { Image } from './styled'
 import { cn } from '../utils/cn'
-
-const Image = withUniwind(ExpoImage)
 
 type SpeakerImageSize = 'small' | 'medium' | 'large' | 'xlarge'
 
@@ -36,8 +33,10 @@ export function SpeakerImage({
 
   const placeholder = (
     <View
-      className={cn('bg-accent items-center justify-center', sizeClassName)}
-      style={StyleSheet.absoluteFill}
+      className={cn(
+        'bg-accent absolute inset-0 items-center justify-center',
+        sizeClassName
+      )}
     >
       <Image
         source={require('@/assets/images/reactlogo-white.png')}
@@ -49,16 +48,15 @@ export function SpeakerImage({
   return (
     <View
       className={cn(
-        'border-divider mr-3 overflow-hidden rounded-full border bg-white/15 dark:bg-black/15',
+        'border-divider mr-3 overflow-hidden rounded-full border',
         sizeClassName,
         className
       )}
     >
       {profilePicture ? (
         <Image
-          className={sizeClassName}
+          className={cn('absolute inset-0', sizeClassName)}
           source={{ uri: profilePicture }}
-          style={StyleSheet.absoluteFill}
           transition={animated && isLoading ? 300 : 0}
           onLoadStart={() => setIsLoading(true)}
           onLoadEnd={() => setIsLoading(false)}

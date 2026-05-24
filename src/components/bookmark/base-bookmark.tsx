@@ -1,7 +1,6 @@
+import { MaterialCommunityIcons, SymbolView } from '@/components/styled'
 import { useBookmark } from '@/hooks'
 import { Session } from '@/types'
-import MaterialCommunityIcons from '@react-native-vector-icons/material-design-icons/static'
-import { SymbolView } from 'expo-symbols'
 import { Gesture, GestureDetector } from 'react-native-gesture-handler'
 import Animated, {
   useAnimatedStyle,
@@ -9,15 +8,10 @@ import Animated, {
   withSequence,
   withTiming
 } from 'react-native-reanimated'
-import { useCSSVariable } from 'uniwind'
 
 export function BaseBookmark({ session }: { session: Session }) {
   const { toggleBookmark, isBookmarked } = useBookmark()
   const scale = useSharedValue(1)
-  const [reactBlueLight, greyColor] = useCSSVariable([
-    '--color-accent',
-    '--color-gray-400'
-  ]) as [string, string]
 
   const animatedStyle = useAnimatedStyle(() => ({
     transform: [{ scale: scale.value }]
@@ -39,19 +33,19 @@ export function BaseBookmark({ session }: { session: Session }) {
     .runOnJS(true)
 
   const bookmarked = isBookmarked(session.id)
-  const bookmarkColor = bookmarked ? reactBlueLight : greyColor
+  const bookmarkColorClassName = bookmarked ? 'accent-accent' : 'accent-muted'
 
   return (
     <GestureDetector gesture={tapGesture}>
       <Animated.View style={animatedStyle} className="-m-2 p-2">
         <SymbolView
           name={bookmarked ? 'bookmark.fill' : 'bookmark'}
-          tintColor={bookmarkColor}
+          tintColorClassName={bookmarkColorClassName}
           fallback={
             <MaterialCommunityIcons
               name={bookmarked ? 'bookmark' : 'bookmark-outline'}
               size={28}
-              color={bookmarkColor}
+              colorClassName={bookmarkColorClassName}
             />
           }
         />

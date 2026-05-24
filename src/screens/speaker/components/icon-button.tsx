@@ -21,9 +21,8 @@ export function IconButton({
     <Pressable onPress={handlePress}>
       <View
         className={cn(
-          'mx-2 rounded-md p-3',
-          isActive ? 'bg-accent' : 'bg-white dark:bg-white/15',
-          'shadow-sm dark:shadow-none'
+          'mx-2 rounded-md p-3 shadow-sm dark:shadow-none',
+          isActive ? 'bg-accent' : 'bg-surface'
         )}
       >
         {children}

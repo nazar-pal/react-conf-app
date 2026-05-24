@@ -1,8 +1,7 @@
-import MaterialCommunityIcons from '@react-native-vector-icons/material-design-icons/static'
+import { LinearGradient, MaterialCommunityIcons } from '@/components/styled'
 import { Image, ImageStyle } from 'expo-image'
-import { LinearGradient } from 'expo-linear-gradient'
 import * as Linking from 'expo-linking'
-import { StyleSheet, Text, View } from 'react-native'
+import { Text, View } from 'react-native'
 import { Pressable } from 'react-native-gesture-handler'
 import { useCSSVariable, withUniwind } from 'uniwind'
 
@@ -20,10 +19,7 @@ export function VenueInfo() {
     )
   }
 
-  const [iconColor, backgroundColor] = useCSSVariable([
-    '--color-muted',
-    '--color-overlay'
-  ]) as [string, string]
+  const backgroundColor = useCSSVariable('--color-overlay') as string
 
   return (
     <StyledPressable className="mx-4 mb-[50px] pt-6 pb-4" onPress={onOpenVenue}>
@@ -39,7 +35,7 @@ export function VenueInfo() {
           start={{ x: 0.5, y: 0 }}
           end={{ x: 0.5, y: 1 }}
           colors={['transparent', backgroundColor]}
-          style={StyleSheet.absoluteFill}
+          className="absolute inset-0"
         />
         <View className="bg-overlay absolute right-0 -bottom-[50px] left-0 items-center rounded-b-[32px] pb-6">
           <Text className="text-muted text-sm font-medium">Venue</Text>
@@ -55,7 +51,7 @@ export function VenueInfo() {
             <MaterialCommunityIcons
               name="map-marker-radius"
               size={16}
-              color={iconColor}
+              colorClassName="accent-muted"
             />
             <Text className="text-muted text-xs font-medium">
               {venueAddress}

@@ -5,17 +5,19 @@ import { useBookmarkStore } from '@/store'
 import { isLiquidGlassAvailable } from 'expo-glass-effect'
 import { useCSSVariable } from 'uniwind'
 
+const labelColor =
+  Platform.OS === 'ios'
+    ? DynamicColorIOS({ light: '#000', dark: '#fff' })
+    : undefined
+
 export default function TabLayout() {
   const bookmarks = useBookmarkStore(state => state.bookmarks)
   const hasBookmarks = bookmarks.length > 0
-  const [accentColor, blackColor, whiteColor, accentSoftColor, bgColor] =
-    useCSSVariable([
-      '--color-accent',
-      '--color-black',
-      '--color-white',
-      '--color-accent-soft',
-      '--color-background'
-    ]) as [string, string, string, string, string]
+  const [accentColor, accentSoftColor, bgColor] = useCSSVariable([
+    '--color-accent',
+    '--color-accent-soft',
+    '--color-background'
+  ]) as [string, string, string]
 
   const labelSelectedStyle =
     Platform.OS === 'ios' ? { color: accentColor } : undefined
@@ -27,18 +29,12 @@ export default function TabLayout() {
       labelStyle={{
         color:
           Platform.OS === 'ios' && isLiquidGlassAvailable()
-            ? DynamicColorIOS({
-                light: blackColor,
-                dark: whiteColor
-              })
+            ? labelColor
             : accentSoftColor
       }}
       iconColor={
         Platform.OS === 'ios' && isLiquidGlassAvailable()
-          ? DynamicColorIOS({
-              light: blackColor,
-              dark: whiteColor
-            })
+          ? labelColor
           : accentSoftColor
       }
       tintColor={Platform.OS === 'ios' ? accentColor : accentSoftColor}
