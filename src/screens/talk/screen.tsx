@@ -119,7 +119,11 @@ export default function TalkDetail() {
         )}
       >
         {isLiquidGlassAvailable() ? (
-          <View style={{ height: drawerHeight }}>
+          <View
+            pointerEvents="none"
+            className="absolute top-0 right-0 left-0"
+            style={{ height: drawerHeight }}
+          >
             <Animated.View style={opacityStyle} className="absolute">
               <Canvas
                 style={{
