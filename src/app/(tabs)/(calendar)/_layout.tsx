@@ -30,7 +30,14 @@ export default function Layout() {
               : tabBarBackgroundColor
           },
           headerLeft: () => (
-            <Image source={imageSource} style={{ height: 20, width: 72 }} />
+            <Image
+              source={imageSource}
+              style={{
+                height: 20,
+                width: 72,
+                marginHorizontal: isLiquidGlassAvailable() ? 8 : 0
+              }}
+            />
           ),
           headerRight: () => <TimeZoneSwitch />
         }}
