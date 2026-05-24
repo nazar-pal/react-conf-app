@@ -14,7 +14,7 @@ export function TimeZoneSwitch() {
 
   return (
     <Pressable
-      className="bg-surface h-8 justify-center self-end rounded-[40px] px-4"
+      className="bg-surface active:bg-overlay h-8 justify-center self-end rounded-[40px] px-4 transition-colors duration-150"
       onPress={handleToggleLocalTz}
     >
       <Text className="text-foreground text-xs font-semibold">

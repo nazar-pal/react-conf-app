@@ -4,9 +4,6 @@ import { Session } from '@/types'
 import { getCurrentConferenceDay } from '@/utils/formatDate'
 import { useEffect, useReducer } from 'react'
 import { Pressable, Text, View } from 'react-native'
-import Animated, { FadeIn, FadeOutUp } from 'react-native-reanimated'
-
-const AnimatedPressable = Animated.createAnimatedComponent(Pressable)
 
 export type CurrentlyLiveSession = {
   session: Session
@@ -59,16 +56,14 @@ export function CurrentlyLive({
   const currentlyLive = getCurrentlyLive(dayOne, dayTwo)
 
   return (
-    <AnimatedPressable
+    <Pressable
       key={currentlyLive?.session.id}
-      className="ios:w-45 web:w-45 items-center"
+      className="ios:w-45 web:w-45 uw-entering-fade-in uw-exiting-fade-out-up items-center"
       onPressIn={() => {
         if (currentlyLive) {
           scrollToSession(currentlyLive)
         }
       }}
-      entering={FadeIn}
-      exiting={FadeOutUp}
     >
       {currentlyLive ? (
         <>
@@ -89,6 +84,6 @@ export function CurrentlyLive({
         // Without this, the header will not animate in on iOS 26
         <View />
       )}
-    </AnimatedPressable>
+    </Pressable>
   )
 }

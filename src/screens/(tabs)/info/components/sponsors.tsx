@@ -113,7 +113,7 @@ function SponsorCard({ sponsor }: { sponsor: Sponsor }) {
   const openWebBrowserAsync = useOpenWebBrowser()
   return (
     <Pressable
-      className="rounded-xl bg-white p-2"
+      className="rounded-xl bg-white p-2 transition-opacity duration-150 active:opacity-70"
       onPress={() => {
         openWebBrowserAsync(sponsor.url)
       }}

@@ -5,7 +5,6 @@ import * as Haptics from 'expo-haptics'
 import { Link, useRouter } from 'expo-router'
 import { Text, useWindowDimensions, View } from 'react-native'
 import { Gesture, GestureDetector } from 'react-native-gesture-handler'
-import Animated, { FadeIn, FadeOut } from 'react-native-reanimated'
 import { formatSessionTime } from '../utils/formatDate'
 import { Bookmark } from './bookmark'
 import { SpeakerDetails } from './speaker-details'
@@ -45,7 +44,7 @@ export function TalkCard({ session, day, isBookmarked = false }: Props) {
       })
 
   return (
-    <Animated.View entering={FadeIn} exiting={FadeOut}>
+    <View className="uw-entering-fade-in uw-exiting-fade-out">
       <GestureDetector gesture={gestureTalkTap}>
         <View className="bg-background mx-4 mb-6 rounded-[10px]">
           {!isBookmarked && (
@@ -98,6 +97,6 @@ export function TalkCard({ session, day, isBookmarked = false }: Props) {
           </View>
         </View>
       </GestureDetector>
-    </Animated.View>
+    </View>
   )
 }

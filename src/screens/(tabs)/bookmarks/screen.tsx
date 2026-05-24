@@ -6,11 +6,7 @@ import { ConferenceDay } from '@/consts'
 import { useBookmarkStore, useReactConfStore } from '@/store'
 import { Session } from '@/types'
 import { Link } from 'expo-router'
-import Animated, {
-  FadeIn,
-  FadeOut,
-  LinearTransition
-} from 'react-native-reanimated'
+import Animated, { LinearTransition } from 'react-native-reanimated'
 
 export default function Bookmarks() {
   const bookmarks = useBookmarkStore(state => state.bookmarks)
@@ -27,9 +23,12 @@ export default function Bookmarks() {
 
   const renderItem = useCallback(
     ({ item }: { item: { talk: Session; day: ConferenceDay } }) => (
-      <Animated.View key={item.talk.id} entering={FadeIn} exiting={FadeOut}>
+      <View
+        key={item.talk.id}
+        className="uw-entering-fade-in uw-exiting-fade-out"
+      >
         <TalkCard session={item.talk} day={item.day} isBookmarked={true} />
-      </Animated.View>
+      </View>
     ),
     []
   )
@@ -47,7 +46,7 @@ export default function Bookmarks() {
       keyExtractor={item => item.talk.id}
       itemLayoutAnimation={LinearTransition}
       ListEmptyComponent={
-        <Animated.View entering={FadeIn} exiting={FadeOut}>
+        <View className="uw-entering-fade-in uw-exiting-fade-out">
           <View className="gap-4 px-4">
             <Text className="text-foreground text-xl font-bold">
               No sessions bookmarked
@@ -64,7 +63,7 @@ export default function Bookmarks() {
               </Pressable>
             </Link>
           </View>
-        </Animated.View>
+        </View>
       }
     />
   )

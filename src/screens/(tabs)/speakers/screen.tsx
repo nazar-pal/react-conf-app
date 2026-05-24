@@ -14,11 +14,7 @@ import { useBookmark } from '@/hooks'
 import { useReactConfStore } from '@/store'
 import { Speaker } from '@/types'
 import { Link, useLocalSearchParams } from 'expo-router'
-import Animated, {
-  FadeIn,
-  FadeOut,
-  LinearTransition
-} from 'react-native-reanimated'
+import Animated, { LinearTransition } from 'react-native-reanimated'
 import { useSafeAreaInsets } from 'react-native-safe-area-context'
 
 export default function Speakers() {
@@ -45,7 +41,7 @@ export default function Speakers() {
   const renderItem = useCallback(
     ({ item }: { item: Speaker }) => {
       return (
-        <Animated.View key={item.id} entering={FadeIn} exiting={FadeOut}>
+        <View key={item.id} className="uw-entering-fade-in uw-exiting-fade-out">
           <Link
             push
             key={item.id}
@@ -90,7 +86,7 @@ export default function Speakers() {
                 )}
             </Link.Menu>
           </Link>
-        </Animated.View>
+        </View>
       )
     },
     [width, getSessionById, isBookmarked, toggleBookmarkById]
@@ -116,7 +112,7 @@ export default function Speakers() {
       keyExtractor={item => item.id}
       itemLayoutAnimation={LinearTransition}
       ListEmptyComponent={
-        <Animated.View entering={FadeIn} exiting={FadeOut}>
+        <View className="uw-entering-fade-in uw-exiting-fade-out">
           <View className="bg-background p-6">
             <Text className="text-foreground text-base font-medium">
               No results found for{' '}
@@ -125,7 +121,7 @@ export default function Speakers() {
               </Text>
             </Text>
           </View>
-        </Animated.View>
+        </View>
       }
     />
   )

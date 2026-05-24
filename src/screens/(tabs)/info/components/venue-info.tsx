@@ -22,7 +22,10 @@ export function VenueInfo() {
   const backgroundColor = useCSSVariable('--color-overlay') as string
 
   return (
-    <StyledPressable className="mx-4 mb-[50px] pt-6 pb-4" onPress={onOpenVenue}>
+    <StyledPressable
+      className="mx-4 mb-[50px] pt-6 pb-4 transition-opacity duration-150 active:opacity-75"
+      onPress={onOpenVenue}
+    >
       <View>
         <View className="overflow-hidden rounded-t-[32px]">
           <Image
