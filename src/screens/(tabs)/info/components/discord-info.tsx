@@ -15,7 +15,7 @@ export function DiscordInfo() {
         size={42}
         colorClassName="accent-info-emphasis"
       />
-      <Text className="text-muted mb-2 text-center text-base font-medium">
+      <Text className="text-muted mb-2 text-center text-base">
         Chat with other folks at the conference via the dedicated Discord
         server. Fun activities? Ridesharing?
       </Text>

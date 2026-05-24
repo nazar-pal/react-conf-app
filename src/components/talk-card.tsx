@@ -48,23 +48,23 @@ export function TalkCard({ session, day, isBookmarked = false }: Props) {
       <GestureDetector gesture={gestureTalkTap}>
         <View className="bg-background mx-4 mb-6 rounded-[10px]">
           {!isBookmarked && (
-            <Text className="text-muted mb-2 ml-6 text-sm font-medium">
+            <Text className="text-muted mb-2 ml-6 text-sm">
               {formatSessionTime(session, shouldUseLocalTz)}
             </Text>
           )}
           <View className="bg-surface gap-6 rounded-[32px] p-6">
             <View className="-mx-4 -my-2 px-4 py-2">
               <View className="flex-row items-center justify-between gap-2">
-                <Text className="text-foreground mr-10 flex-1 text-lg font-semibold">
+                <Text className="mr-10 flex-1 text-lg font-semibold">
                   {session.title}
                 </Text>
               </View>
               {isBookmarked && (
                 <View className="flex-row gap-2 rounded-[10px]">
-                  <Text className="text-muted text-sm font-medium">
+                  <Text className="text-muted text-sm">
                     {formatSessionTime(session, shouldUseLocalTz)},
                   </Text>
-                  <Text className="text-muted text-sm font-medium">
+                  <Text className="text-muted text-sm">
                     {day === ConferenceDay.One ? 'Day 1' : 'Day 2'}
                   </Text>
                 </View>

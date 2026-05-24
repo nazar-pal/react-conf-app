@@ -14,8 +14,8 @@ export function Section({
 
   return (
     <View className="mb-6 gap-1">
-      <Text className="text-foreground text-lg font-semibold">{title}</Text>
-      <Text className="text-muted text-base font-medium">{value}</Text>
+      <Text className="text-lg font-semibold">{title}</Text>
+      <Text className="text-muted text-base">{value}</Text>
     </View>
   )
 }

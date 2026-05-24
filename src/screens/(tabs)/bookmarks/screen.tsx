@@ -48,16 +48,14 @@ export default function Bookmarks() {
       ListEmptyComponent={
         <View className="uw-entering-fade-in uw-exiting-fade-out">
           <View className="gap-4 px-4">
-            <Text className="text-foreground text-xl font-bold">
-              No sessions bookmarked
-            </Text>
-            <Text className="text-muted text-lg font-medium">
+            <Text className="text-xl font-bold">No sessions bookmarked</Text>
+            <Text className="text-muted text-lg">
               Tap on the bookmark icon on a session to add it to your bookmarks,
               and it will be displayed here.
             </Text>
             <Link href="/(tabs)/(calendar)" asChild>
               <Pressable>
-                <Text className="text-accent mt-0.5 text-base font-medium">
+                <Text className="text-accent mt-0.5 text-base">
                   View all sessions
                 </Text>
               </Pressable>

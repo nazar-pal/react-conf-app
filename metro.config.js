@@ -4,5 +4,8 @@ const { withUniwindConfig } = require('uniwind/metro')
 const config = getDefaultConfig(__dirname)
 
 module.exports = withUniwindConfig(config, {
-  cssEntryFile: './src/global.css'
+  cssEntryFile: './src/global.css',
+  experimental: {
+    defaultStyles: true
+  }
 })

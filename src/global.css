@@ -1,6 +1,13 @@
 @import 'tailwindcss';
 @import 'uniwind';
 
+/* App-wide Text baseline — applied via Uniwind's experimental.defaultStyles
+   flag (see metro.config.js). Lets components declare only overrides. */
+Text {
+  font-family: 'Montserrat-Medium';
+  color: var(--color-foreground);
+}
+
 @theme {
   /* Montserrat font families - React Native requires single font names (no fallbacks) */
   --font-light: 'Montserrat-Light';

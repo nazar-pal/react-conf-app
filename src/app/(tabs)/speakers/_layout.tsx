@@ -24,9 +24,7 @@ export default function Layout() {
           title: 'Speakers',
           headerTitle: () =>
             Platform.OS === 'android' ? (
-              <Text className="text-foreground text-xl font-bold">
-                Speakers
-              </Text>
+              <Text className="text-xl font-bold">Speakers</Text>
             ) : undefined,
 
           headerSearchBarOptions: {

@@ -41,12 +41,10 @@ export function VenueInfo() {
           className="absolute inset-0"
         />
         <View className="bg-overlay absolute right-0 -bottom-[50px] left-0 items-center rounded-b-[32px] pb-6">
-          <Text className="text-muted text-sm font-medium">Venue</Text>
+          <Text className="text-muted text-sm">Venue</Text>
           <View className="mb-4 items-center">
-            <Text className="text-foreground text-lg font-semibold">
-              The Westin Lake
-            </Text>
-            <Text className="text-foreground text-lg font-semibold">
+            <Text className="text-lg font-semibold">The Westin Lake</Text>
+            <Text className="text-lg font-semibold">
               Las Vegas Resort & Spa
             </Text>
           </View>
@@ -56,9 +54,7 @@ export function VenueInfo() {
               size={16}
               colorClassName="accent-muted"
             />
-            <Text className="text-muted text-xs font-medium">
-              {venueAddress}
-            </Text>
+            <Text className="text-muted text-xs">{venueAddress}</Text>
           </View>
         </View>
       </View>

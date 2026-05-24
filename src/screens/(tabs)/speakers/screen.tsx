@@ -114,11 +114,9 @@ export default function Speakers() {
       ListEmptyComponent={
         <View className="uw-entering-fade-in uw-exiting-fade-out">
           <View className="bg-background p-6">
-            <Text className="text-foreground text-base font-medium">
+            <Text className="text-base">
               No results found for{' '}
-              <Text className="text-foreground text-base font-bold">
-                {searchText}
-              </Text>
+              <Text className="text-base font-bold">{searchText}</Text>
             </Text>
           </View>
         </View>

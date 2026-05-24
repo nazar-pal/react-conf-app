@@ -63,9 +63,7 @@ export function RootStack() {
               : 'light',
           headerTitle: Platform.select({
             android: props => (
-              <Text className="text-foreground text-2xl font-bold">
-                {props.children}
-              </Text>
+              <Text className="text-2xl font-bold">{props.children}</Text>
             ),
             default: undefined
           })

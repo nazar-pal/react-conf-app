@@ -157,7 +157,7 @@ export default function TalkDetail() {
           contentContainerStyle={{ minHeight: drawerHeight }}
         >
           <View className="android:mt-7.5 px-6" collapsable={false}>
-            <Text className="text-foreground mb-3 text-center text-3xl font-bold">
+            <Text className="mb-3 text-center text-3xl font-bold">
               {talk?.title}
             </Text>
           </View>

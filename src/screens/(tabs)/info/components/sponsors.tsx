@@ -70,13 +70,11 @@ type Sponsor = (typeof sponsors)[keyof typeof sponsors]
 export function Sponsors() {
   return (
     <View className="bg-background pt-6">
-      <Text className="text-foreground px-4 pb-4 text-lg font-semibold">
-        Sponsors
-      </Text>
+      <Text className="px-4 pb-4 text-lg font-semibold">Sponsors</Text>
       <View className="bg-overlay px-4 pb-4">
-        <Text className="text-muted py-4 text-base font-medium">Platinum</Text>
+        <Text className="text-muted py-4 text-base">Platinum</Text>
         <SponsorCard sponsor={sponsors.amazon} />
-        <Text className="text-muted py-4 text-base font-medium">Gold</Text>
+        <Text className="text-muted py-4 text-base">Gold</Text>
         <View className="gap-4">
           <SponsorCard sponsor={sponsors.agGrid} />
           <SponsorCard sponsor={sponsors.mui} />
@@ -86,20 +84,16 @@ export function Sponsors() {
           <SponsorCard sponsor={sponsors.expo} />
           <SponsorCard sponsor={sponsors.redwood} />
         </View>
-        <Text className="text-muted py-4 text-base font-medium">
-          Livestream
-        </Text>
+        <Text className="text-muted py-4 text-base">Livestream</Text>
         <SponsorCard sponsor={sponsors.livestream} />
-        <Text className="text-muted py-4 text-base font-medium">Silver</Text>
+        <Text className="text-muted py-4 text-base">Silver</Text>
         <View className="gap-4">
           <SponsorCard sponsor={sponsors.oldMission} />
           <SponsorCard sponsor={sponsors.arcjet} />
           <SponsorCard sponsor={sponsors.renderAtl} />
           <SponsorCard sponsor={sponsors.infiniteRed} />
         </View>
-        <Text className="text-muted py-4 text-base font-medium">
-          Organizers
-        </Text>
+        <Text className="text-muted py-4 text-base">Organizers</Text>
         <View className="gap-4">
           <SponsorCard sponsor={sponsors.meta} />
           <SponsorCard sponsor={sponsors.callstack} />

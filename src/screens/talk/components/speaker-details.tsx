@@ -9,12 +9,8 @@ export function SpeakerDetails({ speaker }: { speaker: Speaker }) {
     <View className="mb-3 flex-row gap-2">
       <SpeakerImage profilePicture={speaker.profilePicture} />
       <View className="flex-1 justify-center">
-        <Text className="text-foreground text-lg font-semibold">
-          {speaker.fullName}
-        </Text>
-        <Text className="text-muted text-sm font-medium">
-          {speaker.tagLine}
-        </Text>
+        <Text className="text-lg font-semibold">{speaker.fullName}</Text>
+        <Text className="text-muted text-sm">{speaker.tagLine}</Text>
       </View>
     </View>
   )

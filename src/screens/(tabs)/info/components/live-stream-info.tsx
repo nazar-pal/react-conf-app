@@ -16,7 +16,7 @@ export function LiveStreamInfo() {
           Live Stream
         </Text>
       </View>
-      <Text className="text-info-emphasis mb-6 text-center text-base font-medium">
+      <Text className="text-info-emphasis mb-6 text-center text-base">
         Join React Conf from anywhere with our free live stream access. Watch
         all the talks remotely.
       </Text>

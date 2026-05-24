@@ -58,11 +58,9 @@ export default function SpeakerDetail() {
                 profilePicture={speaker.profilePicture}
                 size="large"
               />
-              <Text className="text-foreground text-lg font-medium">
-                {speaker.fullName}
-              </Text>
+              <Text className="text-lg">{speaker.fullName}</Text>
               {speaker.tagLine ? (
-                <Text className="text-muted text-center text-base font-medium">
+                <Text className="text-muted text-center text-base">
                   {speaker.tagLine}
                 </Text>
               ) : null}
@@ -77,7 +75,7 @@ export default function SpeakerDetail() {
             {speaker.links.length ? <Socials speaker={speaker} /> : null}
             {speaker.bio ? (
               <Text
-                className="text-foreground text-sm font-medium"
+                className="text-sm"
                 style={{
                   marginBottom: 24,
                   lineHeight: 18 * 1.5

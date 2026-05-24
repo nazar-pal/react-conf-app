@@ -12,17 +12,13 @@ export function ActivityCard({ session }: Props) {
 
   return (
     <View className="mx-6 mb-4 gap-2 rounded-[10px]">
-      <Text className="text-muted ml-6 text-sm font-medium">
+      <Text className="text-muted ml-6 text-sm">
         {formatSessionTime(session, shouldUseLocalTz)}
       </Text>
       <View className="bg-overlay justify-center rounded-xl p-6">
         <View className="flex-row items-center justify-between">
-          <Text className="text-foreground text-lg font-semibold">
-            {session.title}
-          </Text>
-          <Text className="text-foreground text-sm font-light">
-            {session.room}
-          </Text>
+          <Text className="text-lg font-semibold">{session.title}</Text>
+          <Text className="text-sm font-light">{session.room}</Text>
         </View>
       </View>
     </View>
