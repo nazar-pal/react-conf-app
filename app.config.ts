@@ -1,6 +1,6 @@
-import { ExpoConfig } from 'expo/config'
 import expoFont from 'expo-font/plugin'
 import expoSplashScreen from 'expo-splash-screen/plugin'
+import { ExpoConfig } from 'expo/config'
 // Update this value to something unique in order to be able to build for a
 // physical iOS device.
 const APP_ID_PREFIX = 'com.devnazar.reactconf'
@@ -121,6 +121,9 @@ const config: ExpoConfig = {
   },
   runtimeVersion: {
     policy: 'appVersion'
+  },
+  experiments: {
+    reactCompiler: true
   }
 }
 
