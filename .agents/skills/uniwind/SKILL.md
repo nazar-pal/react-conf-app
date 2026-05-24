@@ -5,12 +5,12 @@ description: >
   or styling components in a React Native project that uses Tailwind with className.
   Triggers on: className on RN components, Tailwind classes in RN, global.css with
   @import 'uniwind', withUniwindConfig, withUniwind, metro.config.js with Uniwind,
-  useResolveClassNames, useCSSVariable, useUniwind, dark:/light: theming, platform
+  useResolveClassNames, useCSSVariable, getCSSVariable, useUniwind, dark:/light: theming, platform
   selectors (ios:/android:/native:/web:/tv:), data-[prop=value], responsive breakpoints
-  (sm:/md:/lg:), tailwind-variants, tv() variants, ScopedTheme, Uniwind.setTheme,
+  (sm:/md:/lg:), important utilities (bg-red-500!), tailwind-variants, tv() variants, ScopedTheme, Uniwind.setTheme,
   Uniwind.updateCSSVariables, @theme, @utility, @variant, CSS variables in RN,
-  colorClassName, tintColorClassName, contentContainerClassName, Uniwind Pro
-  (animations, transitions, shadow tree, native insets), safe area utilities,
+  colorClassName, tintColorClassName, contentContainerClassName, default styles,
+  default RN component styles, Uniwind Pro (animations, transitions, shadow tree, native insets), safe area utilities,
   gradients, hairlineWidth(), fontScale(), pixelRatio(), light-dark(), OKLCH,
   cn, tailwind-merge, HeroUI Native, react-native-reusables, Gluestack.
   Does NOT handle migration — use migrate-nativewind-to-uniwind skill.
@@ -18,9 +18,9 @@ description: >
 
 # Uniwind — Complete Reference
 
-> Uniwind 1.5.0+ / Tailwind CSS v4 / React Native 0.81+ / Expo SDK 54+
+> Uniwind 1.6.0+ / Tailwind CSS v4 / React Native 0.81+ / Expo SDK 54+
 
-If user has lower version, recommend updating to 1.5.0+ for best experience.
+If user has lower version, recommend updating to 1.6.0+ for best experience.
 
 Uniwind brings Tailwind CSS v4 to React Native. All core React Native components support the `className` prop out of the box. Styles are compiled at build time — no runtime overhead.
 
@@ -39,6 +39,7 @@ Uniwind brings Tailwind CSS v4 to React Native. All core React Native components
 11. **rem default is 16px** — NativeWind used 14px. Set `polyfills: { rem: 14 }` in metro config if migrating.
 12. **`cssEntryFile` must be a relative path string** — Use `'./global.css'` not `path.resolve(__dirname, 'global.css')`.
 13. **Deduplicate with `cn()` when mixing custom CSS classes and Tailwind** — Uniwind does NOT auto-deduplicate. If a custom CSS class (`.card { padding: 16px }`) and a Tailwind utility (`p-6`) set the same property, both apply with unpredictable results. Always wrap with `cn('card', 'p-6')` when there's overlap.
+14. **Important utilities are supported** — Tailwind important modifier works in classNames with `!` at the end: `bg-red-500!`, `active:bg-red-500!`, `ios:pt-12!`. Leading `!bg-red-500` syntax is deprecated. Important utilities override non-important utilities for the same style property, but inline `style` still overrides className.
 
 ## Setup
 
@@ -741,6 +742,27 @@ import { cn } from '@/lib/cn';
 - Static className with no conflicts: `<View className="flex-1 p-4 bg-white" />`
 - Single custom CSS class with no overlapping Tailwind: `<View className="card-shadow mt-4" />` (if card-shadow only sets box-shadow which no Tailwind class also sets)
 
+## Important Utilities and Style Specificity
+
+Uniwind supports Tailwind's important modifier (`!`) for utilities that must override another utility for the same style property.
+
+```tsx
+import { View, Pressable } from 'react-native';
+
+// bg-red-500! has higher priority than bg-blue-500
+<View className="bg-blue-500 bg-red-500!" />;
+
+// Important utilities work with state and platform variants
+<Pressable className="bg-blue-500 active:bg-red-500!" />;
+<View className="pt-4 ios:pt-12! android:pt-8!" />;
+```
+
+Priority rules:
+- Important utility (`bg-red-500!`) overrides non-important utility (`bg-blue-500`) for the same property.
+- Important variants work normally: `active:bg-red-500!`, `ios:pt-12!`, `dark:text-white!`.
+- Inline `style` always wins, even over important className utilities: `<View className="bg-red-500!" style={{ backgroundColor: 'blue' }} />` renders blue.
+- Use `!` sparingly. For reusable components and consumer overrides, prefer `cn()` with `tailwind-merge`.
+
 ## Theming
 
 ### Quick Setup (dark: prefix)
@@ -944,6 +966,21 @@ Use for: animations, chart libraries, third-party component configs, calculation
 It's required to cast the result of `useCSSVariable` as it can return: string | number | undefined.
 Uniwind doesn't know if given variable exist and what type it is, so it returns union type.
 
+### getCSSVariable
+
+Read CSS variable values outside of React (event handlers, async callbacks, utility modules, worklets). Available in Uniwind 1.6.4+.
+
+```ts
+import { Uniwind } from 'uniwind';
+
+const primary = Uniwind.getCSSVariable('--color-primary');
+const [bg, fg] = Uniwind.getCSSVariable(['--color-background', '--color-foreground']) as [string, string];
+```
+
+Same value rules as `useCSSVariable` (variable must be used in a `className` or declared in `@theme static`). Same return type: `string | number | undefined`. Cast as needed.
+
+Not reactive — value is read once. For reactive values inside components use `useCSSVariable`. Use `getCSSVariable` for one-shot reads (onPress handlers, utility functions, native module configs).
+
 ### Runtime CSS Variable Updates
 
 Update theme variables at runtime (e.g., user-selected brand colors or API-driven themes):
@@ -985,6 +1022,25 @@ Perceptually uniform color format — wider gamut, consistent lightness:
     @variant dark {
       --color-primary: oklch(0.6 0.2 240);
       --color-background: oklch(0.13 0.004 17.69);
+    }
+  }
+}
+```
+
+### Display P3 Colors support
+
+Wide-gamut color format for devices that support the P3 color space (most modern iPhones and Macs). Uniwind parses `color(display-p3 ...)` values and converts them for native use:
+
+```css
+@layer theme {
+  :root {
+    @variant light {
+      --color-primary: color(display-p3 0.2 0.4 1);
+      --color-accent: color(display-p3 1 0.3 0.3);
+    }
+    @variant dark {
+      --color-primary: color(display-p3 0.3 0.5 1);
+      --color-accent: color(display-p3 1 0.4 0.4);
     }
   }
 }
@@ -1362,14 +1418,63 @@ import { cn } from '@/lib/cn';
 
 ### Custom Utilities (@utility)
 
-The `@utility` directive creates utility classes that work exactly like built-in Tailwind classes. Use for CSS functions and patterns Tailwind doesn't support natively:
+The `@utility` directive creates utility classes that work exactly like built-in Tailwind classes. Three main use cases:
+
+#### 1. Variable-driven utilities (runtime-injected values)
+
+Create a utility whose value comes from a CSS variable injected at runtime via `updateCSSVariables`. Use `@theme static` to declare the variable so Uniwind tracks it even before it is updated:
+
+```css
+/* global.css */
+@theme static {
+  --header-height: 0px;
+}
+
+@utility p-safe-header {
+  padding-top: var(--header-height);
+}
+```
+
+Inject the real value at runtime (e.g., from react-navigation's layout event):
+
+```tsx
+import { Uniwind } from 'uniwind'
+
+// e.g., inside a navigation layout listener
+Uniwind.updateCSSVariables(Uniwind.currentTheme, {
+  '--header-height': headerHeight,
+})
+```
+
+```tsx
+<View className="p-safe-header flex-1" />
+```
+
+#### 2. Brand-new utilities (no Tailwind equivalent)
+
+For styles that have no built-in Tailwind class:
 
 ```css
 @utility h-hairline { height: hairlineWidth(); }
 @utility text-scaled { font-size: fontScale(); }
+@utility card-shadow {
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+}
 ```
 
-Usage like any Tailwind class: `<View className="h-hairline" />`
+Usage like any Tailwind class: `<View className="h-hairline card-shadow" />`
+
+#### 3. Overriding existing Tailwind utilities
+
+Use `@utility` to completely replace what a built-in class does. Example: make `border` always use `--color-primary`:
+
+```css
+@utility border {
+  border-width: 1px;
+  border-style: solid;
+  border-color: var(--color-primary);
+}
+```
 
 ## @theme Directive
 
@@ -1537,6 +1642,22 @@ React Native uses the Yoga layout engine. Key differences from web CSS:
 - **Flexbox by default** — all views use flexbox with `flexDirection: 'column'`
 - **Limited CSS properties** — no floats, grid, pseudo-elements
 
+### Built-in Extra Utilities
+
+Uniwind provides additional utility classes for React Native features not covered by standard Tailwind:
+
+| Class | Effect |
+|-------|--------|
+| `border-continuous` | Sets `borderCurve: 'continuous'` — smooth, superellipse corners (iOS) |
+| `border-circular` | Sets `borderCurve: 'circular'` — standard circular corners (iOS default) |
+
+```tsx
+// Smooth iOS-style rounded corners (like SwiftUI's .continuous)
+<View className="rounded-2xl border-continuous bg-card p-4">
+  <Text className="text-foreground">Smooth corners</Text>
+</View>
+```
+
 ### Supported (all standard Tailwind)
 
 Layout, spacing, sizing, typography, colors, borders, effects, flexbox, positioning, transforms, interactive states.
@@ -1551,11 +1672,11 @@ Layout, spacing, sizing, typography, colors, borders, effects, flexbox, position
 
 ## Uniwind Pro
 
-Paid upgrade with 100% API compatibility. Built on a 2nd-generation C++ engine for apps that demand the best performance. **$99/seat** (billed annually). Pricing and licensing: [https://uniwind.dev/pricing](https://uniwind.dev/pricing)
+Paid upgrade with 100% API compatibility. Built on a 2nd-generation C++ engine for apps that demand the best performance. Graduated pricing (billed annually): **$99/seat** (1-3), **$49** (4-6), **$29** (7-15), **$1** (16+). Pricing and licensing: [https://uniwind.dev/pricing](https://uniwind.dev/pricing)
 
 ### Pricing & Licensing
 
-- **$99/seat per year** (VAT excluded unless applicable)
+- **Graduated per-seat pricing** (billed annually, VAT excluded unless applicable): $99 for seats 1-3, $49 for 4-6, $29 for 7-15, $1 for 16+
 - **Individual License**: Personal Pro license per engineer
 - **Team License**: Single key management — add or remove members instantly
 - **CI/CD License**: Full support for automated and headless build environments
@@ -1566,19 +1687,21 @@ Paid upgrade with 100% API compatibility. Built on a 2nd-generation C++ engine f
 
 - **C++ style engine**: Forged on the 2nd-gen Unistyles C++ engine. Injects styles directly into the ShadowTree without triggering React re-renders — a direct, optimized highway between classNames and the native layer
 - **Performance**: Benchmarked at ~55ms (vs StyleSheet 49ms, traditional Uniwind 81ms, NativeWind 197ms) — near-native speed
-- **40+ className props** update without re-renders (all component bindings listed above)
+- **55+ className props** update without re-renders across 20 components (all component bindings listed above)
 - **Reanimated animations**: `animate-*` and `transition-*` via className (Reanimated v4)
 - **Native insets & runtime values**: Automatic safe area injection, device rotation, and font size updates — no `SafeAreaListener` setup needed
 - **Theme transitions**: Native animated transitions when switching themes (fade, slide, circle mask)
+- **Group variants**: Tailwind `group-active:*` / `group-focus:*` propagate parent interaction state through the C++ shadow tree with zero re-renders
+- **Default styles**: Experimental `1.2.0+` feature for styling default React Native components from CSS selectors like `View { ... }` and `Text { ... }`
 - **Priority support**: Don't let technical hurdles slow your team down
 
-Package: `"uniwind": "npm:uniwind-pro@rc"` in `package.json`.
+Package: `"uniwind": "npm:uniwind-pro@latest"` in `package.json`.
 
 ### Installation
 
 1. Set dependency alias in `package.json`:
    ```json
-   { "dependencies": { "uniwind": "npm:uniwind-pro@rc" } }
+   { "dependencies": { "uniwind": "npm:uniwind-pro@latest" } }
    ```
 
 2. Install peer dependencies:
@@ -1623,18 +1746,78 @@ Pro does **NOT** work with Expo Go. Requires native rebuild.
 <View className="size-8 border-4 border-gray-200 border-t-blue-500 rounded-full animate-spin" />
 ```
 
+Custom keyframe animations beyond Tailwind defaults:
+
+| Class | Description |
+|-------|-------------|
+| `animate-wiggle` | Rotational wiggle |
+| `animate-shake` | Horizontal shake |
+| `animate-flash` | Opacity flash on/off |
+| `animate-rubber-band` | Elastic scale stretch |
+| `animate-swing` | Pendulum swing |
+| `animate-tada` | Scale + rotate attention seeker |
+| `animate-heartbeat` | Double-pulse heartbeat |
+| `animate-jello` | Rotational jello wobble |
+| `animate-float` | Gentle vertical float |
+| `animate-breathe` | Subtle breathing scale |
+| `animate-tilt` | Alternating tilt rotation |
+| `animate-glitch` | Rapid horizontal jitter |
+
 Components auto-swap to Animated versions when animation classes detected:
 
 | Component | Animated Version |
 |-----------|------------------|
 | `View` | `Animated.View` |
-| `Text` | `Animated.Text` (iOS only — no Android support from Reanimated) |
+| `Text` | `Animated.Text` |
 | `Image` | `Animated.Image` |
 | `ImageBackground` | `Animated.ImageBackground` |
 | `ScrollView` | `Animated.ScrollView` |
 | `FlatList` | `Animated.FlatList` |
-| `TextInput` | `Animated.TextInput` (iOS only) |
-| `Pressable` | `Animated.View` wrapper |
+| `TextInput` | `Animated.TextInput` |
+| `Pressable` | `Animated.Pressable` |
+
+### Entering & Exiting Animations
+
+Drive Reanimated's entering/exiting animations via className — no Reanimated imports needed. Components auto-upgrade when `uw-*` classes are detected.
+
+```tsx
+// Bounce in, bounce out
+{visible && <View className="size-20 bg-primary rounded-xl uw-entering-bounce-in uw-exiting-bounce-out" />}
+
+// Fade in slowly (1000ms)
+{visible && <View className="size-20 bg-primary rounded-xl uw-entering-fade-in uw-entering-duration-1000 uw-exiting-fade-out" />}
+```
+
+**Entering presets**: `uw-entering-fade-in` `uw-entering-fade-in-right` `uw-entering-fade-in-left` `uw-entering-fade-in-up` `uw-entering-fade-in-down` `uw-entering-slide-in-right` `uw-entering-slide-in-left` `uw-entering-slide-in-up` `uw-entering-slide-in-down` `uw-entering-zoom-in` `uw-entering-zoom-in-rotate` `uw-entering-zoom-in-left` `uw-entering-zoom-in-right` `uw-entering-zoom-in-up` `uw-entering-zoom-in-down` `uw-entering-zoom-in-easy-up` `uw-entering-zoom-in-easy-down` `uw-entering-bounce-in` `uw-entering-bounce-in-down` `uw-entering-bounce-in-up` `uw-entering-bounce-in-left` `uw-entering-bounce-in-right` `uw-entering-flip-in-x-up` `uw-entering-flip-in-x-down` `uw-entering-flip-in-y-left` `uw-entering-flip-in-y-right` `uw-entering-flip-in-easy-x` `uw-entering-flip-in-easy-y` `uw-entering-stretch-in-x` `uw-entering-stretch-in-y` `uw-entering-rotate-in-down-left` `uw-entering-rotate-in-down-right` `uw-entering-rotate-in-up-left` `uw-entering-rotate-in-up-right` `uw-entering-roll-in-left` `uw-entering-roll-in-right` `uw-entering-pinwheel-in` `uw-entering-light-speed-in-right` `uw-entering-light-speed-in-left`
+
+**Exiting presets**: `uw-exiting-fade-out` `uw-exiting-fade-out-right` `uw-exiting-fade-out-left` `uw-exiting-fade-out-up` `uw-exiting-fade-out-down` `uw-exiting-slide-out-right` `uw-exiting-slide-out-left` `uw-exiting-slide-out-up` `uw-exiting-slide-out-down` `uw-exiting-zoom-out` `uw-exiting-zoom-out-rotate` `uw-exiting-zoom-out-left` `uw-exiting-zoom-out-right` `uw-exiting-zoom-out-up` `uw-exiting-zoom-out-down` `uw-exiting-zoom-out-easy-up` `uw-exiting-zoom-out-easy-down` `uw-exiting-bounce-out` `uw-exiting-bounce-out-down` `uw-exiting-bounce-out-up` `uw-exiting-bounce-out-left` `uw-exiting-bounce-out-right` `uw-exiting-flip-out-x-up` `uw-exiting-flip-out-x-down` `uw-exiting-flip-out-y-left` `uw-exiting-flip-out-y-right` `uw-exiting-flip-out-easy-x` `uw-exiting-flip-out-easy-y` `uw-exiting-stretch-out-x` `uw-exiting-stretch-out-y` `uw-exiting-rotate-out-down-left` `uw-exiting-rotate-out-down-right` `uw-exiting-rotate-out-up-left` `uw-exiting-rotate-out-up-right` `uw-exiting-roll-out-left` `uw-exiting-roll-out-right` `uw-exiting-pinwheel-out` `uw-exiting-light-speed-out-right` `uw-exiting-light-speed-out-left`
+
+**Animation modifiers** (pattern: `uw-{entering|exiting|layout}-{modifier}`):
+- Duration: `uw-{type}-duration-75` `uw-{type}-duration-100` ... `uw-{type}-duration-1000` or arbitrary `uw-{type}-duration-{ms}`
+- Delay: `uw-{type}-delay-75` ... `uw-{type}-delay-1000` or arbitrary `uw-{type}-delay-{ms}`
+- Easing: `uw-{type}-ease-linear` `uw-{type}-ease-in` `uw-{type}-ease-out` `uw-{type}-ease-in-out` `uw-{type}-ease-bounce`
+- Spring: `uw-{type}-springify` `uw-{type}-damping-{value}` `uw-{type}-stiffness-{value}` `uw-{type}-mass-{value}`
+
+### Layout Transitions
+
+Animate position/size changes when siblings are added or removed:
+
+```tsx
+<View className="w-full gap-2">
+  {items.map(item => (
+    <View key={item.id} className={`h-14 ${item.color} rounded-xl uw-entering-fade-in uw-exiting-fade-out uw-layout-linear-transition`} />
+  ))}
+</View>
+```
+
+| Class | Description |
+|-------|-------------|
+| `uw-layout-linear-transition` | Smooth linear repositioning |
+| `uw-layout-fading-transition` | Fade during repositioning |
+| `uw-layout-jumping-transition` | Bouncy jump to new position |
+| `uw-layout-curved-transition` | Curved path repositioning |
+| `uw-layout-sequenced-transition` | Sequenced repositioning |
+| `uw-layout-entry-exit-transition` | Combined entry/exit during layout |
 
 ### Transitions
 
@@ -1699,6 +1882,74 @@ import Animated, { FadeIn, FlipInXUp, LinearTransition } from 'react-native-rean
 
 No code changes needed — props connect directly to C++ engine, eliminating re-renders automatically.
 
+### Group Variants
+
+Tailwind `group` variants propagate parent interaction state to descendants through the C++ shadow tree. No re-renders, no context providers.
+
+```tsx
+// Basic group — descendants react to parent press
+<Pressable className="group p-4 bg-base rounded-xl">
+  <Text className="text-default group-active:text-primary">Press the card</Text>
+  <View className="size-8 bg-blue-500 rounded group-active:bg-red-500" />
+</Pressable>
+
+// Named groups — descendants pick which ancestor to follow
+<Pressable className="group/card p-4 bg-base rounded-xl">
+  <Pressable className="group/button px-3 py-1 bg-primary rounded">
+    <Text className="text-white group-active/card:opacity-50 group-active/button:font-bold">
+      Nested groups
+    </Text>
+  </Pressable>
+</Pressable>
+```
+
+**Supported variants**: `group-active:*` (press), `group-focus:*` (focus). Named variants: `group-active/{name}:*`, `group-focus/{name}:*`.
+
+**Supported group parents**: `Pressable` (press + focus), `Text` (press — requires `onPress`, even empty). `TouchableOpacity`, `TouchableHighlight`, `TouchableWithoutFeedback`, and `TextInput` do **not** act as group parents — wrap in a `Pressable` marked `group`.
+
+**Not supported**: `group-hover:*` (no pointer hover on native), `group-disabled:*` (parsed but no shadow tree trigger), arbitrary `group-[.selector]:*` variants, implicit `in-*` variants.
+
+### Default Styles (Pro 1.2.0+, Experimental)
+
+Default styles let Pro users define baseline styles for built-in React Native components directly in CSS. They are disabled by default and require an experimental flag.
+
+```js
+// metro.config.js
+module.exports = withUniwindConfig(config, {
+  cssEntryFile: './global.css',
+  experimental: {
+    defaultStyles: true,
+  },
+});
+```
+
+```css
+/* global.css */
+View {
+  border-color: var(--color-primary);
+}
+
+Text {
+  font-family: Inter;
+  font-size: 16px;
+}
+```
+
+Effect: every `View` gets `border-color: var(--color-primary)`, every `Text` gets `font-family: Inter` and `font-size: 16px`, unless more specific styles override them.
+
+Rules:
+- Available only in Uniwind Pro `1.2.0+`
+- Disabled by default; enable `experimental.defaultStyles: true`
+- Experimental; may not work for every use case and may change in future releases
+- Use React Native component names as selectors, not HTML tags
+- Treat as baseline styles; direct `className` styles can override them
+
+Supported component selectors: `ActivityIndicator`, `FlatList`, `Image`, `ImageBackground`, `InputAccessoryView`, `KeyboardAvoidingView`, `Modal`, `Pressable`, `RefreshControl`, `SafeAreaView`, `ScrollView`, `SectionList`, `Switch`, `Text`, `TextInput`, `TouchableHighlight`, `TouchableNativeFeedback`, `TouchableOpacity`, `TouchableWithoutFeedback`, `View`, `VirtualizedList`.
+
+### Suspense Support
+
+Components inside React `Suspense` boundaries are handled correctly. While a subtree is suspended, Uniwind keeps the C++ shadow entries alive so theme updates and runtime changes (dark mode, orientation, etc.) still reach suspended nodes. When the tree unsuspends, styles are already up to date — no flash of stale theme.
+
 ### Native Insets
 
 Remove `SafeAreaListener` setup — insets injected from native layer:
@@ -1710,24 +1961,27 @@ Remove `SafeAreaListener` setup — insets injected from native layer:
 
 ### Theme Transitions (Pro)
 
-Native animated transitions when switching themes. Import `ThemeTransitionPreset` and pass to `setTheme`:
+Native animated transitions when switching themes. Supported on iOS, Android, and Web.
 
 ```tsx
 import { Uniwind, ThemeTransitionPreset } from 'uniwind';
 
 // Fade transition
-Uniwind.setTheme('dark', ThemeTransitionPreset.Fade);
+Uniwind.setTheme('dark', { preset: ThemeTransitionPreset.Fade });
 
 // Slide transitions
-Uniwind.setTheme('dark', ThemeTransitionPreset.SlideRightToLeft);
-Uniwind.setTheme('light', ThemeTransitionPreset.SlideLeftToRight);
+Uniwind.setTheme('dark', { preset: ThemeTransitionPreset.SlideRightToLeft });
+Uniwind.setTheme('light', { preset: ThemeTransitionPreset.SlideLeftToRight });
 
 // Circle mask transitions (expand from a corner or center)
-Uniwind.setTheme('ocean', ThemeTransitionPreset.CircleCenter);
-Uniwind.setTheme('dark', ThemeTransitionPreset.CircleTopRight);
+Uniwind.setTheme('ocean', { preset: ThemeTransitionPreset.CircleCenter });
+
+// Blur transitions
+Uniwind.setTheme('dark', { preset: ThemeTransitionPreset.Blur });
+Uniwind.setTheme('dark', { preset: ThemeTransitionPreset.BlurRightToLeft });
 
 // No animation
-Uniwind.setTheme('light', ThemeTransitionPreset.None);
+Uniwind.setTheme('light');
 ```
 
 Available presets:
@@ -1743,6 +1997,9 @@ Available presets:
 | `ThemeTransitionPreset.CircleBottomRight` | Circle mask expanding from bottom-right |
 | `ThemeTransitionPreset.CircleBottomLeft` | Circle mask expanding from bottom-left |
 | `ThemeTransitionPreset.CircleCenter` | Circle mask expanding from center |
+| `ThemeTransitionPreset.Blur` | Blur out animation |
+| `ThemeTransitionPreset.BlurRightToLeft` | Directional blur from right to left |
+| `ThemeTransitionPreset.BlurLeftToRight` | Directional blur from left to right |
 
 ## Setup Diagnostics
 
@@ -1758,6 +2015,7 @@ When styles aren't working, check in this order:
 - `withUniwindConfig` is the **outermost** wrapper
 - `cssEntryFile` is a **relative path string** (e.g., `'./global.css'`)
 - No `path.resolve()` or absolute paths
+- For Pro default styles: `experimental.defaultStyles: true` is set
 
 ### 3. global.css
 - Contains `@import 'tailwindcss';` AND `@import 'uniwind';`
@@ -1814,6 +2072,7 @@ When styles aren't working, check in this order:
 | Pro: download limit reached | Monthly download limit hit | Check Pro dashboard, limits reset monthly |
 | Pro: `Uniwind.updateInsets` called unnecessarily | Pro injects insets natively | `Uniwind.updateInsets` is a no-op in Pro. Remove `SafeAreaListener` setup when using Pro |
 | Pro: theme transition crash | Missing `ThemeTransitionPreset` import or calling before app is ready | Import from `'uniwind'`. Ensure the app has fully mounted before calling `setTheme` with a transition |
+| Pro: default component styles not applying | Feature disabled or unsupported selector | Use Uniwind Pro 1.2.0+, enable `experimental.defaultStyles: true`, restart Metro, and use supported RN component selectors like `View` or `Text` |
 
 ### unstable_enablePackageExports Selective Resolver
 
@@ -1845,7 +2104,7 @@ Free: Yes. Pro: No — requires native rebuild (development builds).
 No. Uniwind uses Tailwind v4 — all config via `@theme` in `global.css`.
 
 **How to access CSS variables in JS?**
-`useCSSVariable('--color-primary')`. For variables not used in classNames, define with `@theme static`.
+Inside components: `useCSSVariable('--color-primary')` (reactive). Outside React: `Uniwind.getCSSVariable('--color-primary')` (one-shot, 1.6.4+). For variables not used in classNames, define with `@theme static`.
 
 **Can I use Platform.select()?**
 Yes, but prefer platform selectors (`ios:pt-12 android:pt-6`) — cleaner, no imports.
@@ -1860,7 +2119,7 @@ Yes, since v1.2.0. Use `uniwind/vite` plugin alongside `@tailwindcss/vite`.
 Metro can't hot-reload files with many providers. Move `global.css` import deeper in the component tree.
 
 **Style specificity?**
-Inline `style` always overrides `className`. Use `className` for static styles, inline only for truly dynamic values. Use `cn()` from tailwind-merge for component libraries where classNames may conflict.
+Important utilities like `bg-red-500!` override non-important utilities for the same property and work with variants (`active:bg-red-500!`, `ios:pt-12!`). Inline `style` always overrides `className`, even important utilities. Use `className` for static styles, inline only for truly dynamic values. Use `cn()` from tailwind-merge for component libraries where classNames may conflict.
 
 **How do I include custom fonts?**
 Load font files (Expo: `expo-font` plugin in `app.json`; Bare RN: `react-native-asset`), then map in CSS: `@theme { --font-sans: 'Roboto-Regular'; }`. Font name must exactly match the file name. See the **Fonts** section above.
@@ -1890,7 +2149,15 @@ Yes, use `ScopedTheme`: `<ScopedTheme theme="dark"><Card /></ScopedTheme>`. It f
 No. `withUniwind` does NOT support interactive state selectors (`active:`, `focus:`, `disabled:`). Only core RN `Pressable`, `TextInput`, and `Switch` support them. For RNGH components, use `onPressIn`/`onPressOut` with state.
 
 **Can I customize the default `border` color?**
-Not via `@layer base`. The default `borderColor` from `border` class is hardcoded to `#000000`. Use `border border-gray-300` explicitly or define `--color-border` in `@theme` and use `border-border`.
+Yes — use `@utility border` to override the class entirely:
+```css
+@utility border {
+  border-width: 1px;
+  border-style: solid;
+  border-color: var(--color-primary);
+}
+```
+This completely replaces the built-in `border` behavior, so re-declare any properties you still need. Alternatively, use `border border-gray-300` explicitly or define `--color-border` in `@theme` and use `border-border`.
 
 **Can I use platform-specific fonts in `@theme {}`?**
 No. `@theme {}` only accepts custom properties. Use `@layer theme { :root { @variant ios { --font-sans: '...'; } } }` instead. Note: use `@variant` (not `@media`) for platform selection in CSS.
