@@ -37,6 +37,9 @@ yarn-error.*
 # typescript
 *.tsbuildinfo
 
+# Uniwind generated types
+uniwind-types.d.ts
+
 # ignoring as we're using CNG
 /ios
 /android

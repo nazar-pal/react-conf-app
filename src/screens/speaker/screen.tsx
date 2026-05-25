@@ -71,13 +71,7 @@ export default function SpeakerDetail() {
             </View>
             {speaker.links.length ? <Socials speaker={speaker} /> : null}
             {speaker.bio ? (
-              <Text
-                className="text-sm"
-                style={{
-                  marginBottom: 24,
-                  lineHeight: 18 * 1.5
-                }}
-              >
+              <Text className="mb-6 text-sm" style={{ lineHeight: 18 * 1.5 }}>
                 {speaker.bio}
               </Text>
             ) : null}
