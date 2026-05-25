@@ -3,7 +3,6 @@ import { NotFound } from '@/components/not-found'
 import { SpeakerImage } from '@/components/speaker-image'
 import { ScrollView } from '@/components/styled'
 import { useReactConfStore } from '@/store'
-import { cn } from '@/utils/cn'
 import {
   Stack,
   useIsPreview,
@@ -40,7 +39,8 @@ export default function SpeakerDetail() {
         />
       ) : null}
       <View
-        className={cn('flex-1', isPreview ? 'bg-surface' : 'bg-background')}
+        data-preview={isPreview}
+        className="bg-background data-[preview=true]:bg-surface flex-1"
       >
         {speaker ? (
           <ScrollView
