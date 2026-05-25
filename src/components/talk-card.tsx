@@ -20,8 +20,11 @@ export function TalkCard({ session, day, isBookmarked = false }: Props) {
   const { width } = useWindowDimensions()
   const router = useRouter()
 
+  const bookmarkTap = Gesture.Tap().maxDistance(10)
+
   const gestureTalkTap = Gesture.Tap()
     .maxDistance(10)
+    .requireExternalGestureToFail(bookmarkTap)
     .runOnJS(true)
     .onEnd(() => {
       Haptics.impactAsync(Haptics.ImpactFeedbackStyle.Medium)
@@ -70,9 +73,11 @@ export function TalkCard({ session, day, isBookmarked = false }: Props) {
                 </View>
               )}
             </View>
-            <View className="absolute top-6 right-6">
-              <Bookmark session={session} size="small" />
-            </View>
+            <GestureDetector gesture={bookmarkTap}>
+              <View className="absolute top-6 right-6">
+                <Bookmark session={session} size="small" />
+              </View>
+            </GestureDetector>
             {session.speakers.map(speaker => (
               <GestureDetector
                 key={speaker.id}
