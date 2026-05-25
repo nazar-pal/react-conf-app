@@ -1,7 +1,10 @@
-import { MaterialCommunityIcons, SymbolView } from '@/components/styled'
+import {
+  MaterialCommunityIcons,
+  Pressable,
+  SymbolView
+} from '@/components/styled'
 import { useBookmark } from '@/hooks'
 import { Session } from '@/types'
-import { Pressable } from 'react-native-gesture-handler'
 
 export function BaseBookmark({ session }: { session: Session }) {
   const { toggleBookmark, isBookmarked } = useBookmark()

@@ -1,14 +1,8 @@
-import { Image } from '@/components/styled'
+import { Feather, Image, Ionicons } from '@/components/styled'
 import { useOpenWebBrowser } from '@/hooks'
 import { Speaker } from '@/types'
-import FeatherBase from '@react-native-vector-icons/feather/static'
-import IoniconsBase from '@react-native-vector-icons/ionicons/static'
 import { View } from 'react-native'
-import { withUniwind } from 'uniwind'
 import { IconButton } from './icon-button'
-
-const Ionicons = withUniwind(IoniconsBase)
-const Feather = withUniwind(FeatherBase)
 
 export function Socials({ speaker }: { speaker: Speaker }) {
   const openWebBrowserAsync = useOpenWebBrowser()

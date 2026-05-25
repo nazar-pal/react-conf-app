@@ -1,11 +1,13 @@
-import { LinearGradient, MaterialCommunityIcons } from '@/components/styled'
-import { Image, ImageStyle } from 'expo-image'
+import {
+  Image,
+  LinearGradient,
+  MaterialCommunityIcons,
+  Pressable
+} from '@/components/styled'
+import type { ImageStyle } from 'expo-image'
 import * as Linking from 'expo-linking'
 import { Text, View } from 'react-native'
-import { Pressable } from 'react-native-gesture-handler'
-import { useCSSVariable, withUniwind } from 'uniwind'
-
-const StyledPressable = withUniwind(Pressable)
+import { useCSSVariable } from 'uniwind'
 
 const venueAddress = '101 Montelago Blvd, Henderson, NV 89011'
 const venueName = 'The Westin Lake Las Vegas Resort & Spa'
@@ -22,7 +24,7 @@ export function VenueInfo() {
   const backgroundColor = useCSSVariable('--color-overlay') as string
 
   return (
-    <StyledPressable
+    <Pressable
       className="mx-4 mb-[50px] pt-6 pb-4 transition-opacity duration-150 active:opacity-75"
       onPress={onOpenVenue}
     >
@@ -58,6 +60,6 @@ export function VenueInfo() {
           </View>
         </View>
       </View>
-    </StyledPressable>
+    </Pressable>
   )
 }

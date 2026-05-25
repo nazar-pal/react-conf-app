@@ -1,6 +1,6 @@
+import { Image } from '@/components/styled'
 import { TimeZoneSwitch } from '@/components/time-zone-switch'
 import { isLiquidGlassAvailable } from 'expo-glass-effect'
-import { Image } from 'expo-image'
 import { Stack } from 'expo-router'
 import { Platform } from 'react-native'
 import { useCSSVariable, useUniwind } from 'uniwind'

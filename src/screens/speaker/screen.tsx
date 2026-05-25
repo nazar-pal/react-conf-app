@@ -1,6 +1,7 @@
 import { HeaderButton } from '@/components/header-button'
 import { NotFound } from '@/components/not-found'
 import { SpeakerImage } from '@/components/speaker-image'
+import { ScrollView } from '@/components/styled'
 import { useReactConfStore } from '@/store'
 import { cn } from '@/utils/cn'
 import {
@@ -10,11 +11,7 @@ import {
   useRouter
 } from 'expo-router'
 import { Platform, StyleSheet, Text, View } from 'react-native'
-import { ScrollView } from 'react-native-gesture-handler'
-import { withUniwind } from 'uniwind'
 import { MiniTalkCard, Socials } from './components'
-
-const StyledScrollView = withUniwind(ScrollView)
 
 export default function SpeakerDetail() {
   const params = useLocalSearchParams()
@@ -46,7 +43,7 @@ export default function SpeakerDetail() {
         className={cn('flex-1', isPreview ? 'bg-surface' : 'bg-background')}
       >
         {speaker ? (
-          <StyledScrollView
+          <ScrollView
             className="flex-1"
             contentContainerClassName="rounded-b-[20px] p-4 pt-6"
             contentInsetAdjustmentBehavior="automatic"
@@ -87,7 +84,7 @@ export default function SpeakerDetail() {
             {speaker.sessions.map(sessionId => (
               <MiniTalkCard sessionId={sessionId} key={sessionId} />
             ))}
-          </StyledScrollView>
+          </ScrollView>
         ) : (
           <NotFound message="Speaker not found" />
         )}

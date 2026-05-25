@@ -1,10 +1,8 @@
+import { GlassView } from '@/components/styled'
 import { ConferenceDay } from '@/consts'
 import { SegmentedControl } from '@expo/ui/community/segmented-control'
-import { GlassView as ExpoGlassView } from 'expo-glass-effect'
 import { Platform, useWindowDimensions, View } from 'react-native'
-import { useCSSVariable, withUniwind } from 'uniwind'
-
-const GlassView = withUniwind(ExpoGlassView)
+import { useCSSVariable } from 'uniwind'
 
 interface DayPickerProps {
   selectedDay: ConferenceDay
