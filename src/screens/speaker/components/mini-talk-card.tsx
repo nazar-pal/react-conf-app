@@ -1,5 +1,5 @@
 import { Bookmark } from '@/components/bookmark'
-import { Pressable } from '@/components/styled'
+import { Pressable } from '@/components/styled/react-native-gesture-handler'
 import { useReactConfStore } from '@/store'
 import { formatSessionTime } from '@/utils/formatDate'
 import { Link } from 'expo-router'

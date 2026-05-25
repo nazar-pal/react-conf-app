@@ -1,8 +1,6 @@
-import {
-  MaterialCommunityIcons,
-  Pressable,
-  SymbolView
-} from '@/components/styled'
+import { SymbolView } from '@/components/styled/expo-symbols'
+import { Pressable } from '@/components/styled/react-native-gesture-handler'
+import { MaterialCommunityIcons } from '@/components/styled/react-native-vector-icons-material-design-icons'
 import { useBookmark } from '@/hooks'
 import { Session } from '@/types'
 

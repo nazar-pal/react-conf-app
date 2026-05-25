@@ -1,4 +1,4 @@
-import { ScrollView } from '@/components/styled'
+import { ScrollView } from '@/components/styled/react-native-gesture-handler'
 import { useScrollToTop } from 'expo-router'
 import React from 'react'
 import {

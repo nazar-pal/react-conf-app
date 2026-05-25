@@ -1,4 +1,4 @@
-import { Image } from '@/components/styled'
+import { Image } from '@/components/styled/expo-image'
 import { useOpenWebBrowser } from '@/hooks'
 import { Pressable, Text, View } from 'react-native'
 

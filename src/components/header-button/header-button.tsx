@@ -1,4 +1,5 @@
-import { MaterialCommunityIcons, Pressable } from '@/components/styled'
+import { Pressable } from '@/components/styled/react-native-gesture-handler'
+import { MaterialCommunityIcons } from '@/components/styled/react-native-vector-icons-material-design-icons'
 import { useCSSVariable } from 'uniwind'
 import type { HeaderButtonProps } from './types'
 

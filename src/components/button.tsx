@@ -1,4 +1,4 @@
-import { Pressable } from '@/components/styled'
+import { Pressable } from '@/components/styled/react-native-gesture-handler'
 import { ActivityIndicator, Text } from 'react-native'
 
 export function Button({

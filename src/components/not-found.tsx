@@ -1,7 +1,7 @@
 import { useReactConfStore } from '@/store'
 import { Text, View } from 'react-native'
 import { Button } from './button'
-import { Image } from './styled'
+import { Image } from './styled/expo-image'
 
 export function NotFound({ message }: { message: string }) {
   const refetch = useReactConfStore(state => state.refreshData)

@@ -1,5 +1,5 @@
 import { Button } from '@/components/button'
-import { MaterialIcons } from '@/components/styled'
+import { MaterialIcons } from '@/components/styled/react-native-vector-icons-material-icons'
 import * as Linking from 'expo-linking'
 import { Text, View } from 'react-native'
 

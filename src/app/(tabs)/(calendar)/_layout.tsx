@@ -1,4 +1,4 @@
-import { Image } from '@/components/styled'
+import { Image } from '@/components/styled/expo-image'
 import { TimeZoneSwitch } from '@/components/time-zone-switch'
 import { isLiquidGlassAvailable } from 'expo-glass-effect'
 import { Stack } from 'expo-router'

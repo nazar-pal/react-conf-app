@@ -1,9 +1,7 @@
-import {
-  Image,
-  LinearGradient,
-  MaterialCommunityIcons,
-  Pressable
-} from '@/components/styled'
+import { Image } from '@/components/styled/expo-image'
+import { LinearGradient } from '@/components/styled/expo-linear-gradient'
+import { Pressable } from '@/components/styled/react-native-gesture-handler'
+import { MaterialCommunityIcons } from '@/components/styled/react-native-vector-icons-material-design-icons'
 import type { ImageStyle } from 'expo-image'
 import * as Linking from 'expo-linking'
 import { Text, View } from 'react-native'

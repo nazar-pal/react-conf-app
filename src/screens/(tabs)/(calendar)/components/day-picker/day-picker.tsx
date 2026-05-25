@@ -1,4 +1,4 @@
-import { GlassView } from '@/components/styled'
+import { GlassView } from '@/components/styled/expo-glass-effect'
 import { ConferenceDay } from '@/consts'
 import { SegmentedControl } from '@expo/ui/community/segmented-control'
 import { Platform, useWindowDimensions, View } from 'react-native'

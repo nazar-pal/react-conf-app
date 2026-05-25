@@ -1,7 +1,7 @@
 import { HeaderButton } from '@/components/header-button'
 import { NotFound } from '@/components/not-found'
 import { SpeakerImage } from '@/components/speaker-image'
-import { ScrollView } from '@/components/styled'
+import { ScrollView } from '@/components/styled/react-native-gesture-handler'
 import { useReactConfStore } from '@/store'
 import {
   Stack,

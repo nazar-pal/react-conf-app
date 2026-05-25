@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import { View } from 'react-native'
 
-import { Image } from './styled'
+import { Image } from './styled/expo-image'
 import { cn } from '../utils/cn'
 
 type SpeakerImageSize = 'small' | 'medium' | 'large' | 'xlarge'

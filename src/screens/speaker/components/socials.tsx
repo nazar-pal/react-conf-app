@@ -1,4 +1,6 @@
-import { Feather, Image, Ionicons } from '@/components/styled'
+import { Image } from '@/components/styled/expo-image'
+import { Feather } from '@/components/styled/react-native-vector-icons-feather'
+import { Ionicons } from '@/components/styled/react-native-vector-icons-ionicons'
 import { useOpenWebBrowser } from '@/hooks'
 import { Speaker } from '@/types'
 import { View } from 'react-native'
