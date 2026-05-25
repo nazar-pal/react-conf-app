@@ -8,6 +8,7 @@ export function Bookmark({
   session: Session
   size?: 'small' | 'large'
   style?: StyleProp<ViewStyle>
+  inline?: boolean
 }) {
   return <BaseBookmark session={session} />
 }

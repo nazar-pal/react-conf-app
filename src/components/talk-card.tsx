@@ -75,7 +75,7 @@ export function TalkCard({ session, day, isBookmarked = false }: Props) {
             </View>
             <GestureDetector gesture={bookmarkTap}>
               <View className="absolute top-6 right-6">
-                <Bookmark session={session} size="small" />
+                <Bookmark session={session} size="small" inline />
               </View>
             </GestureDetector>
             {session.speakers.map(speaker => (

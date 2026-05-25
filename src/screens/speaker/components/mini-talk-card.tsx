@@ -43,7 +43,7 @@ export function MiniTalkCard({ sessionId }: { sessionId: string | number }) {
               {` `}({isDayOne ? 'Day 1' : 'Day 2'})
             </Text>
           </View>
-          <Bookmark session={talk} size="small" />
+          <Bookmark session={talk} size="small" inline />
         </View>
       </Pressable>
     </Link>

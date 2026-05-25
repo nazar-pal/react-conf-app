@@ -11,10 +11,11 @@ type BookmarkProps = {
   session: Session
   size?: 'small' | 'large'
   style?: StyleProp<ViewStyle>
+  inline?: boolean
 }
 
 export function Bookmark(props: BookmarkProps) {
-  if (isLiquidGlassAvailable()) {
+  if (isLiquidGlassAvailable() && !props.inline) {
     return <GlassBookmark {...props} />
   }
   return <BaseBookmark {...props} />
