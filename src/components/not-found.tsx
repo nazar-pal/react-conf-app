@@ -13,7 +13,7 @@ export function NotFound({ message }: { message: string }) {
       <Image
         tintColorClassName="accent-info-emphasis"
         source={require('@/assets/images/not-found.svg')}
-        className="mb-12 size-[100px]"
+        className="mb-12 size-25"
       />
 
       <Button title="Refetch" onPress={refetch} isLoading={isRefetching} />

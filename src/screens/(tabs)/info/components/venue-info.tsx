@@ -23,11 +23,11 @@ export function VenueInfo() {
 
   return (
     <Pressable
-      className="mx-4 mb-[50px] pt-6 pb-4 transition-opacity duration-150 active:opacity-75"
+      className="mx-4 mb-12.5 pt-6 pb-4 transition-opacity duration-150 active:opacity-75"
       onPress={onOpenVenue}
     >
       <View>
-        <View className="overflow-hidden rounded-t-[32px]">
+        <View className="overflow-hidden rounded-t-4xl">
           <Image
             source={require('@/assets/images/hotel.png')}
             style={imageStyle}
@@ -40,7 +40,7 @@ export function VenueInfo() {
           colors={['transparent', backgroundColor]}
           className="absolute inset-0"
         />
-        <View className="bg-overlay absolute right-0 -bottom-[50px] left-0 items-center rounded-b-[32px] pb-6">
+        <View className="bg-overlay absolute right-0 -bottom-12.5 left-0 items-center rounded-b-4xl pb-6">
           <Text className="text-muted text-sm">Venue</Text>
           <View className="mb-4 items-center">
             <Text className="text-lg font-semibold">The Westin Lake</Text>
@@ -48,7 +48,7 @@ export function VenueInfo() {
               Las Vegas Resort & Spa
             </Text>
           </View>
-          <View className="flex-row items-center justify-center gap-0.25">
+          <View className="flex-row items-center justify-center gap-px">
             <MaterialCommunityIcons
               name="map-marker-radius"
               size={16}

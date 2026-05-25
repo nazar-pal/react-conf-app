@@ -44,6 +44,9 @@ export function PoweredByExpo() {
         maxAngle={15}
         onFlip={handleFlip}
       >
+        {/* Pixel values mirror CONTAINER_SIZE so the className and the style props
+            below stay in lockstep with the shared constant. */}
+        {/* eslint-disable-next-line better-tailwindcss/enforce-canonical-classes */}
         <View className="relative h-[160px] w-[160px] items-center justify-center bg-transparent">
           <View
             className="absolute items-center justify-center"

@@ -9,7 +9,7 @@ export function DiscordInfo() {
   }
 
   return (
-    <View className="bg-overlay mx-4 mb-4 items-center gap-4 rounded-[32px] p-6">
+    <View className="bg-overlay mx-4 mb-4 items-center gap-4 rounded-4xl p-6">
       <MaterialIcons
         name="discord"
         size={42}

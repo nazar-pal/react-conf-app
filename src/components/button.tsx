@@ -13,7 +13,7 @@ export function Button({
   return (
     <Pressable
       onPress={onPress}
-      className="bg-foreground min-h-[40px] w-full min-w-[150px] items-center justify-center rounded-[34px] px-6 py-2"
+      className="bg-foreground min-h-10 w-full min-w-37.5 items-center justify-center rounded-[34px] px-6 py-2"
     >
       {isLoading ? (
         <ActivityIndicator colorClassName="accent-background" />

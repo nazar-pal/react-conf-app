@@ -55,7 +55,7 @@ export function TalkCard({ session, day, isBookmarked = false }: Props) {
               {formatSessionTime(session, shouldUseLocalTz)}
             </Text>
           )}
-          <View className="bg-surface gap-6 rounded-[32px] p-6">
+          <View className="bg-surface gap-6 rounded-4xl p-6">
             <View className="-mx-4 -my-2 px-4 py-2">
               <View className="flex-row items-center justify-between gap-2">
                 <Text className="mr-10 flex-1 text-lg font-semibold">
@@ -91,7 +91,7 @@ export function TalkCard({ session, day, isBookmarked = false }: Props) {
                   asChild
                 >
                   <Link.Trigger>
-                    <View className="-mx-4 -my-2 rounded-[32px] px-4 py-2">
+                    <View className="-mx-4 -my-2 rounded-4xl px-4 py-2">
                       <SpeakerDetails speaker={speaker} />
                     </View>
                   </Link.Trigger>
